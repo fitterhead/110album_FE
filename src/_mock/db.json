@@ -1,0 +1,611 @@
+{
+  "users": [
+    {
+      "name": "phi",
+      "email": "morita@gmail.com",
+      "password": "1234",
+      "id": 1
+    }
+  ],
+  "albumlist": [
+    {
+      "artist": "Radiohead",
+      "ranking": "1",
+      "album": "OK Computer"
+    },
+    {
+      "artist": "Pink Floyd",
+      "ranking": "2",
+      "album": "Wish You Were Here"
+    },
+    {
+      "artist": "King Crimson",
+      "ranking": "3",
+      "album": "In the Court of the Crimson King"
+    },
+    {
+      "artist": "Radiohead",
+      "ranking": "4",
+      "album": "Kid A"
+    },
+    {
+      "artist": "Kendrick Lamar",
+      "ranking": "5",
+      "album": "To Pimp a Butterfly"
+    },
+    {
+      "artist": "My Bloody Valentine",
+      "ranking": "6",
+      "album": "Loveless"
+    },
+    {
+      "artist": "Pink Floyd",
+      "ranking": "7",
+      "album": "The Dark Side of the Moon"
+    },
+    {
+      "artist": "The Beatles",
+      "ranking": "8",
+      "album": "Abbey Road"
+    },
+    {
+      "artist": "The Velvet Underground & Nico",
+      "ranking": "9",
+      "album": "The Velvet Underground & Nico"
+    },
+    {
+      "artist": "David Bowie",
+      "ranking": "10",
+      "album": "The Rise and Fall of Ziggy Stardust and the Spiders From Mars"
+    },
+    {
+      "artist": "The Beatles",
+      "ranking": "11",
+      "album": "Revolver"
+    },
+    {
+      "artist": "Madvillain",
+      "ranking": "12",
+      "album": "Madvillainy"
+    },
+    {
+      "artist": "Talking Heads",
+      "ranking": "13",
+      "album": "Remain in Light"
+    },
+    {
+      "artist": "Mingus",
+      "ranking": "14",
+      "album": "The Black Saint and the Sinner Lady"
+    },
+    {
+      "artist": "Radiohead",
+      "ranking": "15",
+      "album": "In Rainbows"
+    },
+    {
+      "artist": "John Coltrane",
+      "ranking": "16",
+      "album": "A Love Supreme"
+    },
+    {
+      "artist": "mAAd city",
+      "ranking": "17",
+      "album": "good kid"
+    },
+    {
+      "artist": "Black Sabbath",
+      "ranking": "18",
+      "album": "Paranoid"
+    },
+    {
+      "artist": "Miles Davis",
+      "ranking": "19",
+      "album": "Kind of Blue"
+    },
+    {
+      "artist": "The Beach Boys",
+      "ranking": "20",
+      "album": "Pet Sounds"
+    },
+    {
+      "artist": "Nas",
+      "ranking": "21",
+      "album": "Illmatic"
+    },
+    {
+      "artist": "Godspeed You Black Emperor!",
+      "ranking": "22",
+      "album": "Lift Yr Skinny Fists Like Antennas to Heaven!"
+    },
+    {
+      "artist": "Neutral Milk Hotel",
+      "ranking": "23",
+      "album": "In the Aeroplane Over the Sea"
+    },
+    {
+      "artist": "The Beatles",
+      "ranking": "24",
+      "album": "Sgt Pepper's Lonely Hearts Club Band"
+    },
+    {
+      "artist": "Wu-Tang Clan",
+      "ranking": "25",
+      "album": "Enter the Wu-Tang (36 Chambers)"
+    },
+    {
+      "artist": "King Crimson",
+      "ranking": "26",
+      "album": "Red"
+    },
+    {
+      "artist": "Kanye West",
+      "ranking": "27",
+      "album": "My Beautiful Dark Twisted Fantasy"
+    },
+    {
+      "artist": "Nick Drake",
+      "ranking": "28",
+      "album": "Pink Moon"
+    },
+    {
+      "artist": "Slint",
+      "ranking": "29",
+      "album": "Spiderland"
+    },
+    {
+      "artist": "The Cure",
+      "ranking": "30",
+      "album": "Disintegration"
+    },
+    {
+      "artist": "The Beatles",
+      "ranking": "31",
+      "album": "The Beatles [White Album]"
+    },
+    {
+      "artist": "Joy Division",
+      "ranking": "32",
+      "album": "Unknown Pleasures"
+    },
+    {
+      "artist": "Pink Floyd",
+      "ranking": "33",
+      "album": "Animals"
+    },
+    {
+      "artist": "The Smiths",
+      "ranking": "34",
+      "album": "The Queen Is Dead"
+    },
+    {
+      "artist": "Bob Dylan",
+      "ranking": "35",
+      "album": "Highway 61 Revisited"
+    },
+    {
+      "artist": "Pixies",
+      "ranking": "36",
+      "album": "Doolittle"
+    },
+    {
+      "artist": "Led Zeppelin",
+      "ranking": "37",
+      "album": "Led Zeppelin [IV]"
+    },
+    {
+      "artist": "Miles Davis",
+      "ranking": "38",
+      "album": "In a Silent Way"
+    },
+    {
+      "artist": "David Bowie",
+      "ranking": "39",
+      "album": "Low"
+    },
+    {
+      "artist": "Fishmans",
+      "ranking": "40",
+      "album": "Long Season"
+    },
+    {
+      "artist": "Television",
+      "ranking": "41",
+      "album": "Marquee Moon"
+    },
+    {
+      "artist": "Portishead",
+      "ranking": "42",
+      "album": "Dummy"
+    },
+    {
+      "artist": "Kate Bush",
+      "ranking": "43",
+      "album": "Hounds of Love"
+    },
+    {
+      "artist": "Bob Dylan",
+      "ranking": "44",
+      "album": "Blonde on Blonde"
+    },
+    {
+      "artist": "Godspeed You Black Emperor!",
+      "ranking": "45",
+      "album": "F♯A♯∞"
+    },
+    {
+      "artist": "The Doors",
+      "ranking": "46",
+      "album": "The Doors"
+    },
+    {
+      "artist": "DJ Shadow",
+      "ranking": "47",
+      "album": "Endtroducing"
+    },
+    {
+      "artist": "Miles Davis",
+      "ranking": "48",
+      "album": "Bitches Brew"
+    },
+    {
+      "artist": "Bob Dylan",
+      "ranking": "49",
+      "album": "Blood on the Tracks"
+    },
+    {
+      "artist": "Yes",
+      "ranking": "50",
+      "album": "Close to the Edge"
+    },
+    {
+      "artist": "Slowdive",
+      "ranking": "51",
+      "album": "Souvlaki"
+    },
+    {
+      "artist": "Black Sabbath",
+      "ranking": "52",
+      "album": "Master of Reality"
+    },
+    {
+      "artist": "Björk",
+      "ranking": "53",
+      "album": "Vespertine"
+    },
+    {
+      "artist": "Joy Division",
+      "ranking": "54",
+      "album": "Closer"
+    },
+    {
+      "artist": "A Tribe Called Quest",
+      "ranking": "55",
+      "album": "The Low End Theory"
+    },
+    {
+      "artist": "The Microphones",
+      "ranking": "56",
+      "album": "The Glow Pt 2"
+    },
+    {
+      "artist": "The Jimi Hendrix Experience",
+      "ranking": "57",
+      "album": "Are You Experienced"
+    },
+    {
+      "artist": "The Jimi Hendrix Experience",
+      "ranking": "58",
+      "album": "Electric Ladyland"
+    },
+    {
+      "artist": "Stevie Wonder",
+      "ranking": "59",
+      "album": "Songs in the Key of Life"
+    },
+    {
+      "artist": "Danny Brown",
+      "ranking": "60",
+      "album": "Atrocity Exhibition"
+    },
+    {
+      "artist": "Leonard Cohen",
+      "ranking": "61",
+      "album": "Songs of Leonard Cohen"
+    },
+    {
+      "artist": "Death Grips",
+      "ranking": "62",
+      "album": "The Money Store"
+    },
+    {
+      "artist": "Sufjan Stevens",
+      "ranking": "63",
+      "album": "Illinois"
+    },
+    {
+      "artist": "Björk",
+      "ranking": "64",
+      "album": "Homogenic"
+    },
+    {
+      "artist": "Swans",
+      "ranking": "65",
+      "album": "Soundtracks for the Blind"
+    },
+    {
+      "artist": "Elliott Smith",
+      "ranking": "66",
+      "album": "Either / Or"
+    },
+    {
+      "artist": "Talk Talk",
+      "ranking": "67",
+      "album": "Laughing Stock"
+    },
+    {
+      "artist": "Kanye West",
+      "ranking": "68",
+      "album": "The College Dropout"
+    },
+    {
+      "artist": "Sonic Youth",
+      "ranking": "69",
+      "album": "Daydream Nation"
+    },
+    {
+      "artist": "Genius/GZA",
+      "ranking": "70",
+      "album": "Liquid Swords"
+    },
+    {
+      "artist": "Frank Ocean",
+      "ranking": "71",
+      "album": "Blonde"
+    },
+    {
+      "artist": "The Velvet Underground",
+      "ranking": "72",
+      "album": "The Velvet Underground"
+    },
+    {
+      "artist": "The Beatles",
+      "ranking": "73",
+      "album": "Rubber Soul"
+    },
+    {
+      "artist": "Marvin Gaye",
+      "ranking": "74",
+      "album": "What's Going On"
+    },
+    {
+      "artist": "David Bowie",
+      "ranking": "75",
+      "album": "★ [Blackstar]"
+    },
+    {
+      "artist": "Metallica",
+      "ranking": "76",
+      "album": "Ride the Lightning"
+    },
+    {
+      "artist": "David Bowie",
+      "ranking": "77",
+      "album": "Station to Station"
+    },
+    {
+      "artist": "Black Sabbath",
+      "ranking": "78",
+      "album": "Black Sabbath"
+    },
+    {
+      "artist": "The Beatles",
+      "ranking": "79",
+      "album": "Magical Mystery Tour"
+    },
+    {
+      "artist": "Can",
+      "ranking": "80",
+      "album": "Tago Mago"
+    },
+    {
+      "artist": "Bob Dylan",
+      "ranking": "81",
+      "album": "Bringing It All Back Home"
+    },
+    {
+      "artist": "Cocteau Twins",
+      "ranking": "82",
+      "album": "Heaven or Las Vegas"
+    },
+    {
+      "artist": "Neil Young",
+      "ranking": "83",
+      "album": "After the Gold Rush"
+    },
+    {
+      "artist": "OutKast",
+      "ranking": "84",
+      "album": "Aquemini"
+    },
+    {
+      "artist": "Can",
+      "ranking": "85",
+      "album": "Future Days"
+    },
+    {
+      "artist": "Sigur Rós",
+      "ranking": "86",
+      "album": "Ágætis byrjun"
+    },
+    {
+      "artist": "The Stooges",
+      "ranking": "87",
+      "album": "Fun House"
+    },
+    {
+      "artist": "David Bowie",
+      "ranking": "88",
+      "album": "Hunky Dory"
+    },
+    {
+      "artist": "Tom Waits",
+      "ranking": "89",
+      "album": "Rain Dogs"
+    },
+    {
+      "artist": "The Clash",
+      "ranking": "90",
+      "album": "London Calling"
+    },
+    {
+      "artist": "Aphex Twin",
+      "ranking": "91",
+      "album": "Selected Ambient Works 85-92"
+    },
+    {
+      "artist": "A Tribe Called Quest",
+      "ranking": "92",
+      "album": "Midnight Marauders"
+    },
+    {
+      "artist": "Arcade Fire",
+      "ranking": "93",
+      "album": "Funeral"
+    },
+    {
+      "artist": "Metallica",
+      "ranking": "94",
+      "album": "Master of Puppets"
+    },
+    {
+      "artist": "Sufjan Stevens",
+      "ranking": "95",
+      "album": "Carrie & Lowell"
+    },
+    {
+      "artist": "Prince and The Revolution",
+      "ranking": "96",
+      "album": "Purple Rain"
+    },
+    {
+      "artist": "The Velvet Underground",
+      "ranking": "97",
+      "album": "White Light / White Heat"
+    },
+    {
+      "artist": "Stevie Wonder",
+      "ranking": "98",
+      "album": "Innervisions"
+    },
+    {
+      "artist": "John Coltrane",
+      "ranking": "99",
+      "album": "Giant Steps"
+    },
+    {
+      "artist": "J Dilla",
+      "ranking": "100",
+      "album": "Donuts"
+    },
+    {
+      "artist": "Talk Talk",
+      "ranking": "101",
+      "album": "Spirit of Eden"
+    },
+    {
+      "artist": "Frank Zappa",
+      "ranking": "102",
+      "album": "Hot Rats"
+    },
+    {
+      "artist": "Neil Young",
+      "ranking": "103",
+      "album": "On the Beach"
+    },
+    {
+      "artist": "The Zombies",
+      "ranking": "104",
+      "album": "Odessey and Oracle"
+    },
+    {
+      "artist": "Massive Attack",
+      "ranking": "105",
+      "album": "Mezzanine"
+    },
+    {
+      "artist": "MF DOOM",
+      "ranking": "106",
+      "album": "Mm Food"
+    },
+    {
+      "artist": "Nirvana",
+      "ranking": "107",
+      "album": "Nevermind"
+    },
+    {
+      "artist": "The Smiths",
+      "ranking": "108",
+      "album": "Hatful of Hollow"
+    },
+    {
+      "artist": "Nirvana",
+      "ranking": "109",
+      "album": "In utero"
+    },
+    {
+      "artist": "Death",
+      "ranking": "110",
+      "album": "Symbolic"
+    }
+  ],
+  "favouriteArtist": [
+    {
+      "id": 1,
+      "artist": "radiohead",
+      "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy."
+    }
+  ],
+  "playlist": [
+    {
+      "id": 1,
+      "title": "ok computer",
+      "author": "radiohead",
+      "description": "really good album"
+    },
+    {
+      "id": 11,
+      "title": "nevermind",
+      "author": "nirvana"
+    },
+    {
+      "artist": "Radiohead",
+      "ranking": "1",
+      "album": "OK Computer",
+      "id": 12
+    },
+    {
+      "artist": "Kendrick Lamar",
+      "ranking": "5",
+      "album": "To Pimp a Butterfly",
+      "id": 13
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
