@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { Container, Stack } from "@mui/system";
 import React from "react";
 import AlbumRanking from "../components/form/AlbumRanking";
@@ -14,12 +14,12 @@ import { useEffect } from "react";
 function Homepage() {
   const dispatch = useDispatch();
   const [data, setData] = useState("");
-  
+  const [page, setPage] = React.useState(1);
   const listAlbum = useSelector((state) => state.content.contents);
 
   useEffect(() => {
-    setData(dispatch(getContent()));
-  }, [ dispatch]);
+    setData(dispatch(getContent({page})));
+  }, [dispatch,page]);
 
   return (
     <Container
@@ -31,13 +31,12 @@ function Homepage() {
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
     >
-          
       <Grid container sx={{ backgroundColor: "red" }}>
         <Grid item xs={12} md={6}>
           <NumberOneAlbum />
         </Grid>
         <Grid item xs={12} md={6}>
-          {listAlbum && <AlbumRanking key={Math.random()} albums={listAlbum} />}
+          {listAlbum && <AlbumRanking key={Math.random()} albums={listAlbum} setPage ={setPage} page ={page}/>}
         </Grid>
       </Grid>
     </Container>

@@ -11,30 +11,23 @@ const initialState = {
   favouriteArtist: [],
 };
 
-export const getContent = createAsyncThunk("content", async (
-  // { query }
-  ) =>
-  //   {
-  //   pageNum, limit,
-  //   query,
-  // }
-  {
-    
-    const response = await apiService.get("/album");
+// export const getContent = createAsyncThunk("content", async () =>
+//   {
+//     const response = await apiService.get("/album");
+//     return response;
+//   }
+// );
+
+export const getContent = createAsyncThunk(
+  "content",
+  async (limit, page, filter) => {
+    let url = `/album?page=${page}&limit=${limit}`;
+    if (filter) url +=`&filter=${filter}`;
+    const response = await apiService.get(url);
+    console.log(response, "aaaaaa");
     return response;
   }
 );
-
-// export const setBooksTo = createAsyncThunk(
-//   "books/setBooksTo",
-//   async ({ pageNum, limit, query }) => {
-//     let url = `/books?_page=${pageNum}&_limit=${limit}`;
-//     if (query) url += `&q=${query}`;
-//     const response = await api.get(url);
-//     console.log(response.data, "aaaaaa");
-//     return response.data;
-//   }
-// );
 
 export const getArtist = createAsyncThunk("artist", async () => {
   const response = await apiService.get("/artist");

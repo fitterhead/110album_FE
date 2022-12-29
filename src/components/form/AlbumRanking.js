@@ -5,8 +5,11 @@ import React from "react";
 import HomepagePagination from "../item/HomepagePagination";
 import AlbumList from "../item/AlbumList";
 import SingleAlbum from "../item/SingleAlbum";
-function AlbumRanking({ albums }) {
+function AlbumRanking({ albums, setPage, page }) {
   console.log("listAlbum2", albums);
+  console.log("setPage", setPage);
+  console.log("page",typeof page);
+
   // albums = albums[0].data.data
   return (
     <Container sx={{ bgcolor: "primary.main", height: "100%" }}>
@@ -38,7 +41,7 @@ function AlbumRanking({ albums }) {
             justifyContent: "center",
           }}
         >
-          <HomepagePagination />
+          <HomepagePagination page={page} setPage={setPage} />
         </Container>
       </Stack>
     </Container>
