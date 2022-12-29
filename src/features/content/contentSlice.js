@@ -20,7 +20,7 @@ const initialState = {
 
 export const getContent = createAsyncThunk(
   "content",
-  async (limit, page, filter) => {
+  async ({limit, page, filter}) => {
     let url = `/album?page=${page}&limit=${limit}`;
     if (filter) url +=`&filter=${filter}`;
     const response = await apiService.get(url);
@@ -84,6 +84,7 @@ export const contentSlice = createSlice({
     builder
       .addCase(getContent.pending, (state) => {
         state.status = "loading";
+        console.log("pending")
       })
       .addCase(getContent.fulfilled, (state, action) => {
         state.status = "idle";

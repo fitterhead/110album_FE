@@ -8,7 +8,7 @@ import SingleAlbum from "../item/SingleAlbum";
 function AlbumRanking({ albums, setPage, page }) {
   console.log("listAlbum2", albums);
   console.log("setPage", setPage);
-  console.log("page",typeof page);
+  console.log("page", typeof page);
 
   // albums = albums[0].data.data
   return (
@@ -27,7 +27,7 @@ function AlbumRanking({ albums, setPage, page }) {
             justifyContent="space-evenly"
             alignItems="center"
           >
-            {albums[0]?.data.data?.map((album, index) => {
+            {albums[albums.length - 1]?.data.data?.map((album, index) => {
               if (index <= 110) {
                 return <SingleAlbum key={Math.random()} album={album} />;
               }

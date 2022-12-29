@@ -19,7 +19,8 @@ function Homepage() {
 
   useEffect(() => {
     setData(dispatch(getContent({page})));
-  }, [dispatch,page]);
+    // dispatch(getContent({ page }));
+  }, [dispatch, page]);
 
   return (
     <Container
@@ -36,7 +37,14 @@ function Homepage() {
           <NumberOneAlbum />
         </Grid>
         <Grid item xs={12} md={6}>
-          {listAlbum && <AlbumRanking key={Math.random()} albums={listAlbum} setPage ={setPage} page ={page}/>}
+          {listAlbum && (
+            <AlbumRanking
+              key={Math.random()}
+              albums={listAlbum}
+              setPage={setPage}
+              page={page}
+            />
+          )}
         </Grid>
       </Grid>
     </Container>
