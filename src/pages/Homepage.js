@@ -15,12 +15,30 @@ function Homepage() {
   const dispatch = useDispatch();
   const [data, setData] = useState("");
   const [page, setPage] = React.useState(1);
+  const [listAllAlbum, setListAllAlbum] = React.useState([]);
+  const [albumRate, setAlbumRate] = React.useState(null);
+
   const listAlbum = useSelector((state) => state.content.contents);
+
+  useEffect(() => {
+    if (listAlbum && listAlbum.length > 0) {
+      setListAllAlbum(listAlbum);
+      // listAlbum[listAlbum.length - 1].data.data[0]
+      if (listAlbum[listAlbum.length - 1]) {
+        const rate = listAlbum[listAlbum.length - 1];
+        if (rate?.data?.data && rate?.data?.data[0]) {
+          setAlbumRate(rate.data.data[0])
+        }
+      }
+    }
+  }, [listAlbum]);
 
   useEffect(() => {
     setData(dispatch(getContent({ page })));
     // dispatch(getContent({ page }));
   }, [dispatch, page]);
+
+  console.log("albums", listAlbum);
 
   return (
     <Container
@@ -36,7 +54,7 @@ function Homepage() {
         <Grid item xs={12} md={6}>
           {listAlbum && (
             <NumberOneAlbum
-              albums={listAlbum[listAlbum.length - 1].data.data[0]}
+              albums={albumRate}
             />
           )}
         </Grid>
@@ -44,7 +62,7 @@ function Homepage() {
           {listAlbum && (
             <AlbumRanking
               key={Math.random()}
-              albums={listAlbum}
+              albums={listAllAlbum}
               setPage={setPage}
               page={page}
             />

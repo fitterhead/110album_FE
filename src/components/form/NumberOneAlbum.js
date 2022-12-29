@@ -9,9 +9,10 @@ import Typography from "@mui/material/Typography";
 import { getContent } from "../../features/content/contentSlice";
 import { useDispatch } from "react-redux";
 import CardMedia from "@mui/material/CardMedia";
+
+
 function NumberOneAlbum({ albums }) {
   // const dispatch = useDispatch();
-
   return (
     albums && (
       <Stack
