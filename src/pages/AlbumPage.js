@@ -29,7 +29,7 @@ function AlbumPage() {
       }}
     >
       {listAlbum &&
-        listAlbum[0]?.data.data?.map((singleAlbum) => {
+        listAlbum[listAlbum.length - 1]?.data.data?.map((singleAlbum) => {
           if (singleAlbum._id === albumId) {
             return (
               <Grid key={Math.random()} container sx={{ height: "100%" }}>

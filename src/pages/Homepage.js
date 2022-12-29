@@ -18,7 +18,7 @@ function Homepage() {
   const listAlbum = useSelector((state) => state.content.contents);
 
   useEffect(() => {
-    setData(dispatch(getContent({page})));
+    setData(dispatch(getContent({ page })));
     // dispatch(getContent({ page }));
   }, [dispatch, page]);
 
@@ -34,7 +34,11 @@ function Homepage() {
     >
       <Grid container sx={{ backgroundColor: "red" }}>
         <Grid item xs={12} md={6}>
-          <NumberOneAlbum />
+          {listAlbum && (
+            <NumberOneAlbum
+              albums={listAlbum[listAlbum.length - 1].data.data[0]}
+            />
+          )}
         </Grid>
         <Grid item xs={12} md={6}>
           {listAlbum && (

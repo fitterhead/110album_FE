@@ -13,18 +13,10 @@ export default function HomepagePagination({ setPage, page }) {
     console.log("typeofpage", typeof page);
   };
 
-  // useEffect(() => {
-  //   first;
-
-  //   return () => {
-  //     second;
-  //   };
-  // }, [third]);
-
   return (
     <Stack spacing={2}>
       <Typography>Page: {page}</Typography>
-      <Pagination count={13} page={page} onChange={handleChange} />
+      <Pagination count={11} page={page} onChange={handleChange} />
     </Stack>
   );
 }

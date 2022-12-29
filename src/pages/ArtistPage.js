@@ -33,7 +33,7 @@ function ArtistPage() {
       }}
     >
       {listArtist &&
-        listArtist[0]?.data.data?.map((singleArtist) => {
+        listArtist[listArtist.length - 1 ]?.data.data?.map((singleArtist) => {
           if (singleArtist._id === artistId) {
             return (
               <Grid key={Math.random()} container sx={{ height: "100%" }}>
