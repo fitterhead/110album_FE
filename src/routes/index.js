@@ -18,8 +18,8 @@ function Router() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Homepage />} />
         <Route path="account" element={<AccountPage />} />
-        <Route path="artist/:id" element={<ArtistPage />} />
-        <Route path="album/:id" element={<AlbumPage />} />
+        <Route path="artist/findArtistById/:id" element={<ArtistPage />} />
+        <Route path="album/findAlbumById/:id" element={<AlbumPage />} />
         <Route path="search" element={<SearchPage />} />
         {/* <Route path="user/:userId" element={<UserProfilePage />} /> */}
       </Route>

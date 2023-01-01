@@ -63,7 +63,7 @@ function AuthProvider({ children }) {
 
     dispatch({
       type: LOGIN_SUCCESS,
-      // payload: { user },
+      payload: { user },
     });
 
     callback();

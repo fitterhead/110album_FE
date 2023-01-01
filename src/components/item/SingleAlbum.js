@@ -19,11 +19,11 @@ function SingleAlbum({ album }) {
 
   // tao handle click function
   const handleArtistBio = (artistId) => {
-    navigate(`/artist/${artistId}`);
+    navigate(`/artist/findArtistById/${artistId}`);
   };
 
   const handleAlbumInfo = (artistId) => {
-    navigate(`/album/${artistId}`);
+    navigate(`/album/findAlbumById/${artistId}`);
     // dispatch(getContent({ query: artistId }));
   };
 

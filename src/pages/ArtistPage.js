@@ -13,12 +13,15 @@ function ArtistPage() {
   // const [data, setdata] = useState(second)
   const param = useParams();
   const artistId = param.id;
+  console.log("artist", artistId);
   const dispatch = useDispatch();
-  const listArtist = useSelector((state) => state.content.artists);
+  const listArtist = useSelector(
+    (state) => state.content?.artists[0]?.data.data
+  );
 
   useEffect(() => {
-    dispatch(getArtist());
-  }, [dispatch]);
+    dispatch(getArtist({ artistId }));
+  }, [dispatch, artistId]);
 
   console.log("artist Id", artistId);
   console.log("listArtist", listArtist);
@@ -32,21 +35,16 @@ function ArtistPage() {
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
     >
-      {listArtist &&
-        listArtist[listArtist.length - 1 ]?.data.data?.map((singleArtist) => {
-          if (singleArtist._id === artistId) {
-            return (
-              <Grid key={Math.random()} container sx={{ height: "100%" }}>
-                <Grid item xs={12} md={4}>
-                  <ArtistAvatar bio={singleArtist} type="artist" />
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <ArtistBio bio={singleArtist} />
-                </Grid>
-              </Grid>
-            );
-          }
-        })}
+      {listArtist && (
+        <Grid key={Math.random()} container sx={{ height: "100%" }}>
+          <Grid item xs={12} md={4}>
+            <ArtistAvatar bio={listArtist} type="artist" />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <ArtistBio bio={listArtist} />
+          </Grid>
+        </Grid>
+      )}
     </Container>
   );
 }

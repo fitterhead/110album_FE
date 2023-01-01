@@ -5,18 +5,20 @@ import "./styles.css";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getContent } from "../features/content/contentSlice";
+import { getAlbums, getContent } from "../features/content/contentSlice";
 import AlbumCover from "../components/item/AlbumCover";
 import AlbumInfo from "../components/item/AlbumInfo";
+
 function AlbumPage() {
   const param = useParams();
   const albumId = param.id;
+  console.log("albumId", albumId);
   const dispatch = useDispatch();
-  const listAlbum = useSelector((state) => state.content.contents);
-
+  const listAlbum = useSelector((state) => state.content?.albums[0]?.data.data);
+  console.log("listAlbum", listAlbum);
   useEffect(() => {
-    dispatch(getContent());
-  }, [dispatch]);
+    dispatch(getAlbums({ albumId }));
+  }, [dispatch, albumId]);
 
   return (
     <Container
@@ -28,21 +30,16 @@ function AlbumPage() {
         "@media screen and (max-width: 820px)": { padding: "0rem" },
       }}
     >
-      {listAlbum &&
-        listAlbum[listAlbum.length - 1]?.data.data?.map((singleAlbum) => {
-          if (singleAlbum._id === albumId) {
-            return (
-              <Grid key={Math.random()} container sx={{ height: "100%" }}>
-                <Grid item xs={12} md={4}>
-                  <AlbumCover bio={singleAlbum} type="album" />
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <AlbumInfo bio={singleAlbum} />
-                </Grid>
-              </Grid>
-            );
-          }
-        })}
+      {listAlbum && (
+        <Grid key={Math.random()} container sx={{ height: "100%" }}>
+          <Grid item xs={12} md={4}>
+            <AlbumCover bio={listAlbum} type="album" />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <AlbumInfo bio={listAlbum} />
+          </Grid>
+        </Grid>
+      )}
     </Container>
   );
 }

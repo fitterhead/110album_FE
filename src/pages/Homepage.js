@@ -36,7 +36,7 @@ function Homepage() {
         <Grid item xs={12} md={6}>
           {listAlbum && (
             <NumberOneAlbum
-              albums={listAlbum[listAlbum.length - 1].data.data[0]}
+              albums={listAlbum[listAlbum.length - 1]?.data?.data[0]}
             />
           )}
         </Grid>

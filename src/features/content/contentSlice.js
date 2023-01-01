@@ -5,6 +5,7 @@ const initialState = {
   status: "",
   contents: [],
   artists: [],
+  albums: [],
   error: "",
   test: "",
   playlist: [],
@@ -20,22 +21,22 @@ const initialState = {
 
 export const getContent = createAsyncThunk(
   "content",
-  async ({limit, page, filter}) => {
+  async ({ limit, page, filter }) => {
     let url = `/album?page=${page}&limit=${limit}`;
-    if (filter) url +=`&filter=${filter}`;
+    if (filter) url += `&filter=${filter}`;
     const response = await apiService.get(url);
     console.log(response, "aaaaaa");
     return response;
   }
 );
 
-export const getArtist = createAsyncThunk("artist", async () => {
-  const response = await apiService.get("/artist");
+export const getArtist = createAsyncThunk("artists", async ({ artistId }) => {
+  const response = await apiService.get(`/artist/findArtistById/${artistId}`);
   return response;
 });
 
-export const getAlbums = createAsyncThunk("albums", async () => {
-  const response = await apiService.get("/albumlist");
+export const getAlbums = createAsyncThunk("albums", async ({ albumId }) => {
+  const response = await apiService.get(`/album/findAlbumById/${albumId}`);
   return response;
 });
 
@@ -84,13 +85,15 @@ export const contentSlice = createSlice({
     builder
       .addCase(getContent.pending, (state) => {
         state.status = "loading";
-        console.log("pending")
+        console.log("pending");
       })
       .addCase(getContent.fulfilled, (state, action) => {
         state.status = "idle";
         console.log("action payload", action.payload);
         //
+        state.contents = [];
         state.contents.push(action.payload);
+        // state.contents = action.payload;
       })
       .addCase(getContent.rejected, (state, action) => {
         state.status = "rejected";
@@ -106,6 +109,7 @@ export const contentSlice = createSlice({
         state.status = "idle";
         console.log("action artist payload", action.payload);
         //
+        state.artists = [];
         state.artists.push(action.payload);
       })
       .addCase(getArtist.rejected, (state, action) => {
@@ -120,9 +124,10 @@ export const contentSlice = createSlice({
       })
       .addCase(getAlbums.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log("action artist payload", action.payload);
+        console.log("action album payload", action.payload);
         //
-        state.artists.push(action.payload);
+        state.albums = [];
+        state.albums.push(action.payload);
       })
       .addCase(getAlbums.rejected, (state, action) => {
         state.status = "rejected";

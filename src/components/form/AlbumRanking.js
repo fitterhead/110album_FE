@@ -28,7 +28,7 @@ function AlbumRanking({ albums, setPage, page }) {
             alignItems="center"
           >
             {albums[albums.length - 1]?.data.data?.map((album, index) => {
-              if (index <= 110) {
+              if (index !== 0) {
                 return <SingleAlbum key={Math.random()} album={album} />;
               }
             })}
