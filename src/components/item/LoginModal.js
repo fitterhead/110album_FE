@@ -70,11 +70,12 @@ function LoginModal({ handleClose, open }) {
   } = methods;
 
   const onSubmit = async (data) => {
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/account";
     let { email, password } = data;
     try {
       await auth.login({ email, password }, () => {
         navigate(from, { replace: true });
+        handleClose();
       });
     } catch (error) {
       reset();

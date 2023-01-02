@@ -1,4 +1,5 @@
 import * as React from "react";
+import useAuth from "../hooks/useAuth";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,12 +15,14 @@ import { useDispatch } from "react-redux";
 import { test } from "../features/content/contentSlice";
 import apiService from "../app/apiService";
 import { useSelector } from "react-redux";
+
 function MainHeader() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const dispatch = useDispatch();
+  const { isAuthenticated, user } = useAuth();
+
   return (
     <Box
     // sx={{ flexGrow: 1 }}
@@ -49,20 +52,25 @@ function MainHeader() {
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
             Top 120 Albums
           </Typography>
-          {/* <Button
-            sx={{ fontSize: "16px", color: "white" }}
-            variant="button"
-            onClick={handleOpen}
-          >
-            REGISTER
-          </Button> */}
-          <Button
-            sx={{ fontSize: "16px" }}
-            variant="button"
-            onClick={handleOpen}
-          >
-            LOGIN
-          </Button>
+
+          {user ? (
+            <Button
+              sx={{ fontSize: "16px", color: "white" }}
+              variant="button"
+              onClick={handleOpen}
+            >
+              LOGOUT
+            </Button>
+          ) : (
+            <Button
+              sx={{ fontSize: "16px" }}
+              variant="button"
+              onClick={handleOpen}
+            >
+              LOGIN
+            </Button>
+          )}
+
           <Button
             sx={{ fontSize: "16px" }}
             variant="button"

@@ -13,7 +13,7 @@ function ResultList({ data }) {
         justifyContent="space-evenly"
         alignItems="center"
       >
-        {data[0]?.map((singleData) => {
+        {/* {data[0]?.map((singleData) => {
           return (
             <Grid key={Math.random()} item xs={6} md={3} padding={1}>
               <Box>
@@ -50,7 +50,41 @@ function ResultList({ data }) {
               </Box>
             </Grid>
           );
-        })}
+        })} */}
+        {
+          <Grid key={Math.random()} item xs={6} md={3} padding={1}>
+            <Box>
+              <Stack sx={{ height: "100%" }}>
+                <Box
+                  sx={{
+                    width: "100%",
+                    aspectRatio: "1/1",
+                    flexGrow: 1,
+                    backgroundColor: "gray",
+                  }}
+                >
+                  aaa
+                </Box>
+                <Box sx={{ width: "100%" }}>
+                  <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={0.5}
+                    sx={{ padding: "0.5rem" }}
+                  >
+                    {/* <Typography variant="button">Playlist 1</Typography> */}
+                    <Typography sx={{ textAlign: "center" }} variant="h1">
+                      Playlist 1
+                    </Typography>
+                    <Typography variant="button">100 items</Typography>
+                    {/* <Typography variant="body1">1995</Typography> */}
+                  </Stack>
+                </Box>
+              </Stack>
+            </Box>
+          </Grid>
+        }
       </Grid>
     </Box>
   );

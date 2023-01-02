@@ -5,17 +5,18 @@ import Typography from "@mui/material/Typography";
 import ResultList from "../../components/item/ResultList";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getPlaylist } from "../content/contentSlice";
-import PlaylistItem from "../../components/item/PlaylistItem";
+import { getPlaylist } from "../../features/content/contentSlice";
 
-function Playlist() {
-  const dispatch = useDispatch();
-  const [data, setData] = useState("");
-  const listAlbum = useSelector((state) => state.content.playlist);
+// import PlaylistItem from "../../components/item/PlaylistItem";
 
-  useEffect(() => {
-    setData(dispatch(getPlaylist()));
-  }, [dispatch]);
+function PlaylistItem() {
+  //   const dispatch = useDispatch();
+  //   const [data, setData] = useState("");
+  //   const listAlbum = useSelector((state) => state.content.playlist);
+
+  //   useEffect(() => {
+  //     setData(dispatch(getPlaylist()));
+  //   }, [dispatch]);
 
   return (
     <Container
@@ -37,11 +38,10 @@ function Playlist() {
         >
           <Typography variant="h1">Playlist</Typography>
         </Box>
-        <ResultList data={listAlbum} />
-        {/* <PlaylistItem /> */}
+        <ResultList />
       </Stack>
     </Container>
   );
 }
 
-export default Playlist;
+export default PlaylistItem;

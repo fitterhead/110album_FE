@@ -35,6 +35,14 @@ const reducer = (state, action) => {
         isAuthenticated: false,
         user: null,
       };
+    case INITIALIZE:
+      const { isAuthenticated, user } = action.payload;
+      return {
+        ...state,
+        isInitialized: true,
+        isAuthenticated,
+        user,
+      };
     default:
       return state;
   }
@@ -54,6 +62,49 @@ const setSession = (accessToken) => {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  /* ------------ persistent login (van login sau khi refresh page) ----------- */
+  useEffect(
+    () => {
+      const initialize = async () => {
+        try {
+          console.log("initialize running");
+          // 1.lay accessToken tu localStorage
+          const accessToken = window.localStorage.getItem("accessToken");
+          //  2. Check xem accessToken co gia tri? accessToken co valid?
+          if (accessToken && isValidToken(accessToken)) {
+            //2.1 neu co, set token vao header bang setSession ()
+            setSession(accessToken);
+            //2.3 gui token cho server de lay thong tin nguoi dung
+
+            const response = await apiService.get("/user/myInfo");
+            const user = response.data.user;
+            //2.4. sau khi co dc data, dispatch () de luu data do vao state
+            dispatch({
+              type: INITIALIZE,
+              payload: { isAuthenticated: true, user },
+            });
+          }
+        } catch (error) {
+          // neu ko co token, session  = null va dispatch voi authenticated = false
+          // setSession(null);
+          console.log(error);
+          // dispatch({
+          //   type: INITIALIZE,
+          //   payload: { isAuthenticated: false, user: null },
+          // });
+        }
+      };
+
+      initialize();
+      //useeffect chay function, trong function tao 1
+      //function khac ten initialize,
+      //va chay function do trong useEffect luon
+    },
+    []
+
+    //bỏ trống trống[] : useeffect chỉ thực hiện 1 lần khi app render lần đầu tiên
+  );
 
   const login = async ({ email, password }, callback) => {
     const response = await apiService.post("/auth/login", { email, password });

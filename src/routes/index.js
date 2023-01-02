@@ -11,6 +11,7 @@ import UserProfilePage from "../pages/UserProfilePage";
 import ArtistPage from "../pages/ArtistPage";
 import AlbumPage from "../pages/AlbumPage";
 import SearchPage from "../pages/SearchPage";
+import PlaylistItem from "../components/item/PlaylistItem";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Homepage />} />
         <Route path="account" element={<AccountPage />} />
+        {/* <Route path="account/savedAlbum" element={<PlaylistItem />} /> */}
         <Route path="artist/findArtistById/:id" element={<ArtistPage />} />
         <Route path="album/findAlbumById/:id" element={<AlbumPage />} />
         <Route path="search" element={<SearchPage />} />
