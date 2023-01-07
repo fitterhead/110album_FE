@@ -10,15 +10,13 @@ const initialState = {
   test: "",
   playlist: [],
   favouriteArtist: [],
+  similarAlbums: [],
 };
 
-// export const getContent = createAsyncThunk("content", async () =>
-//   {
-//     const response = await apiService.get("/album");
-//     return response;
-//   }
-// );
-
+/* -------------------------------------------------------------------------- */
+/*                                     GET                                    */
+/* -------------------------------------------------------------------------- */
+/* ------------------------------ get all album ----------------------------- */
 export const getContent = createAsyncThunk(
   "content",
   async ({ limit, page, filter }) => {
@@ -29,17 +27,51 @@ export const getContent = createAsyncThunk(
     return response;
   }
 );
-
-export const getArtist = createAsyncThunk("artists", async ({ artistId }) => {
-  const response = await apiService.get(`/artist/findArtistById/${artistId}`);
-  return response;
-});
-
+/* ---------------------------- get single album ---------------------------- */
 export const getAlbums = createAsyncThunk("albums", async ({ albumId }) => {
   const response = await apiService.get(`/album/findAlbumById/${albumId}`);
   return response;
 });
-
+/* ------------------------------- get artist ------------------------------- */
+export const getArtist = createAsyncThunk("artists", async ({ artistId }) => {
+  const response = await apiService.get(`/artist/findArtistById/${artistId}`);
+  return response;
+});
+/* -------------------------- get playlist of user -------------------------- */
+export const getPlaylist = createAsyncThunk("Playlist", async () => {
+  const response = await apiService.get("/playlist");
+  return response;
+});
+/* ----------------- get list of favourite artist of an user ---------------- */
+export const getFavouriteArtistList = createAsyncThunk(
+  "FavouriteArtistList",
+  async () => {
+    const response = await apiService.get("/favouriteArtist");
+    return response;
+  }
+);
+/* ----------------------- get albums with same genre ----------------------- */
+export const getAlbumWithSameGenre = createAsyncThunk(
+  "getAlbumWithSameGenre",
+  async (genreName) => {
+    const response = await apiService.get(
+      `/album/getSimilarGenre?genre=${genreName}`
+    );
+    return response;
+  }
+);
+/* ---------------------- get Albums of the same Artist --------------------- */
+export const getAlbumOfTheSameArtist = createAsyncThunk(
+  "getAlbumOfTheSameArtist",
+  async (artistId) => {
+    const response = await apiService.get(`album/getAlbumOfArtist/${artistId}`);
+    return response;
+  }
+);
+/* -------------------------------------------------------------------------- */
+/*                                    POST                                    */
+/* -------------------------------------------------------------------------- */
+/* -------------------------- add album to playlist ------------------------- */
 export const addAlbumToPlaylist = createAsyncThunk(
   "addAlbumToPlaylist",
   async (data) => {
@@ -48,14 +80,7 @@ export const addAlbumToPlaylist = createAsyncThunk(
     return response;
   }
 );
-
-export const getPlaylist = createAsyncThunk("Playlist", async () => {
-  const response = await apiService.get("/playlist");
-  return response;
-});
-
-/* ---------------------------- get artists list ---------------------------- */
-
+/* ------------------ Send artist to favourite artist list ------------------ */
 export const favouriteArtist = createAsyncThunk(
   "favouriteArtist",
   async (data) => {
@@ -64,15 +89,12 @@ export const favouriteArtist = createAsyncThunk(
     return response;
   }
 );
-
-export const getFavouriteArtistList = createAsyncThunk(
-  "FavouriteArtistList",
-  async () => {
-    const response = await apiService.get("/favouriteArtist");
-    return response;
-  }
-);
-
+/* -------------------------------------------------------------------------- */
+/*                                   DELETE                                   */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                     PUT                                    */
+/* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 /*                                 createSlice                                */
 /* -------------------------------------------------------------------------- */
@@ -153,6 +175,42 @@ export const contentSlice = createSlice({
         console.log("artist action", action);
       });
 
+    /* ---------------------- get similar genre of an album --------------------- */
+
+    builder
+      .addCase(getAlbumWithSameGenre.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getAlbumWithSameGenre.fulfilled, (state, action) => {
+        state.status = "idle";
+        console.log("getAlbumWithSameGenre", action.payload);
+
+        state.similarAlbums = [];
+        state.similarAlbums.push(action.payload);
+      })
+      .addCase(getAlbumWithSameGenre.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error.message;
+        console.log("artist action", action);
+      });
+
+    /* ------------------ get Album list from the same Artists ------------------ */
+    builder
+      .addCase(getAlbumOfTheSameArtist.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getAlbumOfTheSameArtist.fulfilled, (state, action) => {
+        state.status = "idle";
+        console.log("getAlbumOfTheSameArtist", action.payload);
+
+        state.similarAlbums = [];
+        state.similarAlbums.push(action.payload);
+      })
+      .addCase(getAlbumOfTheSameArtist.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error.message;
+        console.log("artist action", action);
+      });
     /* ------------------------------- getPlaylist ------------------------------ */
     builder
       .addCase(getPlaylist.pending, (state) => {

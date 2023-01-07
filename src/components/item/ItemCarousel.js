@@ -1,9 +1,23 @@
-import React from "react";
-import { Box, Container, Grid, Paper } from "@mui/material";
+import React, { useEffect } from "react";
+import { Box, Card, Container, Grid, Paper } from "@mui/material";
+import CardMedia from "@mui/material/CardMedia";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
+import { useDispatch, useSelector } from "react-redux";
+import { getAlbumWithSameGenre } from "../../features/content/contentSlice";
 
-function ItemCarousel() {
+function ItemCarousel({ genre }) {
+  const listAlbum = useSelector(
+    (state) => state.content?.similarAlbums[0]?.data.data
+  );
+  console.log("genre", genre);
+  console.log("listAlbum", listAlbum);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAlbumWithSameGenre(genre));
+    console.log("runnnnnn");
+  }, [genre]);
+
   return (
     <Box sx={{ overflow: "scroll" }}>
       <Stack
@@ -17,210 +31,48 @@ function ItemCarousel() {
           padding: "0rem 0rem 2rem 0rem",
         }}
       >
-        <Box sx={{ height: "200px", width: "200px" }}>
-          <Stack sx={{ height: "100%", position: "relative" }}>
-            <Box
-              sx={{
-                width: "100%",
-                aspectRatio: "1/1",
-                flexGrow: 1,
-                backgroundColor: "gray",
-                display: "block",
-              }}
-            >
-              aaa
-            </Box>
-            <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0.5}
-                sx={{ padding: "0.5rem" }}
-              >
-                <Typography
-                  sx={{ textAlign: "center", color: "white" }}
-                  variant="h1"
+        {listAlbum.map((album) => {
+          return (
+            <Box sx={{ height: "200px", width: "200px" }}>
+              <Stack sx={{ height: "100%", position: "relative" }}>
+                <Card
+                  sx={{
+                    width: "100%",
+                    aspectRatio: "1/1",
+                    flexGrow: 1,
+                    backgroundColor: "gray",
+                    display: "block",
+                  }}
                 >
-                  OK COMPUTER
-                </Typography>
-                <Typography sx={{ color: "white" }} variant="button">
-                  rock
-                </Typography>
+                  <CardMedia
+                    component="img"
+                    height="100%"
+                    image={`http://localhost:8000/static/image/${album.album}.jpg`}
+                  />
+                </Card>
+                <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
+                  <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={0.5}
+                    sx={{ padding: "0.5rem" }}
+                  >
+                    <Typography
+                      sx={{ textAlign: "center", color: "white" }}
+                      variant="h1"
+                    >
+                      {album.album}
+                    </Typography>
+                    <Typography sx={{ color: "white" }} variant="button">
+                      {album.artistName}
+                    </Typography>
+                  </Stack>
+                </Box>
               </Stack>
             </Box>
-          </Stack>
-        </Box>
-        <Box sx={{ height: "200px", width: "200px" }}>
-          <Stack sx={{ height: "100%", position: "relative" }}>
-            <Box
-              sx={{
-                width: "100%",
-                aspectRatio: "1/1",
-                flexGrow: 1,
-                backgroundColor: "gray",
-                display: "block",
-              }}
-            >
-              aaa
-            </Box>
-            <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0.5}
-                sx={{ padding: "0.5rem" }}
-              >
-                <Typography
-                  sx={{ textAlign: "center", color: "white" }}
-                  variant="h1"
-                >
-                  OK COMPUTER
-                </Typography>
-                <Typography sx={{ color: "white" }} variant="button">
-                  rock
-                </Typography>
-              </Stack>
-            </Box>
-          </Stack>
-        </Box>
-        <Box sx={{ height: "200px", width: "200px" }}>
-          <Stack sx={{ height: "100%", position: "relative" }}>
-            <Box
-              sx={{
-                width: "100%",
-                aspectRatio: "1/1",
-                flexGrow: 1,
-                backgroundColor: "gray",
-                display: "block",
-              }}
-            >
-              aaa
-            </Box>
-            <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0.5}
-                sx={{ padding: "0.5rem" }}
-              >
-                <Typography
-                  sx={{ textAlign: "center", color: "white" }}
-                  variant="h1"
-                >
-                  OK COMPUTER
-                </Typography>
-                <Typography sx={{ color: "white" }} variant="button">
-                  rock
-                </Typography>
-              </Stack>
-            </Box>
-          </Stack>
-        </Box>
-        <Box sx={{ height: "200px", width: "200px" }}>
-          <Stack sx={{ height: "100%", position: "relative" }}>
-            <Box
-              sx={{
-                width: "100%",
-                aspectRatio: "1/1",
-                flexGrow: 1,
-                backgroundColor: "gray",
-                display: "block",
-              }}
-            >
-              aaa
-            </Box>
-            <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0.5}
-                sx={{ padding: "0.5rem" }}
-              >
-                <Typography
-                  sx={{ textAlign: "center", color: "white" }}
-                  variant="h1"
-                >
-                  OK COMPUTER
-                </Typography>
-                <Typography sx={{ color: "white" }} variant="button">
-                  rock
-                </Typography>
-              </Stack>
-            </Box>
-          </Stack>
-        </Box>
-        <Box sx={{ height: "200px", width: "200px" }}>
-          <Stack sx={{ height: "100%", position: "relative" }}>
-            <Box
-              sx={{
-                width: "100%",
-                aspectRatio: "1/1",
-                flexGrow: 1,
-                backgroundColor: "gray",
-                display: "block",
-              }}
-            >
-              aaa
-            </Box>
-            <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0.5}
-                sx={{ padding: "0.5rem" }}
-              >
-                <Typography
-                  sx={{ textAlign: "center", color: "white" }}
-                  variant="h1"
-                >
-                  OK COMPUTER
-                </Typography>
-                <Typography sx={{ color: "white" }} variant="button">
-                  rock
-                </Typography>
-              </Stack>
-            </Box>
-          </Stack>
-        </Box>
-        <Box sx={{ height: "200px", width: "200px" }}>
-          <Stack sx={{ height: "100%", position: "relative" }}>
-            <Box
-              sx={{
-                width: "100%",
-                aspectRatio: "1/1",
-                flexGrow: 1,
-                backgroundColor: "gray",
-                display: "block",
-              }}
-            >
-              aaa
-            </Box>
-            <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0.5}
-                sx={{ padding: "0.5rem" }}
-              >
-                <Typography
-                  sx={{ textAlign: "center", color: "white" }}
-                  variant="h1"
-                >
-                  OK COMPUTER
-                </Typography>
-                <Typography sx={{ color: "white" }} variant="button">
-                  rock
-                </Typography>
-              </Stack>
-            </Box>
-          </Stack>
-        </Box>
+          );
+        })}
       </Stack>
     </Box>
   );
@@ -229,228 +81,38 @@ function ItemCarousel() {
 export default ItemCarousel;
 
 {
-  /* <Grid
-container
-direction="row"
-justifyContent="space-evenly"
-alignItems="center"
-sx={{ flexWrap: "noWrap", overflow: "scroll" }}
->
-<Grid item xs={6} md={3} padding={1}>
-  <Box>
-    <Stack sx={{ height: "100%", position: "relative" }}>
-      <Box
-        sx={{
-          width: "100%",
-          aspectRatio: "1/1",
-          flexGrow: 1,
-          backgroundColor: "gray",
-          display: "block",
-        }}
+  /* <Box sx={{ height: "200px", width: "200px" }}>
+<Stack sx={{ height: "100%", position: "relative" }}>
+  <Box
+    sx={{
+      width: "100%",
+      aspectRatio: "1/1",
+      flexGrow: 1,
+      backgroundColor: "gray",
+      display: "block",
+    }}
+  >
+    aaa
+  </Box>
+  <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={0.5}
+      sx={{ padding: "0.5rem" }}
+    >
+      <Typography
+        sx={{ textAlign: "center", color: "white" }}
+        variant="h1"
       >
-        aaa
-      </Box>
-      <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={0.5}
-          sx={{ padding: "0.5rem" }}
-        >
-          <Typography
-            sx={{ textAlign: "center", color: "white" }}
-            variant="h1"
-          >
-            OK COMPUTER
-          </Typography>
-          <Typography sx={{ color: "white" }} variant="button">
-            rock
-          </Typography>
-        </Stack>
-      </Box>
+        OK COMPUTER
+      </Typography>
+      <Typography sx={{ color: "white" }} variant="button">
+        rock
+      </Typography>
     </Stack>
   </Box>
-</Grid>
-<Grid item xs={6} md={3} padding={1}>
-  <Box>
-    <Stack sx={{ height: "100%", position: "relative" }}>
-      <Box
-        sx={{
-          width: "100%",
-          aspectRatio: "1/1",
-          flexGrow: 1,
-          backgroundColor: "gray",
-          display: "block",
-        }}
-      >
-        aaa
-      </Box>
-      <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={0.5}
-          sx={{ padding: "0.5rem" }}
-        >
-          <Typography
-            sx={{ textAlign: "center", color: "white" }}
-            variant="h1"
-          >
-            OK COMPUTER
-          </Typography>
-          <Typography sx={{ color: "white" }} variant="button">
-            rock
-          </Typography>
-        </Stack>
-      </Box>
-    </Stack>
-  </Box>
-</Grid>
-<Grid item xs={6} md={3} padding={1}>
-  <Box>
-    <Stack sx={{ height: "100%", position: "relative" }}>
-      <Box
-        sx={{
-          width: "100%",
-          aspectRatio: "1/1",
-          flexGrow: 1,
-          backgroundColor: "gray",
-          display: "block",
-        }}
-      >
-        aaa
-      </Box>
-      <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={0.5}
-          sx={{ padding: "0.5rem" }}
-        >
-          <Typography
-            sx={{ textAlign: "center", color: "white" }}
-            variant="h1"
-          >
-            OK COMPUTER
-          </Typography>
-          <Typography sx={{ color: "white" }} variant="button">
-            rock
-          </Typography>
-        </Stack>
-      </Box>
-    </Stack>
-  </Box>
-</Grid>
-<Grid item xs={6} md={3} padding={1}>
-  <Box>
-    <Stack sx={{ height: "100%", position: "relative" }}>
-      <Box
-        sx={{
-          width: "100%",
-          aspectRatio: "1/1",
-          flexGrow: 1,
-          backgroundColor: "gray",
-          display: "block",
-        }}
-      >
-        aaa
-      </Box>
-      <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={0.5}
-          sx={{ padding: "0.5rem" }}
-        >
-          <Typography
-            sx={{ textAlign: "center", color: "white" }}
-            variant="h1"
-          >
-            OK COMPUTER
-          </Typography>
-          <Typography sx={{ color: "white" }} variant="button">
-            rock
-          </Typography>
-        </Stack>
-      </Box>
-    </Stack>
-  </Box>
-</Grid>
-<Grid item xs={6} md={3} padding={1}>
-  <Box>
-    <Stack sx={{ height: "100%", position: "relative" }}>
-      <Box
-        sx={{
-          width: "100%",
-          aspectRatio: "1/1",
-          flexGrow: 1,
-          backgroundColor: "gray",
-          display: "block",
-        }}
-      >
-        aaa
-      </Box>
-      <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={0.5}
-          sx={{ padding: "0.5rem" }}
-        >
-          <Typography
-            sx={{ textAlign: "center", color: "white" }}
-            variant="h1"
-          >
-            OK COMPUTER
-          </Typography>
-          <Typography sx={{ color: "white" }} variant="button">
-            rock
-          </Typography>
-        </Stack>
-      </Box>
-    </Stack>
-  </Box>
-</Grid>
-<Grid item xs={6} md={3} padding={1}>
-  <Box>
-    <Stack sx={{ height: "100%", position: "relative" }}>
-      <Box
-        sx={{
-          width: "100%",
-          aspectRatio: "1/1",
-          flexGrow: 1,
-          backgroundColor: "gray",
-          display: "block",
-        }}
-      >
-        aaa
-      </Box>
-      <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={0.5}
-          sx={{ padding: "0.5rem" }}
-        >
-          <Typography
-            sx={{ textAlign: "center", color: "white" }}
-            variant="h1"
-          >
-            OK COMPUTER
-          </Typography>
-          <Typography sx={{ color: "white" }} variant="button">
-            rock
-          </Typography>
-        </Stack>
-      </Box>
-    </Stack>
-  </Box>
-</Grid>
-</Grid> */
+</Stack>
+</Box> */
 }

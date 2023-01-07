@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import { Container, Stack } from "@mui/system";
 import React from "react";
 import HomepagePagination from "../item/HomepagePagination";
+import AlbumCollection from "./AlbumCollection";
 import ItemCarousel from "./ItemCarousel";
 function ArtistBio({ bio }) {
   console.log(bio, "biooooooo");
@@ -44,7 +45,7 @@ function ArtistBio({ bio }) {
         <Box sx={{ flexGrow: 1, height: "100%" }}>
           <Stack spacing={1} padding="2rem">
             <Typography variant="h1">Similar Artist</Typography>
-            <ItemCarousel />
+            <AlbumCollection artistId={bio._id} />
           </Stack>
         </Box>
       </Stack>

@@ -43,8 +43,8 @@ function AlbumInfo({ bio }) {
         </Box>
         <Box sx={{ flexGrow: 1, height: "100%" }}>
           <Stack spacing={1} padding="2rem">
-            <Typography variant="h1">Similar Artist</Typography>
-            <ItemCarousel />
+            <Typography variant="h1">Similar Albums</Typography>
+            <ItemCarousel genre={bio.genre} />
           </Stack>
         </Box>
       </Stack>
