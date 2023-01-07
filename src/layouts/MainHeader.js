@@ -15,8 +15,10 @@ import { useDispatch } from "react-redux";
 import { test } from "../features/content/contentSlice";
 import apiService from "../app/apiService";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function MainHeader() {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,7 +51,14 @@ function MainHeader() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            onClick={() => {
+              navigate("/");
+            }}
+            variant="h7"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
             Top 120 Albums
           </Typography>
 

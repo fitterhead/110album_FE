@@ -44,7 +44,7 @@ function ArtistBio({ bio }) {
         </Box>
         <Box sx={{ flexGrow: 1, height: "100%" }}>
           <Stack spacing={1} padding="2rem">
-            <Typography variant="h1">Similar Artist</Typography>
+            <Typography variant="h1">Discography</Typography>
             <AlbumCollection artistId={bio._id} />
           </Stack>
         </Box>

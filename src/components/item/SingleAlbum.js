@@ -32,10 +32,13 @@ function SingleAlbum({ album }) {
   return (
     <Grid item xs={6} md={4} padding={1}>
       <Box
-        sx={{
-          minHeight: "35vh",
-          "@media screen and (max-width: 1400px)": { minHeight: "32vh" },
-        }}
+        sx={
+          {
+            // marginTop: "0vh",
+            // minHeight: "30vh",
+            // marginBottom: "30px",
+          }
+        }
       >
         <Stack sx={{ height: "100%" }}>
           <Card
@@ -53,9 +56,18 @@ function SingleAlbum({ album }) {
             />
           </Card>
           <Box sx={{ width: "100%" }}>
-            <Stack spacing={0.1} sx={{ padding: "0.5rem" }}>
-              <Typography variant="body1">{album.ranking}</Typography>
+            <Stack
+              spacing={0.1}
+              sx={{
+                padding: "0.5rem",
+                // marginBottom:"10vh"
+              }}
+            >
+              <Typography sx={{ paddingBottom: "0.2rem" }} variant="body1">
+                {album.ranking}
+              </Typography>
               <Typography
+                sx={{ paddingBottom: "0.2rem" }}
                 onClick={() => handleArtistBio(`${album.artistRef._id}`)}
                 variant="body2"
               >
@@ -64,6 +76,9 @@ function SingleAlbum({ album }) {
               </Typography>
               <Typography
                 // sx ={{padding:"2rem"}}
+                sx={{
+                  marginBottom: "1rem",
+                }}
                 onClick={() => handleAlbumInfo(`${album._id}`)}
                 variant="button"
               >

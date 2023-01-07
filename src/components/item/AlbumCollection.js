@@ -32,12 +32,9 @@ function AlbumCollection({ artistId }) {
         }}
       >
         {listAlbum &&
-          listAlbum.map((album, i) => {
+          listAlbum.map((album,i) => {
             return (
-              <Box
-                key={i}
-                sx={{ height: "200px", width: "200px", key: Math.random() }}
-              >
+              <Box key = {i} sx={{ height: "200px", width: "200px", key: Math.random() }}>
                 <Stack sx={{ height: "100%", position: "relative" }}>
                   <Card
                     sx={{
@@ -71,7 +68,7 @@ function AlbumCollection({ artistId }) {
                         {album.album}
                       </Typography>
                       <Typography sx={{ color: "white" }} variant="button">
-                        {album.artistName}
+                        {album.releaseDate}
                       </Typography>
                     </Stack>
                   </Box>

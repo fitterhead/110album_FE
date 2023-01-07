@@ -15,7 +15,6 @@ export default function HomepagePagination({ setPage, page }) {
 
   return (
     <Stack spacing={2}>
-      <Typography>Page: {page}</Typography>
       <Pagination count={11} page={page} onChange={handleChange} />
     </Stack>
   );

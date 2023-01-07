@@ -25,7 +25,7 @@ function AlbumRanking({ albums, setPage, page }) {
             container
             direction="row"
             justifyContent="space-evenly"
-            alignItems="center"
+            alignItems="flex-start"
           >
             {albums[albums.length - 1]?.data.data?.map((album, index) => {
               if (index !== 0) {

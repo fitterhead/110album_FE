@@ -31,48 +31,51 @@ function ItemCarousel({ genre }) {
           padding: "0rem 0rem 2rem 0rem",
         }}
       >
-        {listAlbum.map((album) => {
-          return (
-            <Box sx={{ height: "200px", width: "200px" }}>
-              <Stack sx={{ height: "100%", position: "relative" }}>
-                <Card
-                  sx={{
-                    width: "100%",
-                    aspectRatio: "1/1",
-                    flexGrow: 1,
-                    backgroundColor: "gray",
-                    display: "block",
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    image={`http://localhost:8000/static/image/${album.album}.jpg`}
-                  />
-                </Card>
-                <Box sx={{ width: "100%", position: "absolute", bottom: "0" }}>
-                  <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={0.5}
-                    sx={{ padding: "0.5rem" }}
+        {listAlbum &&
+          listAlbum.map((album, i) => {
+            return (
+              <Box key={i} sx={{ height: "200px", width: "200px" }}>
+                <Stack sx={{ height: "100%", position: "relative" }}>
+                  <Card
+                    sx={{
+                      width: "100%",
+                      aspectRatio: "1/1",
+                      flexGrow: 1,
+                      backgroundColor: "gray",
+                      display: "block",
+                    }}
                   >
-                    <Typography
-                      sx={{ textAlign: "center", color: "white" }}
-                      variant="h1"
+                    <CardMedia
+                      component="img"
+                      height="100%"
+                      image={`http://localhost:8000/static/image/${album.album}.jpg`}
+                    />
+                  </Card>
+                  <Box
+                    sx={{ width: "100%", position: "absolute", bottom: "0" }}
+                  >
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={0.5}
+                      sx={{ padding: "0.5rem" }}
                     >
-                      {album.album}
-                    </Typography>
-                    <Typography sx={{ color: "white" }} variant="button">
-                      {album.artistName}
-                    </Typography>
-                  </Stack>
-                </Box>
-              </Stack>
-            </Box>
-          );
-        })}
+                      <Typography
+                        sx={{ textAlign: "center", color: "white" }}
+                        variant="h1"
+                      >
+                        {album.album}
+                      </Typography>
+                      <Typography sx={{ color: "white" }} variant="button">
+                        {album.artistName}
+                      </Typography>
+                    </Stack>
+                  </Box>
+                </Stack>
+              </Box>
+            );
+          })}
       </Stack>
     </Box>
   );
