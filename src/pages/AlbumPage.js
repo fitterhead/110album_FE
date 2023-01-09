@@ -9,6 +9,7 @@ import { getAlbums, getContent } from "../features/content/contentSlice";
 import AlbumCover from "../components/item/AlbumCover";
 import AlbumInfo from "../components/item/AlbumInfo";
 
+
 function AlbumPage() {
   const param = useParams();
   const albumId = param.id;
@@ -16,6 +17,7 @@ function AlbumPage() {
   const dispatch = useDispatch();
   const listAlbum = useSelector((state) => state.content?.albums[0]?.data.data);
   console.log("listAlbum", listAlbum);
+  
   useEffect(() => {
     dispatch(getAlbums({ albumId }));
   }, [dispatch, albumId]);

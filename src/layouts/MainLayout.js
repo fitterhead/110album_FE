@@ -8,7 +8,7 @@ function MainLayout() {
   const loadingStatus = useSelector((state) => state.content?.status);
   console.log("loadingStatus", loadingStatus);
   return (
-    <Stack 
+    <Stack
     // sx={{ minHeight: "100vh" }}
     >
       <MainHeader />

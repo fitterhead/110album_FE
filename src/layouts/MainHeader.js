@@ -8,13 +8,8 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginModal from "../components/item/LoginModal";
-import RegisterModal from "../components/item/RegisterModal";
-// import ProfilePage from "../pages/ProfilePage";
 import { getContent } from "../features/content/contentSlice";
 import { useDispatch } from "react-redux";
-import { test } from "../features/content/contentSlice";
-import apiService from "../app/apiService";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function MainHeader() {
@@ -24,6 +19,7 @@ function MainHeader() {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useAuth();
+  const auth = useAuth();
 
   return (
     <Box
@@ -63,13 +59,23 @@ function MainHeader() {
           </Typography>
 
           {user ? (
-            <Button
-              sx={{ fontSize: "16px", color: "white" }}
-              variant="button"
-              onClick={handleOpen}
-            >
-              LOGOUT
-            </Button>
+            <>
+              {" "}
+              <Button
+                sx={{ fontSize: "16px", color: "white" }}
+                variant="button"
+                onClick={() => auth.logout(() => navigate("/"))}
+              >
+                LOGOUT
+              </Button>
+              <Button
+                sx={{ fontSize: "16px", color: "black" }}
+                variant="button"
+                onClick={() => navigate("/account")}
+              >
+                ACCOUNT
+              </Button>
+            </>
           ) : (
             <Button
               sx={{ fontSize: "16px" }}

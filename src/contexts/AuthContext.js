@@ -39,8 +39,8 @@ const reducer = (state, action) => {
       const { isAuthenticated, user } = action.payload;
       return {
         ...state,
-        isInitialized: true,
         isAuthenticated,
+        isInitialized: true,
         user,
       };
     default:
@@ -87,12 +87,12 @@ function AuthProvider({ children }) {
           }
         } catch (error) {
           // neu ko co token, session  = null va dispatch voi authenticated = false
-          // setSession(null);
+          setSession(null);
           console.log(error);
-          // dispatch({
-          //   type: INITIALIZE,
-          //   payload: { isAuthenticated: false, user: null },
-          // });
+          dispatch({
+            type: INITIALIZE,
+            payload: { isAuthenticated: false, user: null },
+          });
         }
       };
 

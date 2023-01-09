@@ -3,6 +3,7 @@ import apiService from "../../app/apiService";
 
 const initialState = {
   status: "",
+  playlistStatus: "",
   contents: [],
   artists: [],
   albums: [],
@@ -71,15 +72,7 @@ export const getAlbumOfTheSameArtist = createAsyncThunk(
 /* -------------------------------------------------------------------------- */
 /*                                    POST                                    */
 /* -------------------------------------------------------------------------- */
-/* -------------------------- add album to playlist ------------------------- */
-export const addAlbumToPlaylist = createAsyncThunk(
-  "addAlbumToPlaylist",
-  async (data) => {
-    const response = await apiService.post("/playlist", data);
-    console.log(response, "resssssss");
-    return response;
-  }
-);
+
 /* ------------------ Send artist to favourite artist list ------------------ */
 export const favouriteArtist = createAsyncThunk(
   "favouriteArtist",
@@ -95,6 +88,17 @@ export const favouriteArtist = createAsyncThunk(
 /* -------------------------------------------------------------------------- */
 /*                                     PUT                                    */
 /* -------------------------------------------------------------------------- */
+/* -------------------------- add album to playlist ------------------------- */
+
+export const addAlbumToPlaylist = createAsyncThunk(
+  "addAlbumToPlaylist",
+
+  async (data) => {
+    const response = await apiService.put("/playlist/addAlbumToPlaylist", data);
+    console.log(response, "album was added to playlist ");
+    return response;
+  }
+);
 /* -------------------------------------------------------------------------- */
 /*                                 createSlice                                */
 /* -------------------------------------------------------------------------- */
@@ -157,24 +161,6 @@ export const contentSlice = createSlice({
         console.log("artist action", action);
       });
 
-    /* --------------------------- addAlbumToPlaylist --------------------------- */
-
-    builder
-      .addCase(addAlbumToPlaylist.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(addAlbumToPlaylist.fulfilled, (state, action) => {
-        state.status = "idle";
-        console.log("added album to playlist", action.payload);
-
-        // state.playlist.push(action.payload);
-      })
-      .addCase(addAlbumToPlaylist.rejected, (state, action) => {
-        state.status = "rejected";
-        state.error = action.error.message;
-        console.log("artist action", action);
-      });
-
     /* ---------------------- get similar genre of an album --------------------- */
 
     builder
@@ -219,7 +205,7 @@ export const contentSlice = createSlice({
       .addCase(getPlaylist.fulfilled, (state, action) => {
         state.status = "idle";
         console.log("added album to playlist", action.payload);
-
+        state.playlist = [];
         state.playlist.push(action.payload);
       })
       .addCase(getPlaylist.rejected, (state, action) => {
@@ -259,6 +245,34 @@ export const contentSlice = createSlice({
       .addCase(getFavouriteArtistList.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.error.message;
+        console.log("artist list action", action);
+      });
+
+    /* -------------------------------------------------------------------------- */
+    /*                                    post                                    */
+    /* -------------------------------------------------------------------------- */
+
+    /* -------------------------- add album to playlist ------------------------- */
+    builder
+      .addCase(addAlbumToPlaylist.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addAlbumToPlaylist.fulfilled, (state, action) => {
+        state.status = "idle";
+        console.log("addAlbumToPlaylist Successful", action.payload);
+        state.playlistStatus = "added album to playlist successfully";
+        
+        // state.playlist = [state.playlist, ...action.payload];
+        // state.playlist.map((e) => {
+        //   if (e._id === action.payload._id) {
+        //     e = action.payload;
+        //   }
+        // });
+      })
+      .addCase(addAlbumToPlaylist.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error.message;
+        state.playlistStatus = "added album to playlist failed";
         console.log("artist list action", action);
       });
   },

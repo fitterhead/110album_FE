@@ -7,11 +7,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getPlaylist } from "../content/contentSlice";
 import PlaylistItem from "../../components/item/PlaylistItem";
+import PlaylistContent from "../../components/item/PlaylistContent";
 
 function Playlist() {
   const dispatch = useDispatch();
   const [data, setData] = useState("");
-  const listAlbum = useSelector((state) => state.content.playlist);
+  const [render, setRender] = useState(0);
+  const listAlbum = useSelector(
+    (state) => state.content?.playlist[0]?.data?.data
+  );
 
   useEffect(() => {
     setData(dispatch(getPlaylist()));
@@ -35,10 +39,26 @@ function Playlist() {
             justifyContent: "flex-start",
           }}
         >
-          <Typography variant="h1">Playlist</Typography>
+          <Typography variant="h1">
+            {render !== 0 ? `${render}` : "Playlist"}
+          </Typography>
         </Box>
-        <ResultList data={listAlbum} />
+        {/* <ResultList data={listAlbum} setRender={setRender} /> */}
         {/* <PlaylistItem /> */}
+
+        {render === 0 ? (
+          <ResultList data={listAlbum} setRender={setRender} />
+        ) : (
+          listAlbum &&
+          listAlbum.map((singlePlaylist) => {
+            if (singlePlaylist.playlistName === render) {
+              return (
+                // <Typography variant="h1">{singlePlaylist.albumRef}</Typography>
+                <PlaylistContent data={singlePlaylist.albumRef} />
+              );
+            }
+          })
+        )}
       </Stack>
     </Container>
   );

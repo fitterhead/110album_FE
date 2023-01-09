@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { addAlbumToPlaylist } from "../../features/content/contentSlice";
 import { favouriteArtist } from "../../features/content/contentSlice";
 import CardMedia from "@mui/material/CardMedia";
+import BackendModal from "./BackendModel";
 
 function AlbumCover({ bio, type }) {
   console.log("bio", bio);
@@ -37,23 +38,8 @@ function AlbumCover({ bio, type }) {
         />
       </Card>
       <Box>
-        <Button
-          onClick={() => {
-            type === "album"
-              ? dispatch(addAlbumToPlaylist(bio))
-              : dispatch(favouriteArtist(bio));
-          }}
-          sx={{
-            // backgroundColor: "primary.main",
-            color: "primary.main",
-          }}
-        >
-          add to favourite
-        </Button>
+        <BackendModal />
       </Box>
-      {/* <Box sx={{ width: "100%", flexGrow:1 }}>
-        aa
-      </Box> */}
     </Stack>
   );
 }

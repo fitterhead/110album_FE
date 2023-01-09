@@ -4,8 +4,8 @@ import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 
-function ResultList({ data, setRender }) {
-  console.log("data playlist", data);
+function PlaylistContent({ data }) {
+  console.log("data playlist content", data);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
@@ -14,8 +14,9 @@ function ResultList({ data, setRender }) {
         justifyContent="space-evenly"
         alignItems="center"
       >
-        {data &&
+        {data[0] ? (
           data.map((singleData) => {
+            console.log("singleData", singleData);
             if (!singleData.isDeleted) {
               return (
                 <Grid key={Math.random()} item xs={6} md={3} padding={1}>
@@ -29,12 +30,11 @@ function ResultList({ data, setRender }) {
                           backgroundColor: "gray",
                         }}
                       >
-                        {/* <CardMedia
+                        <CardMedia
                           component="img"
                           height="100%"
                           image={`http://localhost:8000/static/image/${singleData.album}.jpg`}
-                        /> */}
-                        aaa
+                        />
                       </Card>
                       <Box sx={{ width: "100%" }}>
                         <Stack
@@ -44,16 +44,11 @@ function ResultList({ data, setRender }) {
                           spacing={0.5}
                           sx={{ padding: "0.5rem" }}
                         >
-                          <Typography
-                            onClick={() => {
-                              setRender(singleData.playlistName);
-                            }}
-                            variant="button"
-                          >
-                            {singleData.playlistName}
+                          <Typography variant="button">
+                            {singleData.artistName}
                           </Typography>
                           <Typography sx={{ textAlign: "center" }} variant="h1">
-                            {singleData.title}
+                            {singleData.album}
                           </Typography>
                           <Typography variant="button">rock</Typography>
                           <Typography variant="body1">1995</Typography>
@@ -64,10 +59,13 @@ function ResultList({ data, setRender }) {
                 </Grid>
               );
             }
-          })}
+          })
+        ) : (
+          <Typography variant="body2">no content yet</Typography>
+        )}
       </Grid>
     </Box>
   );
 }
 
-export default ResultList;
+export default PlaylistContent;
