@@ -31,15 +31,7 @@ function SingleAlbum({ album }) {
 
   return (
     <Grid item xs={6} md={4} padding={1}>
-      <Box
-        sx={
-          {
-            // marginTop: "0vh",
-            // minHeight: "30vh",
-            // marginBottom: "30px",
-          }
-        }
-      >
+      <Box sx={{}}>
         <Stack sx={{ height: "100%" }}>
           <Card
             sx={{
