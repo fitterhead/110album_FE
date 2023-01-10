@@ -28,7 +28,7 @@ function SearchPage() {
         maxWidth: "1344px",
         padding: "2rem",
         "@media screen and (max-width: 600px)": { padding: "0rem" },
-      }}
+      }}  
     >
       <Stack sx={{ bgcolor: "primary.main" }} spacing={2}>
         <Box

@@ -5,18 +5,27 @@ import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { getAlbumOfTheSameArtist } from "../../features/content/contentSlice";
+import { useNavigate } from "react-router-dom";
 
 function AlbumCollection({ artistId }) {
   const listAlbum = useSelector(
     (state) => state.content?.similarAlbums[0]?.data?.data
   );
-  console.log("genre", artistId);
-  console.log("listAlbum", listAlbum);
+  const navigate = useNavigate();
+  // console.log("genre", artistId);
+  // console.log("listAlbum", listAlbum);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAlbumOfTheSameArtist(artistId));
     console.log("artist Id data");
   }, [artistId]);
+  const handleArtistBio = (artistId) => {
+    navigate(`/artist/findArtistById/${artistId}`);
+  };
+
+  const handleAlbumInfo = (artistId) => {
+    navigate(`/album/findAlbumById/${artistId}`);
+  };
 
   return (
     <Box sx={{ overflow: "scroll" }}>
@@ -32,9 +41,12 @@ function AlbumCollection({ artistId }) {
         }}
       >
         {listAlbum &&
-          listAlbum.map((album,i) => {
+          listAlbum.map((album, i) => {
             return (
-              <Box key = {i} sx={{ height: "200px", width: "200px", key: Math.random() }}>
+              <Box
+                key={i}
+                sx={{ height: "200px", width: "200px", key: Math.random() }}
+              >
                 <Stack sx={{ height: "100%", position: "relative" }}>
                   <Card
                     sx={{
@@ -49,6 +61,7 @@ function AlbumCollection({ artistId }) {
                       component="img"
                       height="100%"
                       image={`http://localhost:8000/static/image/${album.album}.jpg`}
+                      onClick={() => handleAlbumInfo(`${album._id}`)}
                     />
                   </Card>
                   <Box
@@ -64,6 +77,7 @@ function AlbumCollection({ artistId }) {
                       <Typography
                         sx={{ textAlign: "center", color: "white" }}
                         variant="h1"
+                        onClick={() => handleAlbumInfo(`${album._id}`)}
                       >
                         {album.album}
                       </Typography>

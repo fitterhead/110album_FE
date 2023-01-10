@@ -1,14 +1,15 @@
+// import "./styles.css";
 import React from "react";
 import { Box, Card, Grid, Paper } from "@mui/material";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
+import Popover from "@mui/material/Popover";
 
 import { getContent } from "../../features/content/contentSlice";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-// import "./styles.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -24,10 +25,22 @@ function SingleAlbum({ album }) {
 
   const handleAlbumInfo = (artistId) => {
     navigate(`/album/findAlbumById/${artistId}`);
-    // dispatch(getContent({ query: artistId }));
   };
 
   // const [query, setQuery] = useState("");
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+    console.log("event.currentTarget", event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
     <Grid item xs={6} md={4} padding={1}>
@@ -40,11 +53,16 @@ function SingleAlbum({ album }) {
               flexGrow: 1,
               backgroundColor: "gray",
             }}
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
           >
             <CardMedia
               component="img"
               height="100%"
               image={`http://localhost:8000/static/image/${album.album}.jpg`}
+              // aria-owns={open ? "mouse-over-popover" : undefined}
+              // aria-haspopup="true"
+              onClick={() => handleAlbumInfo(`${album._id}`)}
             />
           </Card>
           <Box sx={{ width: "100%" }}>
@@ -63,7 +81,6 @@ function SingleAlbum({ album }) {
                 onClick={() => handleArtistBio(`${album.artistRef._id}`)}
                 variant="body2"
               >
-                {/* <Button onClick={() => setQuery("superman")}>test</Button> */}
                 {album.artistName}
               </Typography>
               <Typography
@@ -77,6 +94,28 @@ function SingleAlbum({ album }) {
                 {album.album}
               </Typography>
               {/* <Typography variant="body1">{album.ranking}</Typography> */}
+              <Popover
+                id="mouse-over-popover"
+                sx={{
+                  pointerEvents: "none",
+                  // width:"200px"
+                }}
+                open={open}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Typography sx={{ p: 1 }}>{album.album}</Typography>
+                <Typography sx={{ p: 1 }}>{album.releaseDate}</Typography>
+              </Popover>
             </Stack>
           </Box>
         </Stack>
@@ -86,3 +125,54 @@ function SingleAlbum({ album }) {
 }
 
 export default SingleAlbum;
+
+// import * as React from 'react';
+
+// export default function MouseOverPopover() {
+//   const [anchorEl, setAnchorEl] = React.useState(null);
+
+//   const handlePopoverOpen = (event) => {
+//     setAnchorEl(event.currentTarget);
+//   };
+
+//   const handlePopoverClose = () => {
+//     setAnchorEl(null);
+//   };
+
+//   const open = Boolean(anchorEl);
+
+//   return (
+//     <div>
+//       <Typography
+//         aria-owns={open ? 'mouse-over-popover' : undefined}
+//         aria-haspopup="true"
+//         onMouseEnter={handlePopoverOpen}
+//         onMouseLeave={handlePopoverClose}
+//       >
+//         Hover with a Popover.
+//       </Typography>
+{
+  /* <Popover
+  id="mouse-over-popover"
+  sx={{
+    pointerEvents: "none",
+  }}
+  open={open}
+  anchorEl={anchorEl}
+  anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "left",
+  }}
+  transformOrigin={{
+    vertical: "top",
+    horizontal: "left",
+  }}
+  onClose={handlePopoverClose}
+  disableRestoreFocus
+>
+  <Typography sx={{ p: 1 }}>I use Popover.</Typography>
+</Popover>; */
+}
+//     </div>
+//   );
+// }

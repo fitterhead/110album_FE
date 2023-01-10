@@ -22,18 +22,18 @@ function AccountPage() {
       value: "profile",
       component: <UserProfile />,
     },
-    {
-      value: "friends",
-      component: <FriendList />,
-    },
+    // {
+    //   value: "friends",
+    //   component: <FriendList />,
+    // },
     {
       value: "playlist",
       component: <Playlist />,
     },
-    {
-      value: "favourite artists",
-      component: <FavouriteArtist />,
-    },
+    // {
+    //   value: "favourite artists",
+    //   component: <FavouriteArtist />,
+    // },
   ];
 
   return (

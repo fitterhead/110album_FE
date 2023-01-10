@@ -5,18 +5,28 @@ import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { getAlbumWithSameGenre } from "../../features/content/contentSlice";
+import { useNavigate } from "react-router-dom";
 
 function ItemCarousel({ genre }) {
   const listAlbum = useSelector(
     (state) => state.content?.similarAlbums[0]?.data.data
   );
-  console.log("genre", genre);
-  console.log("listAlbum", listAlbum);
+  const navigate = useNavigate();
+  // console.log("genre", genre);
+  // console.log("listAlbum", listAlbum);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAlbumWithSameGenre(genre));
     console.log("runnnnnn");
   }, [genre]);
+
+  const handleArtistBio = (artistId) => {
+    navigate(`/artist/findArtistById/${artistId}`);
+  };
+
+  const handleAlbumInfo = (artistId) => {
+    navigate(`/album/findAlbumById/${artistId}`);
+  };
 
   return (
     <Box sx={{ overflow: "scroll" }}>
@@ -46,6 +56,7 @@ function ItemCarousel({ genre }) {
                     }}
                   >
                     <CardMedia
+                      onClick={() => handleAlbumInfo(`${album._id}`)}
                       component="img"
                       height="100%"
                       image={`http://localhost:8000/static/image/${album.album}.jpg`}
@@ -64,10 +75,15 @@ function ItemCarousel({ genre }) {
                       <Typography
                         sx={{ textAlign: "center", color: "white" }}
                         variant="h1"
+                        onClick={() => handleAlbumInfo(`${album._id}`)}
                       >
                         {album.album}
                       </Typography>
-                      <Typography sx={{ color: "white" }} variant="button">
+                      <Typography
+                        sx={{ color: "white" }}
+                        variant="button"
+                        onClick={() => handleArtistBio(`${album.artistRef}`)}
+                      >
                         {album.artistName}
                       </Typography>
                     </Stack>

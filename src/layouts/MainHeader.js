@@ -38,7 +38,7 @@ function MainHeader() {
 
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -46,7 +46,7 @@ function MainHeader() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             onClick={() => {
               navigate("/");
@@ -85,24 +85,6 @@ function MainHeader() {
               LOGIN
             </Button>
           )}
-
-          <Button
-            sx={{ fontSize: "16px" }}
-            variant="button"
-            // onClick={async () => {
-            //   const contents = await apiService.get("/albums");
-            //   console.log("contents", contents);
-
-            // dispatch(test());
-            // dispatch(getContent());
-            // console.log("clicked", dispatch(getContent("/albums")));
-            // }}
-            onClick={() => {
-              dispatch(getContent());
-            }}
-          >
-            {/* get Data */}
-          </Button>
         </Toolbar>
       </AppBar>
     </Box>
