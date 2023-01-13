@@ -90,7 +90,7 @@ function MainHeader() {
           <Button
             sx={{ fontSize: "16px" }}
             variant="button"
-            onClick={() => toggleTheme.toggleThemeFunction()}
+            onClick={async () => toggleTheme.toggleThemeFunction()}
           >
             TOGGLE THEME
           </Button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   alpha,
   createTheme,
@@ -114,27 +114,42 @@ const TYPOGRAPHY = {
 
 function ThemeProvider({ children }) {
   const toggleTheme = useContext(ThemeColorContext);
-  const { themeMode } = toggleTheme;
+  const { darkMode } = toggleTheme;
+  const [theme, setTheme] = useState({});
+  // const [option, setOption] = useState(1);
+
+  console.log("darkMode", darkMode);
+  console.log("theme", theme);
 
   useEffect(() => {
-    console.log("toggleThemeinitialThemeState22222222", themeMode);
-  }, [themeMode]);
+    toggleOption();
+  }, [darkMode]);
 
-  // themeOptions is a function receive state.
-  const themeOptions = {
-    palette: {
-      primary: PRIMARY,
-      secondary: SECONDARY,
-    },
-    typography: TYPOGRAPHY,
+  const toggleOption = async () => {
+    if (darkMode) {
+      setTheme({
+        palette: {
+          primary: PRIMARY,
+          secondary: SECONDARY,
+        },
+        typography: TYPOGRAPHY,
+      });
+    } else {
+      setTheme({
+        palette: {
+          primary: SECONDARY,
+          secondary: SECONDARY,
+        },
+        typography: TYPOGRAPHY,
+      });
+    }
   };
 
-  const theme = createTheme(themeOptions);
-
+  const mainTheme = createTheme(theme);
   // theme.components = customizeComponents(theme);
 
   return (
-    <MUIThemeProvider theme={theme}>
+    <MUIThemeProvider theme={mainTheme}>
       <CssBaseline />
       {children}
     </MUIThemeProvider>
