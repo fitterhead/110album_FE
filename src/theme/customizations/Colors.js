@@ -3,6 +3,7 @@ import React from "react";
 function Colors() {
   return {
     primary: { main: "#9B3D12" },
+    // pallete: { primary: { main: "#9B3D12" } },
   };
 }
 

@@ -11,16 +11,18 @@ import LoginModal from "../components/item/LoginModal";
 import { getContent } from "../features/content/contentSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { useContext } from "react";
+import { ThemeColorContext } from "../contexts/ThemeContext";
 function MainHeader() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [themeColor, setThemeColor] = React.useState("light");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useAuth();
   const auth = useAuth();
-
+  const toggleTheme = useContext(ThemeColorContext);
   return (
     <Box
     // sx={{ flexGrow: 1 }}
@@ -85,6 +87,13 @@ function MainHeader() {
               LOGIN
             </Button>
           )}
+          <Button
+            sx={{ fontSize: "16px" }}
+            variant="button"
+            onClick={() => toggleTheme.toggleThemeFunction()}
+          >
+            TOGGLE THEME
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

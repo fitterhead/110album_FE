@@ -5,8 +5,9 @@ import {
   CssBaseline,
   ThemeProvider as MUIThemeProvider,
 } from "@mui/material";
-
-// import customizeComponents from "./customizations";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { ThemeColorContext } from "../contexts/ThemeContext";
 
 const PRIMARY = {
   main: "#5DDF2A",
@@ -112,6 +113,14 @@ const TYPOGRAPHY = {
 };
 
 function ThemeProvider({ children }) {
+  const toggleTheme = useContext(ThemeColorContext);
+  const { themeMode } = toggleTheme;
+
+  useEffect(() => {
+    console.log("toggleThemeinitialThemeState22222222", themeMode);
+  }, [themeMode]);
+
+  // themeOptions is a function receive state.
   const themeOptions = {
     palette: {
       primary: PRIMARY,
@@ -119,9 +128,10 @@ function ThemeProvider({ children }) {
     },
     typography: TYPOGRAPHY,
   };
+
   const theme = createTheme(themeOptions);
 
-  //   theme.palette = customizeComponents(theme);
+  // theme.components = customizeComponents(theme);
 
   return (
     <MUIThemeProvider theme={theme}>

@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 import { getPlaylist } from "../content/contentSlice";
 import PlaylistItem from "../../components/item/PlaylistItem";
 import PlaylistContent from "../../components/item/PlaylistContent";
+import { useNavigate } from "react-router-dom";
 
 function Playlist() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState("");
   const [render, setRender] = useState(0);

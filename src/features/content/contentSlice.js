@@ -20,9 +20,15 @@ const initialState = {
 /* ------------------------------ get all album ----------------------------- */
 export const getContent = createAsyncThunk(
   "content",
-  async ({ limit, page, filter }) => {
+  async ({ limit, page, filter, filterName, input }) => {
+    console.log("filterName", filterName);
+    console.log("inputtt", input);
     let url = `/album?page=${page}&limit=${limit}`;
     if (filter) url += `&filter=${filter}`;
+    if (filterName) url += `&filterName=${filterName}`;
+    if (input) url += `&input=${input}`;
+
+    // if (filterName&& input) url +=`&filter=${filter}`
     const response = await apiService.get(url);
     console.log(response, "aaaaaa");
     return response;
@@ -261,7 +267,7 @@ export const contentSlice = createSlice({
         state.status = "idle";
         console.log("addAlbumToPlaylist Successful", action.payload);
         state.playlistStatus = "added album to playlist successfully";
-        
+
         // state.playlist = [state.playlist, ...action.payload];
         // state.playlist.map((e) => {
         //   if (e._id === action.payload._id) {

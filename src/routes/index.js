@@ -13,14 +13,15 @@ import AlbumPage from "../pages/AlbumPage";
 import SearchPage from "../pages/SearchPage";
 import PlaylistItem from "../components/item/PlaylistItem";
 import AuthRequired from "./AuthRequired";
-import PlaylistContent from "../pages/PlaylistContent";
+import PlaylistContent from "../components/item/PlaylistContent";
 function Router() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Homepage />} />
-        <Route path="account" element={<AccountPage />} />
-
+        <Route path="account" element={<AccountPage />}>
+          <Route path=":id" element={<PlaylistContent />} />
+        </Route>
         <Route
           path="album/findAlbumById/:id"
           element={

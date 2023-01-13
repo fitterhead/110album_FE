@@ -12,7 +12,7 @@ function PlaylistContent({ data }) {
         container
         direction="row"
         justifyContent="space-evenly"
-        alignItems="center"
+        alignItems="flex-start"
       >
         {data[0] ? (
           data.map((singleData) => {

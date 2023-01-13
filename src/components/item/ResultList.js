@@ -3,16 +3,18 @@ import { Box, Card, Grid, Paper } from "@mui/material";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
+import { useNavigate } from "react-router-dom";
 
 function ResultList({ data, setRender }) {
   console.log("data playlist", data);
+  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
         container
         direction="row"
         justifyContent="space-evenly"
-        alignItems="center"
+        alignItems="flex-start"
       >
         {data &&
           data.map((singleData) => {
@@ -47,6 +49,7 @@ function ResultList({ data, setRender }) {
                           <Typography
                             onClick={() => {
                               setRender(singleData.playlistName);
+                              navigate(`/account/${singleData._id}`);
                             }}
                             variant="button"
                           >
