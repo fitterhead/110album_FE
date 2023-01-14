@@ -36,11 +36,12 @@ const reducer = (state, action) => {
         user: null,
       };
     case INITIALIZE:
-      const { isAuthenticated, user } = action.payload;
+      const { isAuthenticated, user, isInitialized } = action.payload;
+      // console.log("INITIALIZE RUNNING");
       return {
         ...state,
         isAuthenticated,
-        isInitialized: true,
+        isInitialized,
         user,
       };
     default:
@@ -82,17 +83,22 @@ function AuthProvider({ children }) {
             //2.4. sau khi co dc data, dispatch () de luu data do vao state
             dispatch({
               type: INITIALIZE,
-              payload: { isAuthenticated: true, user },
+              payload: { isInitialized: true, isAuthenticated: true, user },
+            });
+          } else {
+            setSession(null);
+            dispatch({
+              type: INITIALIZE,
+              payload: {
+                isInitialized: true,
+                isAuthenticated: false,
+                user: null,
+              },
             });
           }
         } catch (error) {
           // neu ko co token, session  = null va dispatch voi authenticated = false
-          setSession(null);
           console.log(error);
-          dispatch({
-            type: INITIALIZE,
-            payload: { isAuthenticated: false, user: null },
-          });
         }
       };
 
@@ -118,11 +124,15 @@ function AuthProvider({ children }) {
     });
 
     callback();
-  }; 
+  };
 
-  const register = async ({ name, email, password }, callback) => {
-    const response = await apiService.post("/users", { name, email, password });
-    const { user, accessToken } = response.data;
+  const register = async ({ username, email, password }, callback) => {
+    const response = await apiService.post("/user", {
+      username,
+      email,
+      password,
+    });
+    const { user, accessToken } = response.data.data;
 
     setSession(accessToken);
 

@@ -21,29 +21,29 @@ import useAuth from "../../hooks/useAuth";
 import { LoadingButton } from "@mui/lab";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
+import Container from "@mui/material/Container";
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  // position: "absolute",
+  // top: "50%",
+  // left: "50%",
+  // transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "#F2F2F2",
   borderRadius: "1rem",
-  boxShadow: 24,
+  // boxShadow: 24,
   p: 4,
   "@media screen and (max-width: 600px)": { width: "95vw" },
+  // "@media screen and (min-width: 400px)": { width: "95vw" },
 };
 
 const defaultValues = {
-  name: "",
+  username: "",
   email: "",
   password: "",
   passwordConfirmation: "",
 };
 
 const RegisterSchema = Yup.object().shape({
-  name: Yup.string().required("name is required"),
+  username: Yup.string().required("username is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().required("Password is required"),
   passwordConfirmation: Yup.string()
@@ -51,7 +51,9 @@ const RegisterSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Password must match"),
 });
 
-function RegisterModal({ handleClose, open }) {
+function RegisterModal(
+  // { handleClose, open }
+  ) {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
@@ -73,9 +75,9 @@ function RegisterModal({ handleClose, open }) {
 
   const onSubmit = async (data) => {
     // const from = location.state?.from?.pathname || "/";
-    let { name, email, password } = data;
+    let { username, email, password } = data;
     try {
-      await auth.register({ name, email, password }, () => {
+      await auth.register({ username, email, password }, () => {
         navigate("/", { replace: true });
       });
     } catch (error) {
@@ -85,131 +87,135 @@ function RegisterModal({ handleClose, open }) {
   };
 
   return (
-    <Card>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <Stack
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={2}
-            >
-              <Typography variant="h7">Register</Typography>
-              {!!errors.responseError && (
-                <Alert severity="error">{errors.responseError.message}</Alert>
-              )}
-              <FTextField
-                name="name"
-                // fullWidth
-                sx={{ backgroundColor: "white" }}
-                InputProps={{
-                  style: {
-                    fontFamily: "Poppins",
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    fontSize: "23px",
-                    lineHeight: "120%",
-                    color: "#BDBDBD",
-                  },
-                }} // font size of input label
-              />
-              <FTextField
-                name="email"
-                // fullWidth
-                sx={{ backgroundColor: "white" }}
-                InputProps={{
-                  style: {
-                    fontFamily: "Poppins",
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    fontSize: "23px",
-                    lineHeight: "120%",
-                    color: "#BDBDBD",
-                  },
-                }} // font size of input label
-              />
-              <FTextField
-                // fullWidth
-                name="password"
-                type={showPassword ? "text" : "password"}
-                sx={{ backgroundColor: "white" }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? (
-                          <VisibilityIcon />
-                        ) : (
-                          <VisibilityOffIcon />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                  style: {
-                    fontFamily: "Poppins",
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    fontSize: "23px",
-                    lineHeight: "100%",
-                    color: "#BDBDBD",
-                  },
-                }} // font size of input label
-              />
-              <FTextField
-                // fullWidth
-                name="passwordConfirmation"
-                type={showPasswordConfirmation ? "text" : "password"}
-                sx={{ backgroundColor: "white" }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() =>
-                          setShowPasswordConfirmation(!showPasswordConfirmation)
-                        }
-                        edge="end"
-                      >
-                        {showPassword ? (
-                          <VisibilityIcon />
-                        ) : (
-                          <VisibilityOffIcon />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                  style: {
-                    fontFamily: "Poppins",
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    fontSize: "23px",
-                    lineHeight: "100%",
-                    color: "#BDBDBD",
-                  },
-                }} // font size of input label
-              />
+    // <Modal
+    //   open={open}
+    //   onClose={handleClose}
+    //   aria-labelledby="modal-modal-title"
+    //   aria-describedby="modal-modal-description"
+    // >
+    <Container maxWidth="sm" sx={{ width: "auto" }}>
+      <Box sx={style}>
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Typography variant="h7">Register</Typography>
+            {!!errors.responseError && (
+              <Alert severity="error">{errors.responseError.message}</Alert>
+            )}
+            <FTextField
+              name="username"
+              // label="username"
+              // fullWidth
+              sx={{ backgroundColor: "white" }}
+              InputProps={{
+                style: {
+                  fontFamily: "Poppins",
+                  fontStyle: "normal",
+                  fontWeight: 600,
+                  fontSize: "23px",
+                  lineHeight: "120%",
+                  color: "#BDBDBD",
+                },
+              }} // font size of input label
+            />
+            <FTextField
+              name="email"
+              // label="email"
+              // fullWidth
+              sx={{ backgroundColor: "white" }}
+              InputProps={{
+                style: {
+                  fontFamily: "Poppins",
+                  fontStyle: "normal",
+                  fontWeight: 600,
+                  fontSize: "23px",
+                  lineHeight: "120%",
+                  color: "#BDBDBD",
+                },
+              }} // font size of input label
+            />
+            <FTextField
+              // fullWidth
+              name="password"
+              // label="password"
+              type={showPassword ? "text" : "password"}
+              sx={{ backgroundColor: "white" }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                style: {
+                  fontFamily: "Poppins",
+                  fontStyle: "normal",
+                  fontWeight: 600,
+                  fontSize: "23px",
+                  lineHeight: "100%",
+                  color: "#BDBDBD",
+                },
+              }} // font size of input label
+            />
+            <FTextField
+              // fullWidth
+              // label="confirm password"
+              name="passwordConfirmation"
+              type={showPasswordConfirmation ? "text" : "password"}
+              sx={{ backgroundColor: "white" }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        setShowPasswordConfirmation(!showPasswordConfirmation)
+                      }
+                      edge="end"
+                    >
+                      {showPassword ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                style: {
+                  fontFamily: "Poppins",
+                  fontStyle: "normal",
+                  fontWeight: 600,
+                  fontSize: "23px",
+                  lineHeight: "100%",
+                  color: "#BDBDBD",
+                },
+              }} // font size of input label
+            />
 
-              <Box
-                sx={{
-                  width: "100%",
-                  "& .MuiFormControlLabel-label": {
-                    fontFamily: "Poppins",
-                    fontStyle: "normal",
-                    fontWeight: 700,
-                    fontSize: "11px",
-                    lineHeight: "120%",
-                  },
-                }}
-              >
-                {/* <FormGroup>
+            <Box
+              sx={{
+                width: "100%",
+                "& .MuiFormUncontrolLabel-label": {
+                  fontFamily: "Poppins",
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "11px",
+                  lineHeight: "120%",
+                },
+              }}
+            >
+              {/* <FormGroup>
                   <FormControlLabel
                     control={
                       <FCheckbox
@@ -226,45 +232,45 @@ function RegisterModal({ handleClose, open }) {
                     label="save password"
                   />
                 </FormGroup> */}
-              </Box>
+            </Box>
 
-              <Box sx={{ width: "100%", backgroundColor: "primary.main" }}>
-                <LoadingButton
-                  type="submit"
-                  loading={isSubmitting}
-                  fullWidth
-                  sx={{ height: "50px", color: "white" }}
-                >
-                  Register
-                </LoadingButton>
-              </Box>
+            <Box sx={{ width: "100%", backgroundColor: "primary.main" }}>
+              <LoadingButton
+                type="submit"
+                loading={isSubmitting}
+                fullWidth
+                sx={{ height: "50px", color: "white" }}
+              >
+                Register
+              </LoadingButton>
+            </Box>
 
-              <Box sx={{ width: "100%" }}>
-                <Stack
-                  direction="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  spacing={1}
-                >
-                  <Link component={RouterLink}>
-                    <Typography variant="button" to="/login">
-                      Sign in
-                    </Typography>
-                  </Link>
-                </Stack>
-              </Box>
-              {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Box sx={{ width: "100%" }}>
+              <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={1}
+              >
+                <Link component={RouterLink}>
+                  <Typography variant="button" to="/login">
+                    Sign in
+                  </Typography>
+                </Link>
+              </Stack>
+            </Box>
+            {/* <Typography id="modal-modal-title" variant="h6" component="h2">
                   Text in a modal
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   Duis mollis, est non commodo luctus, nisi erat porttitor
                   ligula.
                 </Typography> */}
-            </Stack>
-          </FormProvider>
-        </Box>
-      </Modal>
-    </Card>
+          </Stack>
+        </FormProvider>
+      </Box>
+    </Container>
+    //   </Modal>
   );
 }
 

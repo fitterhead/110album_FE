@@ -25,7 +25,7 @@ const TYPOGRAPHY = {
     fontFamily: "EB Garamond",
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: "8px",
+    fontSize: "10px",
     lineHeight: "120%",
     // letterSpacing:
   },
@@ -33,8 +33,8 @@ const TYPOGRAPHY = {
     fontFamily: "EB Garamond",
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: "11px",
-    lineHeight: "120%",
+    fontSize: "13px",
+    lineHeight: "110%",
     // letterSpacing:
   },
   body3: {
@@ -57,7 +57,7 @@ const TYPOGRAPHY = {
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: 700,
-    fontSize: "11px",
+    fontSize: "13px",
     lineHeight: "120%",
     // letterSpacing:
   },

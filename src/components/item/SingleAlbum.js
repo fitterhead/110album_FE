@@ -76,13 +76,7 @@ function SingleAlbum({ album }) {
               <Typography sx={{ paddingBottom: "0.2rem" }} variant="body1">
                 {album.ranking}
               </Typography>
-              <Typography
-                sx={{ paddingBottom: "0.2rem" }}
-                onClick={() => handleArtistBio(`${album.artistRef._id}`)}
-                variant="body2"
-              >
-                {album.artistName}
-              </Typography>
+
               <Typography
                 // sx ={{padding:"2rem"}}
                 sx={{
@@ -92,6 +86,14 @@ function SingleAlbum({ album }) {
                 variant="button"
               >
                 {album.album}
+              </Typography>
+
+              <Typography
+                sx={{ paddingBottom: "0.2rem" }}
+                onClick={() => handleArtistBio(`${album.artistRef._id}`)}
+                variant="body2"
+              >
+                {album.artistName}
               </Typography>
               {/* <Typography variant="body1">{album.ranking}</Typography> */}
               <Popover

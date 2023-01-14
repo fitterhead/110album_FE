@@ -15,6 +15,7 @@ import FTextField from "../form/FTextField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import RegisterPage from "../../pages/RegisterPage";
 import {
   useNavigate,
   useLocation,
@@ -196,12 +197,27 @@ function LoginModal({ handleClose, open }) {
                   alignItems="center"
                   spacing={1}
                 >
-                  <Link component={RouterLink}>
+                  {/* <Link component={RouterLink}>
                     <Typography variant="button">Forgot Password?</Typography>
-                  </Link>
-                  <Link component={RouterLink}>
-                    <Typography variant="button">Create New Account</Typography>
-                  </Link>
+                  </Link> */}
+                  {/* <Link component={RouterLink}>
+                    <Typography
+                      variant="button"
+                      onClick={() => navigate("/register")}
+                    >
+                      Create New Account
+                    </Typography>
+                  </Link> */}
+                  <Button
+                    onClick={() => {
+                      navigate("/register");
+                      handleClose();
+                    }}
+                  >
+                    <Typography variant="" sx={{ color: "black" }}>
+                      Create New Account
+                    </Typography>
+                  </Button>
                 </Stack>
               </Box>
               {/* <Typography id="modal-modal-title" variant="h6" component="h2">

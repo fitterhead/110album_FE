@@ -28,14 +28,14 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const style = {
-  //   position: "absolute",
-  //   top: "50%",
-  //   left: "50%",
-  //   transform: "translate(-50%, -50%)",
-  //   width: 400,
+    // position: "absolute",
+    // top: "50%",
+    // left: "50%",
+    // transform: "translate(-50%, -50%)",
+    // width: 400,
   bgcolor: "#F2F2F2",
-  //   borderRadius: "1rem",
-  //   boxShadow: 24,
+    // borderRadius: "1rem",
+    // boxShadow: 24,
   p: 4,
   "@media screen and (max-width: 600px)": { width: "95vw" },
 };

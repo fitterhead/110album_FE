@@ -14,6 +14,8 @@ import SearchPage from "../pages/SearchPage";
 import PlaylistItem from "../components/item/PlaylistItem";
 import AuthRequired from "./AuthRequired";
 import PlaylistContent from "../components/item/PlaylistContent";
+import RegisterModal from "../components/item/RegisterModal";
+
 function Router() {
   return (
     <Routes>
@@ -36,7 +38,8 @@ function Router() {
         <Route path="search" element={<SearchPage />} />
         {/* <Route path="/PlaylistContent" element={<PlaylistContent />} /> */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        {/* <Route path="/register" element={<RegisterPage />} /> */}
+        <Route path="/register" element={<RegisterModal />} />
       </Route>
 
       <Route element={<BlankLayout />}>
