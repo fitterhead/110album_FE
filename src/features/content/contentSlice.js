@@ -12,6 +12,7 @@ const initialState = {
   playlist: [],
   favouriteArtist: [],
   similarAlbums: [],
+  cart: [],
 };
 
 /* -------------------------------------------------------------------------- */
@@ -102,6 +103,18 @@ export const addAlbumToPlaylist = createAsyncThunk(
   async (data) => {
     const response = await apiService.put("/playlist/addAlbumToPlaylist", data);
     console.log(response, "album was added to playlist ");
+    return response;
+  }
+);
+
+/* ---------------------------- add album to cart --------------------------- */
+
+export const addAlbumToCart = createAsyncThunk(
+  "addAlbumToCart",
+
+  async (data) => {
+    const response = await apiService.put("/cart/addAlbumToCart", data);
+    console.log(response, "album was added to Cart ");
     return response;
   }
 );
@@ -280,6 +293,25 @@ export const contentSlice = createSlice({
         state.error = action.error.message;
         state.playlistStatus = "added album to playlist failed";
         console.log("artist list action", action);
+      });
+
+
+      /* ---------------------------- add album to cart --------------------------- */
+
+      builder
+      .addCase(addAlbumToCart.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addAlbumToCart.fulfilled, (state, action) => {
+        state.status = "idle";
+        console.log("added album to cart", action.payload);
+        state.cart = [];
+        state.cart.push(action.payload);
+      })
+      .addCase(addAlbumToCart.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error.message;
+        console.log("artist action", action);
       });
   },
 });

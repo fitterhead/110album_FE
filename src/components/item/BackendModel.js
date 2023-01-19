@@ -10,8 +10,12 @@ import Select from "@mui/material/Select";
 import { ListItemText } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getPlaylist } from "../../features/content/contentSlice";
+import {
+  addAlbumToCart,
+  getPlaylist,
+} from "../../features/content/contentSlice";
 import { addAlbumToPlaylist } from "../../features/content/contentSlice";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -63,6 +67,19 @@ export default function BackendModal() {
     handleOpen();
   };
 
+  const sendAlbumToCart = (e) => {
+    let data = {
+      albumId: selectedAlbum._id,
+      description: selectedAlbum.album,
+      price: 19,
+    };
+
+    // console.log("data send to playlist update", data);
+    dispatch(addAlbumToCart(data));
+
+    // handleOpen();
+  };
+
   //   const sendMessage = () ={
 
   // }
@@ -72,6 +89,7 @@ export default function BackendModal() {
   return (
     <div>
       <Button onClick={handleOpen}>Add to favourite</Button>
+      <Button onClick={sendAlbumToCart}>Add to Cart</Button>
       <Modal
         open={backendOpen}
         onClose={handleClose}
