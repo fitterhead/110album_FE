@@ -113,8 +113,8 @@ export const addAlbumToCart = createAsyncThunk(
   "addAlbumToCart",
 
   async (data) => {
-    const response = await apiService.put("/cart/addAlbumToCart", data);
-    console.log(response, "album was added to Cart ");
+    const response = await apiService.post("/order", data);
+    console.log(response, "album was added to order ");
     return response;
   }
 );
@@ -295,10 +295,9 @@ export const contentSlice = createSlice({
         console.log("artist list action", action);
       });
 
+    /* ---------------------------- add album to cart --------------------------- */
 
-      /* ---------------------------- add album to cart --------------------------- */
-
-      builder
+    builder
       .addCase(addAlbumToCart.pending, (state) => {
         state.status = "loading";
       })

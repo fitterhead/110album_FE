@@ -1,32 +1,39 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useState } from "react";
+import { addAlbumToCart } from "../../features/content/contentSlice";
 
 const PaypalCheckoutButton = (props) => {
   const { product } = props;
 
-  const [paidFor, setPaidFor] = useState(false);
+  // const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleApprove = (orderId) => {
-    // call backend function to fulfill the order
+  const handleApprove = () =>
+    // orderId
+    {
+      // call backend function to fulfill the order
+      let data = {};
+      data = {
+        orderStatus: "finished",
+        product: [props.product],
+      };
+      // if resonse is success
+      addAlbumToCart(data);
+      // setPaidFor(true);
+      //refresh useraccount or subscription status
 
-    // if resonse is success
+      // if response is error
+      //alet()
+    };
 
-    setPaidFor(true);
-    //refresh useraccount or subscription status
+  // if (paidFor) {
+  //display success message, modal, or redirect success page
 
-    // if response is error
-    //alet()
-  };
-
-  if (paidFor) {
-    //display success message, modal, or redirect success page
-
-    alert("thank you for purchase");
-  }
+  //   alert("thank you for purchase");
+  // }
 
   if (error) {
-    //display error messsage, modal or redirect error page}
+    // display error messsage, modal or redirect error page}
 
     alert(error);
   }
@@ -50,7 +57,8 @@ const PaypalCheckoutButton = (props) => {
         const order = await actions.order.capture();
         console.log("order", order);
 
-        handleApprove(data.orderId);
+        handleApprove();
+        // data.orderId
       }}
       onError={(err) => {
         setError(err);
