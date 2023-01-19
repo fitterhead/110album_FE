@@ -6,6 +6,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ThemeColorProvider } from "./contexts/ThemeContext";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { CLIENT_ID } from "./app/config";
+import { CartProvider } from "./contexts/CartContext";
 
 function App() {
   return (
@@ -18,11 +19,13 @@ function App() {
     >
       <AuthProvider>
         <BrowserRouter>
-          <ThemeColorProvider>
-            <ThemeProvider>
-              <Router />
-            </ThemeProvider>
-          </ThemeColorProvider>
+          <CartProvider>
+            <ThemeColorProvider>
+              <ThemeProvider>
+                <Router />
+              </ThemeProvider>
+            </ThemeColorProvider>
+          </CartProvider>
         </BrowserRouter>
       </AuthProvider>
     </PayPalScriptProvider>

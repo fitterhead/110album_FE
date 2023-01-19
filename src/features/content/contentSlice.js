@@ -304,7 +304,7 @@ export const contentSlice = createSlice({
       .addCase(addAlbumToCart.fulfilled, (state, action) => {
         state.status = "idle";
         console.log("added album to cart", action.payload);
-        state.cart = [];
+        // state.cart = [];
         state.cart.push(action.payload);
       })
       .addCase(addAlbumToCart.rejected, (state, action) => {

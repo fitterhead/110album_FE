@@ -1,7 +1,11 @@
 import React from "react";
 import { Box } from "@mui/system";
 import PaypalCheckoutButton from "../components/item/PaypalCheckoutButton";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 function PaymentPage() {
+  const checkoutCart = useSelector((state) => state.content.contents);
   /* --------------------------- define mock product -------------------------- */
   const product = {
     description: "OK computer",
@@ -11,7 +15,10 @@ function PaymentPage() {
   return (
     <div>
       <div className="paypal-button-container">
-        <PaypalCheckoutButton product={product} />
+        <PaypalCheckoutButton
+          // onClick={() => console.log("checkoutCart", checkoutCart)}
+          product={product}
+        />
       </div>
     </div>
   );

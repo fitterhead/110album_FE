@@ -1,32 +1,39 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useState } from "react";
 import { addAlbumToCart } from "../../features/content/contentSlice";
-
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const PaypalCheckoutButton = (props) => {
   const { product } = props;
-
+  const dispatch = useDispatch();
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
+  // const checkoutCart = useSelector((state) => state.content.contents);
+
+  const handlePaidFor = () => {
+    alert("handlePayFor");
+    setPaidFor(true);
+  };
 
   const handleApprove = (orderId) => {
     // call backend function to fulfill the order
-    // let data = {};
-    // data = {
-    //   orderStatus: "finished",
-    //   product: [props.product],
-    // };
+
+    const data = {
+      orderStatus: "finished",
+      product: [props.product],
+    };
     // if resonse is success
-    // addAlbumToCart(data);
-    setPaidFor(true);
+    dispatch(addAlbumToCart(data));
+    handlePaidFor();
+
     //refresh useraccount or subscription status
 
     // if response is error
     //alet()
   };
-
   if (paidFor) {
     // display success message, modal, or redirect success page
-
+    // console.log("checkoutCart", checkoutCart);
     alert("thank you for purchase");
   }
 
@@ -35,6 +42,7 @@ const PaypalCheckoutButton = (props) => {
 
     alert(error);
   }
+
   return (
     <PayPalButtons
       // style={{
@@ -44,6 +52,7 @@ const PaypalCheckoutButton = (props) => {
       //   tagline: false,
       //   shape: "pill",
       // }}
+
       createOrder={(data, actions) => {
         return actions.order.create({
           purchase_units: [
