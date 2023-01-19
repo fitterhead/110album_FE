@@ -10,6 +10,7 @@ import Select from "@mui/material/Select";
 import { ListItemText } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import useCart from "../../hooks/useCart";
 
 import {
   addAlbumToCart,
@@ -31,7 +32,7 @@ const style = {
 
 export default function BackendModal() {
   const [backendOpen, setBackendOpen] = React.useState(false);
-  //   const [playlistStatus, setPlaylistStatus] = useState()
+  const cartFunction = useCart();
   const handleOpen = () => {
     setBackendOpen(true);
   };
@@ -68,17 +69,19 @@ export default function BackendModal() {
     handleOpen();
   };
 
-  const sendAlbumToCart = (e) => {
-    let data = {
+  const sendAlbumToCart = async (e) => {
+    const data = {
       albumId: selectedAlbum._id,
       description: selectedAlbum.album,
       price: 19,
     };
+    try {
+      console.log("useContext worked", cartFunction.items);
 
-    // console.log("data send to playlist update", data);
-    dispatch(addAlbumToCart(data));
-
-    // handleOpen();
+      await cartFunction.addToCart(data);
+    } catch (error) {
+      console.log(error, "cart Errorrrrrr");
+    }
   };
 
   //   const sendMessage = () ={

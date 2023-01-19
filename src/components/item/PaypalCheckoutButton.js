@@ -4,7 +4,9 @@ import { addAlbumToCart } from "../../features/content/contentSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 const PaypalCheckoutButton = (props) => {
-  const { product } = props;
+  // const { product } = props;
+
+  console.log("prop", props);
   const dispatch = useDispatch();
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
@@ -55,12 +57,96 @@ const PaypalCheckoutButton = (props) => {
 
       createOrder={(data, actions) => {
         return actions.order.create({
+          /* --------------------------------- example -------------------------------- */
           purchase_units: [
             {
-              description: product.description,
-              amount: { value: product.price },
+              reference_id: "PUHF",
+              description: "Sporting Goods",
+
+              custom_id: "CUST-HighFashions",
+              soft_descriptor: "HighFashions",
+              amount: {
+                currency_code: "USD",
+                value: "230.00",
+                breakdown: {
+                  item_total: {
+                    currency_code: "USD",
+                    value: "180.00",
+                  },
+                  shipping: {
+                    currency_code: "USD",
+                    value: "30.00",
+                  },
+                  handling: {
+                    currency_code: "USD",
+                    value: "10.00",
+                  },
+                  tax_total: {
+                    currency_code: "USD",
+                    value: "20.00",
+                  },
+                  shipping_discount: {
+                    currency_code: "USD",
+                    value: "10",
+                  },
+                },
+              },
+              items: [
+                {
+                  name: "T-Shirt",
+                  description: "Green XL",
+                  sku: "sku01",
+                  unit_amount: {
+                    currency_code: "USD",
+                    value: "90.00",
+                  },
+                  tax: {
+                    currency_code: "USD",
+                    value: "10.00",
+                  },
+                  quantity: "1",
+                  category: "PHYSICAL_GOODS",
+                },
+                {
+                  name: "Shoes",
+                  description: "Running, Size 10.5",
+                  sku: "sku02",
+                  unit_amount: {
+                    currency_code: "USD",
+                    value: "45.00",
+                  },
+                  tax: {
+                    currency_code: "USD",
+                    value: "5.00",
+                  },
+                  quantity: "2",
+                  category: "PHYSICAL_GOODS",
+                },
+              ],
+              shipping: {
+                method: "United States Postal Service",
+                address: {
+                  name: {
+                    full_name: "John",
+                    surname: "Doe",
+                  },
+                  address_line_1: "123 Townsend St",
+                  address_line_2: "Floor 6",
+                  admin_area_2: "San Francisco",
+                  admin_area_1: "CA",
+                  postal_code: "94107",
+                  country_code: "US",
+                },
+              },
             },
           ],
+          /* --------------------------------- example -------------------------------- */
+          // purchase_units: [
+          //   {
+          //     description: product.description,
+          //     amount: { value: product.price },
+          //   },
+          // ],
         });
       }}
       onApprove={async (data, actions) => {

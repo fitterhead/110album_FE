@@ -1,8 +1,10 @@
 import React, { createContext, useReducer } from "react";
+import { useEffect } from "react";
+
+const previousState = JSON.parse(window.localStorage.getItem("cartItem"));
 
 const initialCartState = {
-  items: [],
-  totalPrice: 0,
+  items: previousState.items || [],
 };
 
 const ADD_TO_CART = "THEME.ADD_TO_CART";
@@ -13,6 +15,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         items: [...state.items, action.payload],
+        // items: state.items.push(action.payload),
       };
 
     default:
@@ -22,10 +25,60 @@ const reducer = (state, action) => {
 
 const CartContext = createContext({ ...initialCartState });
 
+// const setSession = (cartItem) => {
+//   if (!cartItem) {
+//     window.localStorage.setItem("cartItem", cartItem);
+//   } else {
+//     window.localStorage.removeItem("cartItem");
+//   }
+// };
+
 function CartProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialCartState);
 
-  const addToCart = async ({ album }) => {
+  //   useEffect(() => {
+  //     const initialize = async () => {
+  //       try {
+  //         console.log("initialize running");
+  //         // 1.lay accessToken tu localStorage
+  //         const cartItem = window.localStorage.getItem("cartItem");
+  //         //  2. Check xem cartItem co gia tri? cartItem co valid?
+  //         if (cartItem) {
+  //           //2.1 neu co, set token vao header bang setSession ()
+  //           setSession(state);
+  //           //2.3 gui token cho server de lay thong tin nguoi dung
+
+  //           //2.4. sau khi co dc data, dispatch () de luu data do vao state
+  //         } else {
+  //           setSession(null);
+  //         }
+  //       } catch (error) {
+  //         // neu ko co token, session  = null va dispatch voi authenticated = false
+  //         console.log(error);
+  //       }
+  //     };
+
+  //     initialize();
+  //   }, []);
+
+  useEffect(() => {
+    //state = items[], moi lan state thay doi (them item), thi set item[] moi vao localStorage
+    //refresh => item[] = 0, neu set item[] = 0 nay vao localStorage thi localStorage mat het
+    //tao them 1 initialized field
+
+    /* -------------------------------------------------------------------------- */
+    /*                        persistent cart when refresh                        */
+    /* -------------------------------------------------------------------------- */
+    const previousState = JSON.parse(window.localStorage.getItem("cartItem"));
+    console.log("previousState", previousState.items);
+    if (previousState) {
+      if (state.items.length) {
+        window.localStorage.setItem("cartItem", JSON.stringify(state));
+      }
+    } else window.localStorage.setItem("cartItem", JSON.stringify(state));
+  }, [state]);
+
+  const addToCart = async (album) => {
     dispatch({
       type: ADD_TO_CART,
       payload: album,
