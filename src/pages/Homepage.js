@@ -28,6 +28,7 @@ function Homepage() {
       sx={{
         flexGrow: 1,
         maxWidth: "1344px",
+        
         padding: "2rem",
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
