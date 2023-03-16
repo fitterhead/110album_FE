@@ -10,17 +10,32 @@ function PaymentPage() {
   //   description: "OK computer",
   //   price: 19,
   // };
+  const product = [
+    {
+      description: "OK computer",
+      price: 19,
+    },
+    {
+      description: "Dark Side",
+      price: 19,
+    },
+    {
+      description: "Pokemon",
+      price: 19,
+    },
+  ];
+  // const cartProduct = useCart();
 
-  const cartProduct = useCart();
-
-  console.log("cartProduct.items", cartProduct.items);
+  // console.log("cartProduct.items", cartProduct.items);
 
   return (
     <div>
       <div className="paypal-button-container">
         <PaypalCheckoutButton
           // onClick={() => console.log("checkoutCart", checkoutCart)}
-          product={cartProduct.items}
+          // onClick={() => console.log("cartProduct.items", cartProduct.items)}
+          // product={cartProduct.items}
+          product={product}
         />
       </div>
     </div>
