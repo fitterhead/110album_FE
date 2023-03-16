@@ -1,11 +1,25 @@
 import React, { createContext, useReducer } from "react";
 import { useEffect } from "react";
 
+let initialCartState = {};
+
 const previousState = JSON.parse(window.localStorage.getItem("cartItem"));
 
-const initialCartState = {
-  items: previousState.items || [],
-};
+if (!previousState) {
+  initialCartState = { items: [] };
+} else {
+  initialCartState = { items: previousState.items };
+}
+
+// console.log(previousState, "previousState");
+// const initialCartState = {
+//   items: previousState.items || [],
+// };
+
+// const initialCartState = {
+
+// items: [],
+// };
 
 const ADD_TO_CART = "THEME.ADD_TO_CART";
 
