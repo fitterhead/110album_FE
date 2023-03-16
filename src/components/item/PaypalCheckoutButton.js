@@ -3,7 +3,10 @@ import { useState } from "react";
 import { addAlbumToCart } from "../../features/content/contentSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const PaypalCheckoutButton = (props) => {
+  const navigate = useNavigate();
+
   const { product } = props;
 
   const productRendered = product.map((item) => {
@@ -23,8 +26,9 @@ const PaypalCheckoutButton = (props) => {
   // const checkoutCart = useSelector((state) => state.content.contents);
 
   const handlePaidFor = () => {
-    alert("handlePayFor");
+    // alert("handlePayFor");
     setPaidFor(true);
+    window.localStorage.setItem("cartItem", JSON.stringify([]));
   };
 
   const handleApprove = (orderId) => {
@@ -47,6 +51,7 @@ const PaypalCheckoutButton = (props) => {
     // display success message, modal, or redirect success page
     // console.log("checkoutCart", checkoutCart);
     alert("thank you for purchase");
+    navigate("/");
   }
 
   if (error) {

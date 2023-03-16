@@ -72,7 +72,7 @@ export default function BackendModal() {
 
   const sendAlbumToCart = async (e) => {
     const data = {
-      referenceId: selectedAlbum._id,
+      reference_id: selectedAlbum._id,
       description: selectedAlbum.album,
       price: 19,
     };
