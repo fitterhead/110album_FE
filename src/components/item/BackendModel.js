@@ -33,6 +33,7 @@ const style = {
 export default function BackendModal() {
   const [backendOpen, setBackendOpen] = React.useState(false);
   const cartFunction = useCart();
+  
   const handleOpen = () => {
     setBackendOpen(true);
   };

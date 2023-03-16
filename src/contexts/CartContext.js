@@ -1,25 +1,14 @@
 import React, { createContext, useReducer } from "react";
 import { useEffect } from "react";
 
-let initialCartState = {};
-
 const previousState = JSON.parse(window.localStorage.getItem("cartItem"));
-
-if (!previousState) {
-  initialCartState = { items: [] };
-} else {
-  initialCartState = { items: previousState.items };
+if (previousState === null) {
+  window.localStorage.setItem("cartItem", JSON.stringify([]));
 }
-
-// console.log(previousState, "previousState");
-// const initialCartState = {
-//   items: previousState.items || [],
-// };
-
-// const initialCartState = {
-
-// items: [],
-// };
+const initialCartState = {
+  items: previousState.items || [],
+  // items: [],
+};
 
 const ADD_TO_CART = "THEME.ADD_TO_CART";
 
@@ -84,7 +73,7 @@ function CartProvider({ children }) {
     /*                        persistent cart when refresh                        */
     /* -------------------------------------------------------------------------- */
     const previousState = JSON.parse(window.localStorage.getItem("cartItem"));
-    console.log("previousState", previousState.items);
+    // console.log("previousState", previousState.items);
     if (previousState) {
       if (state.items.length) {
         window.localStorage.setItem("cartItem", JSON.stringify(state));
