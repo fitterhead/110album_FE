@@ -42,7 +42,7 @@ const TYPOGRAPHY = {
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: "16px",
-    lineHeight: "120%",
+    lineHeight: "150%",
     // letterSpacing:
   },
   body4: {

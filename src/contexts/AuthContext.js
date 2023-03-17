@@ -14,6 +14,7 @@ const LOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
 const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
 const UPDATE_PROFILE = "AUTH.UPDATE_PROFILE";
+const DELETE_ACCOUNT = "AUTH.DELETE_ACCOUNT";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,6 +31,12 @@ const reducer = (state, action) => {
         user: action.payload.user,
       };
     case LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+      };
+    case DELETE_ACCOUNT:
       return {
         ...state,
         isAuthenticated: false,
@@ -150,9 +157,20 @@ function AuthProvider({ children }) {
     });
     callback();
   };
+  const deleteAccount = async ({ _id }, callback) => {
+    const response = await apiService.delete(`/user/${_id}`);
+    setSession(null);
+    dispatch({
+      type: DELETE_ACCOUNT,
+      payload: { response },
+    });
+    callback();
+  };
 
   return (
-    <AuthContext.Provider value={{ ...state, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ ...state, login, register, logout, deleteAccount }}
+    >
       {children}
     </AuthContext.Provider>
   );

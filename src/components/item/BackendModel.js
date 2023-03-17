@@ -33,7 +33,7 @@ const style = {
 export default function BackendModal() {
   const [backendOpen, setBackendOpen] = React.useState(false);
   const cartFunction = useCart();
-  
+
   const handleOpen = () => {
     setBackendOpen(true);
   };
@@ -93,7 +93,7 @@ export default function BackendModal() {
   // console.log("playlist selectedAlbum", selectedAlbum);
   return (
     <div>
-      <Button onClick={handleOpen}>Add to favourite</Button>
+      {/* <Button onClick={handleOpen}>Add to favourite</Button> */}
       <Button onClick={sendAlbumToCart}>Add to Cart</Button>
       <Modal
         open={backendOpen}
@@ -143,6 +143,13 @@ export default function BackendModal() {
               variant="contained"
             >
               add
+            </Button>
+            <Button
+              // sx={{ maxWidth: "20vw" }}
+              onClick={() => sendAlbumToPlaylist()}
+              variant="contained"
+            >
+              create new playlist
             </Button>
           </Box>
         )}

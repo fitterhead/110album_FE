@@ -10,6 +10,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Playlist from "../features/playlist/playlist";
 import FavouriteArtist from "../features/favouriteArtist/favouriteArtist";
+
+
+
 function AccountPage() {
   const [currentTab, setCurrentTab] = useState("profile");
 
@@ -23,22 +26,14 @@ function AccountPage() {
       component: <UserProfile />,
     },
     // {
-    //   value: "friends",
-    //   component: <FriendList />,
-    // },
-    {
-      value: "playlist",
-      component: <Playlist />,
-    },
-    // {
-    //   value: "favourite artists",
-    //   component: <FavouriteArtist />,
+    //   value: "playlist",
+    //   component: <Playlist />,
     // },
   ];
 
   return (
     <Container
-      maxWidth="false"
+      maxWidth="lg"
       sx={{
         flexGrow: 1,
         maxWidth: "1344px",
