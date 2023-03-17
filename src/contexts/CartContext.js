@@ -15,12 +15,34 @@ const ADD_TO_CART = "THEME.ADD_TO_CART";
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-        // items: state.items.push(action.payload),
-      };
+      const productInCart = state.items.find(
+        (p) => p.reference_id === action.payload.reference_id
+      );
 
+      if (!productInCart) {
+        return {
+          items: [...state.items, action.payload],
+        };
+      } else {
+        // productInCart.quantity = productInCart.quantity + 1;
+
+        let newState = state.items;
+        const updatedIndex = newState.findIndex(
+          (p) => p.reference_id === action.payload.reference_id
+        );
+        if (!newState[updatedIndex].amount) {
+          newState[updatedIndex].amount = 2;
+        } else {
+          newState[updatedIndex].amount += 1;
+        }
+        return {
+          items: [...newState],
+        };
+      }
+
+    // return {
+    //   items: [...state.items, action.payload],
+    // };
     default:
       return state;
   }

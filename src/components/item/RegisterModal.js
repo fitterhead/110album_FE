@@ -51,9 +51,8 @@ const RegisterSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Password must match"),
 });
 
-function RegisterModal(
+function RegisterModal() {
   // { handleClose, open }
-  ) {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
@@ -108,7 +107,7 @@ function RegisterModal(
             )}
             <FTextField
               name="username"
-              // label="username"
+              placeholder="username"
               // fullWidth
               sx={{ backgroundColor: "white" }}
               InputProps={{
@@ -124,6 +123,7 @@ function RegisterModal(
             />
             <FTextField
               name="email"
+              placeholder="email"
               // label="email"
               // fullWidth
               sx={{ backgroundColor: "white" }}
@@ -141,6 +141,7 @@ function RegisterModal(
             <FTextField
               // fullWidth
               name="password"
+              placeholder="password"
               // label="password"
               type={showPassword ? "text" : "password"}
               sx={{ backgroundColor: "white" }}
@@ -171,7 +172,7 @@ function RegisterModal(
             />
             <FTextField
               // fullWidth
-              // label="confirm password"
+              placeholder="confirm password"
               name="passwordConfirmation"
               type={showPasswordConfirmation ? "text" : "password"}
               sx={{ backgroundColor: "white" }}
