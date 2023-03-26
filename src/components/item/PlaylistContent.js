@@ -3,9 +3,23 @@ import { Box, Card, Grid, Paper } from "@mui/material";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
+import ClearIcon from "@mui/icons-material/Clear";
+import { deleteAlbumFromAPlaylist } from "../../features/playlist/playlistSlice";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function PlaylistContent({ data }) {
-  console.log("data playlist content", data);
+  const dispatch = useDispatch();
+  const params = useParams();
+  const handleClick = (e) => {
+    // e.preventDefault();
+
+    dispatch(deleteAlbumFromAPlaylist({ albumId: e, playlistId: params.id }));
+    // console.log({ playlistId: e, albumId: params.id }, "test");
+    // alert(e);
+    // setPlaylistName("");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
@@ -30,6 +44,14 @@ function PlaylistContent({ data }) {
                           backgroundColor: "gray",
                         }}
                       >
+                        <ClearIcon
+                          onClick={() => handleClick(singleData._id)}
+                          sx={{
+                            position: "absolute",
+                            color: "white",
+                            fontSize: "2rem",
+                          }}
+                        />
                         <CardMedia
                           component="img"
                           height="100%"
@@ -50,8 +72,8 @@ function PlaylistContent({ data }) {
                           <Typography sx={{ textAlign: "center" }} variant="h1">
                             {singleData.album}
                           </Typography>
-                          <Typography variant="button">rock</Typography>
-                          <Typography variant="body1">1995</Typography>
+                          {/* <Typography variant="button">rock</Typography>
+                          <Typography variant="body1">1995</Typography> */}
                         </Stack>
                       </Box>
                     </Stack>

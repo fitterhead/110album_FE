@@ -4,8 +4,17 @@ import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate } from "react-router-dom";
+import ClearIcon from "@mui/icons-material/Clear";
+import { deletePlaylist } from "../../features/playlist/playlistSlice";
+import { useDispatch } from "react-redux";
 
 function ResultList({ data, setRender }) {
+  const dispatch = useDispatch();
+  const handleClick = (playlistId) => {
+    // alert(playlistId);
+    dispatch(deletePlaylist(playlistId));
+  };
+
   console.log("data playlist", data);
   const navigate = useNavigate();
   return (
@@ -31,12 +40,15 @@ function ResultList({ data, setRender }) {
                           backgroundColor: "gray",
                         }}
                       >
+                        <ClearIcon
+                          onClick={(e) => handleClick(singleData._id)}
+                          sx={{ color: "white" }}
+                        />
                         {/* <CardMedia
                           component="img"
                           height="100%"
                           image={`http://localhost:8000/static/image/${singleData.album}.jpg`}
                         /> */}
-                        aaa
                       </Card>
                       <Box sx={{ width: "100%" }}>
                         <Stack
@@ -58,8 +70,6 @@ function ResultList({ data, setRender }) {
                           <Typography sx={{ textAlign: "center" }} variant="h1">
                             {singleData.title}
                           </Typography>
-                          <Typography variant="button">rock</Typography>
-                          <Typography variant="body1">1995</Typography>
                         </Stack>
                       </Box>
                     </Stack>

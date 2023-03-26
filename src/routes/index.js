@@ -7,7 +7,6 @@ import Homepage from "../pages/Homepage";
 import LoginPage from "../components/item/LoginPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import RegisterPage from "../pages/RegisterPage";
-import UserProfilePage from "../pages/UserProfilePage";
 import ArtistPage from "../pages/ArtistPage";
 import AlbumPage from "../pages/AlbumPage";
 import SearchPage from "../pages/SearchPage";

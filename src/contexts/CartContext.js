@@ -11,6 +11,9 @@ const initialCartState = {
 };
 
 const ADD_TO_CART = "THEME.ADD_TO_CART";
+const DELETE_ITEM = "THEME.DELETE_ITEM";
+const INCREASE_QUANTITY = "THEME.INCREASE_QUANTITY";
+const DECREASE_QUANTITY = "THEME.DECREASE_QUANTITY";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -32,17 +35,71 @@ const reducer = (state, action) => {
         );
         if (!newState[updatedIndex].amount) {
           newState[updatedIndex].amount = 2;
+          newState[updatedIndex].price = 19 * 2;
         } else {
           newState[updatedIndex].amount += 1;
+          newState[updatedIndex].price = 19 * newState[updatedIndex].amount;
         }
         return {
           items: [...newState],
         };
       }
 
-    // return {
-    //   items: [...state.items, action.payload],
-    // };
+    case DELETE_ITEM:
+      const deleteItem = state.items.findIndex(
+        (album) => album.reference_id === action.payload
+      );
+      console.log(deleteItem, "action payload");
+
+      const newState = state.items.splice(deleteItem, 1);
+
+      console.log(state.items, "oldState");
+      console.log(newState, "newState");
+
+      return {
+        items: [...state.items],
+      };
+
+    case INCREASE_QUANTITY:
+      let updatedState = state.items;
+      const updateItem = state.items.findIndex(
+        (album) => album.reference_id === action.payload
+      );
+      console.log(action.payload, "action payload");
+
+      if (!updatedState[updateItem].amount) {
+        updatedState[updateItem].amount = 2;
+        updatedState[updateItem].amount = 19 * 2;
+      } else {
+        updatedState[updateItem].amount = updatedState[updateItem].amount + 1;
+        updatedState[updateItem].price = 19 * updatedState[updateItem].amount;
+      }
+      console.log("updatedState", updatedState);
+
+      return {
+        items: [...updatedState],
+      };
+
+    case DECREASE_QUANTITY:
+      let decreaseState = state.items;
+      const decreaseItem = state.items.findIndex(
+        (album) => album.reference_id === action.payload
+      );
+      console.log(action.payload, "action payload");
+
+      if (!decreaseState[decreaseItem].amount) {
+        decreaseState[decreaseItem].amount = 1;
+        decreaseState[decreaseItem].price = 19;
+      } else {
+        decreaseState[decreaseItem].amount =
+          decreaseState[decreaseItem].amount - 1;
+          decreaseState[decreaseItem].price = 19 * decreaseState[decreaseItem].amount;
+      }
+      console.log("decreaseState", decreaseState);
+      return {
+        items: [...decreaseState],
+      };
+
     default:
       return state;
   }
@@ -109,9 +166,36 @@ function CartProvider({ children }) {
       payload: album,
     });
   };
+  const deleteItem = async (albumId) => {
+    dispatch({
+      type: DELETE_ITEM,
+      payload: albumId,
+    });
+  };
+
+  const increaseQuantity = async (id) => {
+    dispatch({
+      type: INCREASE_QUANTITY,
+      payload: id,
+    });
+  };
+  const decreaseQuantity = async (id) => {
+    dispatch({
+      type: DECREASE_QUANTITY,
+      payload: id,
+    });
+  };
 
   return (
-    <CartContext.Provider value={{ ...state, addToCart }}>
+    <CartContext.Provider
+      value={{
+        ...state,
+        addToCart,
+        deleteItem,
+        increaseQuantity,
+        decreaseQuantity,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

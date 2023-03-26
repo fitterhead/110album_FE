@@ -11,8 +11,6 @@ import Tab from "@mui/material/Tab";
 import Playlist from "../features/playlist/playlist";
 import FavouriteArtist from "../features/favouriteArtist/favouriteArtist";
 
-
-
 function AccountPage() {
   const [currentTab, setCurrentTab] = useState("profile");
 
@@ -25,10 +23,10 @@ function AccountPage() {
       value: "profile",
       component: <UserProfile />,
     },
-    // {
-    //   value: "playlist",
-    //   component: <Playlist />,
-    // },
+    {
+      value: "playlist",
+      component: <Playlist />,
+    },
   ];
 
   return (

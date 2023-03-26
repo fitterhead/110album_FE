@@ -153,7 +153,7 @@ function MainHeader() {
             onClick={() => navigate("/search")}
           >
             SEARCH
-          </Button>
+          </Button> 
           <Button
             sx={{ fontSize: "16px", display: { xs: "none", sm: "flex" } }}
             variant="button"

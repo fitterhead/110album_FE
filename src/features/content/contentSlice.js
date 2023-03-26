@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiService from "../../app/apiService";
 
 const initialState = {
+  isLoading: false,
+  error: null,
   status: "",
   playlistStatus: "",
   contents: [],
   artists: [],
   albums: [],
-  error: "",
   test: "",
   playlist: [],
   favouriteArtist: [],

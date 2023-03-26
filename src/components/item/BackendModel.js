@@ -11,7 +11,10 @@ import { ListItemText } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useCart from "../../hooks/useCart";
-
+// import ModalForm from "../form/ModalForm";
+import TextField from "@mui/material/TextField";
+import { createPlaylist } from "../../features/playlist/playlistSlice";
+import useAuth from "../../hooks/useAuth";
 import {
   addAlbumToCart,
   getPlaylist,
@@ -31,13 +34,26 @@ const style = {
 };
 
 export default function BackendModal() {
+  /* --------------------------- crate new playlist --------------------------- */
+
+  const [playlistName, setPlaylistName] = React.useState("");
+  const { user } = useAuth();
+  const userRef = user._id;
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createPlaylist({ playlistName, userRef }));
+    setPlaylistName("");
+  };
+
   const [backendOpen, setBackendOpen] = React.useState(false);
   const cartFunction = useCart();
 
   const handleOpen = () => {
     setBackendOpen(true);
   };
-  const dispatch = useDispatch();
+
   const handleClose = () => {
     setBackendOpen(false);
   };
@@ -85,15 +101,29 @@ export default function BackendModal() {
     }
   };
 
+
+  // const deleteItem = async (e) => {
+  //   const data = {
+  //     reference_id: selectedAlbum._id,
+  //     description: selectedAlbum.album,
+  //     price: 19,
+  //   };
+  //   try {
+  //     console.log("useContext worked", cartFunction.items);
+
+  //     await cartFunction.addToCart(data);
+  //   } catch (error) {
+  //     console.log(error, "cart Errorrrrrr");
+  //   }
+  // };
+
   //   const sendMessage = () ={
-
   // }
-
   //   console.log("playlist modal", playlist);
   // console.log("playlist selectedAlbum", selectedAlbum);
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Add to favourite</Button> */}
+      <Button onClick={handleOpen}>Add to favourite</Button>
       <Button onClick={sendAlbumToCart}>Add to Cart</Button>
       <Modal
         open={backendOpen}
@@ -144,9 +174,25 @@ export default function BackendModal() {
             >
               add
             </Button>
+            <TextField
+              name="email"
+              fullWidth
+              sx={{ backgroundColor: "white" }}
+              onChange={(e) => setPlaylistName(e.target.value)}
+              InputProps={{
+                style: {
+                  fontFamily: "Poppins",
+                  fontStyle: "normal",
+                  fontWeight: 600,
+                  fontSize: "20px",
+                  lineHeight: "120%",
+                  color: "#BDBDBD",
+                },
+              }} // font size of input label
+            />
             <Button
               // sx={{ maxWidth: "20vw" }}
-              onClick={() => sendAlbumToPlaylist()}
+              onClick={handleSubmit}
               variant="contained"
             >
               create new playlist
