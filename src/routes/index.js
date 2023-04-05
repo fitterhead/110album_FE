@@ -15,10 +15,16 @@ import AuthRequired from "./AuthRequired";
 import PlaylistContent from "../components/item/PlaylistContent";
 import RegisterModal from "../components/item/RegisterModal";
 import PaymentPage from "../pages/PaymentPage";
+import { useLocation } from "react-router-dom";
+
 
 function Router() {
+
   return (
-    <Routes>
+    <Routes
+    // location={location}
+    // key={location.pathname}
+    >
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Homepage />} />
         <Route path="account" element={<AccountPage />}>

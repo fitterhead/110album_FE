@@ -10,6 +10,7 @@ import "./styles.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+// import { motion } from "framer-motion";
 
 function Homepage() {
   const dispatch = useDispatch();
@@ -19,7 +20,6 @@ function Homepage() {
 
   useEffect(() => {
     setData(dispatch(getContent({ page })));
-    // dispatch(getContent({ page }));
   }, [dispatch, page]);
 
   return (
@@ -28,7 +28,7 @@ function Homepage() {
       sx={{
         flexGrow: 1,
         maxWidth: "1344px",
-        
+
         padding: "2rem",
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}

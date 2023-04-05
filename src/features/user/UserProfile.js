@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useLocation, useNavigate } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 
 const style = {
   position: "absolute",
@@ -76,8 +77,31 @@ function UserProfile() {
         </Box>
       </Modal>
 
-      <Typography variant="body2">username: {user.username}</Typography>
-      <Typography variant="body2">email: {user.email}</Typography>
+      <Grid container spacing={2} sx={{ padding: "1rem" }}>
+        <Grid item xs={12} md={4}>
+          <Typography variant="h1" sx={{ fontSize: "16px" }}>
+            username:{" "}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Typography variant="h1" sx={{ fontSize: "16px" }}>
+            {" "}
+            {user ? user.username : "loading"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Typography variant="h1" sx={{ fontSize: "16px" }}>
+            email:{" "}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Typography variant="h1" sx={{ fontSize: "16px" }}>
+            {" "}
+            {user ? user.email : "loading"}
+          </Typography>
+        </Grid>
+      </Grid>
+
       <Button onClick={handleOpen}>Delete account</Button>
 
       {/* <Button>Create new Playlist</Button> */}

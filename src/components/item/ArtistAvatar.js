@@ -34,7 +34,7 @@ function ArtistAvatar({ bio, type }) {
         <CardMedia
           component="img"
           height="100%"
-          image={`http://localhost:8000/static/image/${bio.album}.jpg`}
+          image={`http://localhost:8000/static/artistImage/${bio.artistName}.jpg`}
         />
       </Card>
       <Box>

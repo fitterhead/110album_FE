@@ -131,10 +131,12 @@ export const contentSlice = createSlice({
     builder
       .addCase(getContent.pending, (state) => {
         state.status = "loading";
+        state.isLoading = true;
         console.log("pending");
       })
       .addCase(getContent.fulfilled, (state, action) => {
         state.status = "idle";
+        state.isLoading = false;
         console.log("action payload", action.payload);
         //
         state.contents = [];
@@ -143,6 +145,7 @@ export const contentSlice = createSlice({
       })
       .addCase(getContent.rejected, (state, action) => {
         state.status = "rejected";
+        state.isLoading = false;
         state.error = action.error.message;
         console.log("action", action);
       });
@@ -229,7 +232,7 @@ export const contentSlice = createSlice({
         state.playlist.push(action.payload);
       })
       .addCase(getPlaylist.rejected, (state, action) => {
-        state.status = "rejected";
+        // state.status = "rejected";
         state.error = action.error.message;
         console.log("artist action", action);
       });

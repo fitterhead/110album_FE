@@ -10,6 +10,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Playlist from "../features/playlist/playlist";
 import FavouriteArtist from "../features/favouriteArtist/favouriteArtist";
+import useAuth from "../hooks/useAuth";
 
 function AccountPage() {
   const [currentTab, setCurrentTab] = useState("profile");
@@ -17,6 +18,8 @@ function AccountPage() {
   const handleChangeTab = (newValue) => {
     setCurrentTab(newValue);
   };
+
+  const { user } = useAuth();
 
   const PROFILE_TABS = [
     {
