@@ -81,6 +81,7 @@ function LoginModal({ handleClose, open }) {
     } catch (error) {
       reset();
       setError("responseError", error);
+     
     }
   };
 

@@ -14,11 +14,12 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeColorContext } from "../contexts/ThemeContext";
 import Menu from "@mui/icons-material/Menu";
-import { MenuItem } from "@mui/material";
+import { Container, MenuItem } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
 
 function MainHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const isMenuOpen = Boolean(anchorElNav);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,9 +43,7 @@ function MainHeader() {
   const toggleTheme = useContext(ThemeColorContext);
 
   return (
-    <Box
-    // sx={{ flexGrow: 1 }}
-    >
+    <Box sx={{ mb: 2 }}>
       <LoginModal
         open={open}
         handleOpen={handleOpen}
@@ -62,36 +61,38 @@ function MainHeader() {
             <IconButton
               size="large"
               aria-label="account of current user"
-              aria-controls="menu-appbar"
+              aria-controls={anchorElNav ? "menu-appbar" : undefined}
               aria-haspopup="true"
+              aria-expanded={anchorElNav ? "true" : undefined}
               onClick={handleOpenNavMenu}
               color="inherit"
             >
               <MenuIcon />
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                // sx={{
+                //   display: { xs: "block", md: "none" },
+                // }}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </Menu>
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
           </Box> */}
+
           {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
 
           <Typography
@@ -100,7 +101,11 @@ function MainHeader() {
             }}
             variant="h7"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", sm: "flex" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "flex" },
+              justifyContent: { xs: "center", md: "left", sm: "left" },
+            }}
           >
             Top 120 Albums
           </Typography>
@@ -153,7 +158,7 @@ function MainHeader() {
             onClick={() => navigate("/search")}
           >
             SEARCH
-          </Button> 
+          </Button>
           <Button
             sx={{ fontSize: "16px", display: { xs: "none", sm: "flex" } }}
             variant="button"
@@ -162,6 +167,69 @@ function MainHeader() {
             CART
           </Button>
         </Toolbar>
+        <Box
+          sx={{
+            display: { xs: "flex", sm: "none" },
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          {user ? (
+            <>
+              {" "}
+              <Button
+                sx={{
+                  fontSize: "16px",
+                  color: "white",
+                }}
+                variant="button"
+                onClick={() => auth.logout(() => navigate("/"))}
+              >
+                LOGOUT
+              </Button>
+              <Button
+                sx={{
+                  fontSize: "16px",
+                  color: "black",
+                  display: { xs: "none", md: "flex" },
+                }}
+                variant="button"
+                onClick={() => navigate("/account")}
+              >
+                ACCOUNT
+              </Button>
+            </>
+          ) : (
+            <Button
+              sx={{ fontSize: "16px" }}
+              variant="button"
+              onClick={handleOpen}
+            >
+              LOGIN
+            </Button>
+          )}
+          <Button
+            sx={{ fontSize: "16px" }}
+            variant="button"
+            onClick={async () => toggleTheme.toggleThemeFunction()}
+          >
+            TOGGLE THEME
+          </Button>
+          <Button
+            sx={{ fontSize: "16px" }}
+            variant="button"
+            onClick={() => navigate("/search")}
+          >
+            SEARCH
+          </Button>
+          <Button
+            sx={{ fontSize: "16px" }}
+            variant="button"
+            onClick={() => navigate("/payment")}
+          >
+            CART
+          </Button>
+        </Box>
       </AppBar>
     </Box>
   );

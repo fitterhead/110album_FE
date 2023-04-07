@@ -3,6 +3,7 @@ import apiService from "../../app/apiService";
 
 const initialState = {
   isLoading: false,
+  contentStatus: false,
   error: null,
   status: "",
   playlistStatus: "",
@@ -132,11 +133,13 @@ export const contentSlice = createSlice({
       .addCase(getContent.pending, (state) => {
         state.status = "loading";
         state.isLoading = true;
+
         console.log("pending");
       })
       .addCase(getContent.fulfilled, (state, action) => {
         state.status = "idle";
         state.isLoading = false;
+
         console.log("action payload", action.payload);
         //
         state.contents = [];
@@ -146,6 +149,7 @@ export const contentSlice = createSlice({
       .addCase(getContent.rejected, (state, action) => {
         state.status = "rejected";
         state.isLoading = false;
+
         state.error = action.error.message;
         console.log("action", action);
       });

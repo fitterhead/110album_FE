@@ -19,7 +19,7 @@ function AccountPage() {
     setCurrentTab(newValue);
   };
 
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const PROFILE_TABS = [
     {

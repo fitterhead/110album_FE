@@ -40,7 +40,7 @@ function UserProfile() {
     }
   };
 
-  console.log("user at userProfile", user);
+  // console.log("user at userProfile", user);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);

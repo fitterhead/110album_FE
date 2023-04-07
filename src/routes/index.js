@@ -17,13 +17,11 @@ import RegisterModal from "../components/item/RegisterModal";
 import PaymentPage from "../pages/PaymentPage";
 import { useLocation } from "react-router-dom";
 
-
 function Router() {
-
+  // const location = useLocation();
   return (
-    <Routes
-    // location={location}
-    // key={location.pathname}
+    <Routes 
+    // location={location} key={location.pathname}
     >
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Homepage />} />

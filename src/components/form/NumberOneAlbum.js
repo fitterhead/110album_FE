@@ -9,8 +9,17 @@ import Typography from "@mui/material/Typography";
 import { getContent } from "../../features/content/contentSlice";
 import { useDispatch } from "react-redux";
 import CardMedia from "@mui/material/CardMedia";
+import { useNavigate } from "react-router-dom";
 function NumberOneAlbum({ albums }) {
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleAlbumInfo = (artistId) => {
+    navigate(`/album/findAlbumById/${artistId}`);
+  };
+
+  const handleArtistBio = (artistId) => {
+    navigate(`/artist/findArtistById/${artistId}`);
+  };
 
   return (
     albums && (
@@ -44,6 +53,8 @@ function NumberOneAlbum({ albums }) {
               <Typography
                 variant="h1"
                 color="text.secondary"
+                onClick={() => handleArtistBio(`${albums.artistRef._id}`)}
+
                 //   gutterBottom
               >
                 {/* radiohead */}
@@ -68,6 +79,8 @@ function NumberOneAlbum({ albums }) {
                 //   dispatch(getContent());
                 //   console.log("clicked", dispatch(getContent()));
                 // }}
+
+                onClick={() => handleAlbumInfo(`${albums._id}`)}
                 size="small"
               >
                 Learn More

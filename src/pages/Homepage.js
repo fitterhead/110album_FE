@@ -20,7 +20,9 @@ function Homepage() {
 
   useEffect(() => {
     setData(dispatch(getContent({ page })));
-  }, [dispatch, page]);
+  },
+  //  [page]);
+  [dispatch, page]);
 
   return (
     <Container
