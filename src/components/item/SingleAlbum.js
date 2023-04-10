@@ -59,7 +59,7 @@ function SingleAlbum({ album }) {
             <CardMedia
               component="img"
               height="100%"
-              image={`http://localhost:8000/static/image/${album.album}.jpg`}
+              image={`https://shivering-instrument-production.up.railway.app/static/image/${album.album}.jpg`}
               // aria-owns={open ? "mouse-over-popover" : undefined}
               // aria-haspopup="true"
               onClick={() => handleAlbumInfo(`${album._id}`)}

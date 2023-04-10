@@ -34,7 +34,7 @@ function AlbumCover({ bio, type }) {
         <CardMedia
           component="img"
           height="100%"
-          image={`http://localhost:8000/static/image/${bio.album}.jpg`}
+          image={`https://shivering-instrument-production.up.railway.app/static/image/${bio.album}.jpg`}
         />
       </Card>
       <Box>

@@ -78,6 +78,9 @@ function Playlist() {
             {render !== 0 ? `${render}` : "Playlist"}
           </Typography>
         </Box>
+        <Button onClick={handleOpen} sx={{ color: "white" }}>
+          Create new Playlist
+        </Button>
         {/* <ResultList data={listAlbum} setRender={setRender} /> */}
         {/* <PlaylistItem /> */}
 
@@ -94,9 +97,6 @@ function Playlist() {
             }
           })
         )}
-        <Button onClick={handleOpen} sx={{ color: "white" }}>
-          Create new Playlist
-        </Button>
       </Stack>
     </Container>
   );

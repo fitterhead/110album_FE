@@ -59,7 +59,7 @@ function ItemCarousel({ genre }) {
                       onClick={() => handleAlbumInfo(`${album._id}`)}
                       component="img"
                       height="100%"
-                      image={`http://localhost:8000/static/image/${album.album}.jpg`}
+                      image={`https://shivering-instrument-production.up.railway.app/static/image/${album.album}.jpg`}
                     />
                   </Card>
                   <Box

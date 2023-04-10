@@ -37,19 +37,29 @@ function ResultList({ data, setRender }) {
                           width: "100%",
                           aspectRatio: "1/1",
                           flexGrow: 1,
-                          backgroundColor: "gray",
+                          backgroundColor: "#E4FADB",
                         }}
                       >
                         <ClearIcon
                           onClick={(e) => handleClick(singleData._id)}
                           sx={{ color: "white" }}
                         />
+                        <Typography
+                        // onClick={() => {
+                        //   setRender(singleData.playlistName);
+                        //   navigate(`/account/${singleData._id}`);
+                        // }}
+                        // variant="button"
+                        >
+                          {/* {singleData?.albumRef?.length} */}
+                        </Typography>
                         {/* <CardMedia
                           component="img"
                           height="100%"
-                          image={`http://localhost:8000/static/image/${singleData.album}.jpg`}
+                          image={`https://shivering-instrument-production.up.railway.app/static/image/${singleData.albumRef[0]}.jpg`}
                         /> */}
                       </Card>
+
                       <Box sx={{ width: "100%" }}>
                         <Stack
                           direction="column"

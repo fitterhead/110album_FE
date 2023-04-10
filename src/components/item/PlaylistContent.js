@@ -55,7 +55,7 @@ function PlaylistContent({ data }) {
                         <CardMedia
                           component="img"
                           height="100%"
-                          image={`http://localhost:8000/static/image/${singleData.album}.jpg`}
+                          image={`https://shivering-instrument-production.up.railway.app/static/image/${singleData.album}.jpg`}
                         />
                       </Card>
                       <Box sx={{ width: "100%" }}>
