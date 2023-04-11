@@ -253,11 +253,16 @@ function RegisterModal() {
                 alignItems="center"
                 spacing={1}
               >
-                <Link component={RouterLink}>
-                  <Typography variant="button" to="/login">
+                {/* <Link component={RouterLink}>
+                  <Typography
+                    variant="button"
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
                     Sign in
                   </Typography>
-                </Link>
+                </Link> */}
               </Stack>
             </Box>
             {/* <Typography id="modal-modal-title" variant="h6" component="h2">
