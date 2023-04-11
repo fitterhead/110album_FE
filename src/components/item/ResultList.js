@@ -56,7 +56,7 @@ function ResultList({ data, setRender }) {
                         {/* <CardMedia
                           component="img"
                           height="100%"
-                          image={`https://shivering-instrument-production.up.railway.app/static/image/${singleData.albumRef[0]}.jpg`}
+                          image={`https://final-be-production-68bf.up.railway.app/static/image/${singleData.albumRef[0]}.jpg`}
                         /> */}
                       </Card>
 

@@ -105,7 +105,7 @@ const TestHeader = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            Top 120 Albums
+            Top 110 Albums
           </Typography>
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

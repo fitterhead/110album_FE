@@ -12,7 +12,9 @@ function AlbumRanking({ albums, setPage, page }) {
 
   // albums = albums[0].data.data
   return (
-    <Container sx={{ bgcolor: "primary.main", height: "100%" }}>
+    <Container 
+    sx={{ bgcolor: "primary.main", height: "100%" }}
+    >
       <Stack
         spacing={2}
         sx={{

@@ -21,11 +21,11 @@ function ItemCarousel({ genre }) {
   }, [genre]);
 
   const handleArtistBio = (artistId) => {
-    navigate(`/artist/findArtistById/${artistId}`);
+    navigate(`/artist/${artistId}`);
   };
 
   const handleAlbumInfo = (artistId) => {
-    navigate(`/album/findAlbumById/${artistId}`);
+    navigate(`/album/result/${artistId}`);
   };
 
   return (
@@ -59,7 +59,7 @@ function ItemCarousel({ genre }) {
                       onClick={() => handleAlbumInfo(`${album._id}`)}
                       component="img"
                       height="100%"
-                      image={`https://shivering-instrument-production.up.railway.app/static/image/${album.album}.jpg`}
+                      image={`https://final-be-production-e891.up.railway.app/static/image/${album.album}.jpg`}
                     />
                   </Card>
                   <Box

@@ -18,11 +18,13 @@ function Homepage() {
   const [page, setPage] = React.useState(1);
   const listAlbum = useSelector((state) => state.content.contents);
 
-  useEffect(() => {
-    setData(dispatch(getContent({ page })));
-  },
-  //  [page]);
-  [dispatch, page]);
+  useEffect(
+    () => {
+      setData(dispatch(getContent({ page })));
+    },
+    //  [page]);
+    [dispatch, page]
+  );
 
   return (
     <Container
@@ -35,7 +37,7 @@ function Homepage() {
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
     >
-      <Grid container sx={{ backgroundColor: "red" }}>
+      <Grid container>
         <Grid item xs={12} md={6}>
           {listAlbum && (
             <NumberOneAlbum

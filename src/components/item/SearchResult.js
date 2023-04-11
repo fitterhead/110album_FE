@@ -11,11 +11,11 @@ function SearchResult({ data, input }) {
   const navigate = useNavigate();
 
   const handleArtistBio = (artistId) => {
-    navigate(`/artist/findArtistById/${artistId}`);
+    navigate(`/artist/${artistId}`);
   };
 
   const handleAlbumInfo = (artistId) => {
-    navigate(`/album/findAlbumById/${artistId}`);
+    navigate(`/album/result/${artistId}`);
   };
 
   return (
@@ -55,7 +55,7 @@ function SearchResult({ data, input }) {
                         <CardMedia
                           component="img"
                           height="100%"
-                          image={`https://shivering-instrument-production.up.railway.app/static/image/${singleData.album}.jpg`}
+                          image={`https://final-be-production-e891.up.railway.app/static/image/${singleData.album}.jpg`}
                           onClick={() => handleAlbumInfo(`${singleData._id}`)}
                         />
                       </Card>

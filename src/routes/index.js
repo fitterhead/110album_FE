@@ -29,7 +29,7 @@ function Router() {
           <Route path=":id" element={<PlaylistContent />} />
         </Route>
         <Route
-          path="album/findAlbumById/:id"
+          path="album/result/:id"
           element={
             <AuthRequired>
               <AlbumPage />
@@ -38,7 +38,7 @@ function Router() {
         />
 
         {/* <Route path="account/savedAlbum" element={<PlaylistItem />} /> */}
-        <Route path="artist/findArtistById/:id" element={<ArtistPage />} />
+        <Route path="artist/:id" element={<ArtistPage />} />
         <Route path="search" element={<SearchPage />} />
         {/* <Route path="/PlaylistContent" element={<PlaylistContent />} /> */}
         <Route path="/login" element={<LoginPage />} />

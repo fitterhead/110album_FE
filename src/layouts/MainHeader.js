@@ -107,7 +107,7 @@ function MainHeader() {
               justifyContent: { xs: "center", md: "left", sm: "left" },
             }}
           >
-            Top 120 Albums
+            Top 110 Albums
           </Typography>
 
           {user ? (

@@ -20,11 +20,11 @@ function SingleAlbum({ album }) {
 
   // tao handle click function
   const handleArtistBio = (artistId) => {
-    navigate(`/artist/findArtistById/${artistId}`);
+    navigate(`/artist/${artistId}`);
   };
 
   const handleAlbumInfo = (artistId) => {
-    navigate(`/album/findAlbumById/${artistId}`);
+    navigate(`/album/result/${artistId}`);
   };
 
   // const [query, setQuery] = useState("");
@@ -59,7 +59,7 @@ function SingleAlbum({ album }) {
             <CardMedia
               component="img"
               height="100%"
-              image={`https://shivering-instrument-production.up.railway.app/static/image/${album.album}.jpg`}
+              image={`https://final-be-production-e891.up.railway.app/static/image/${album.album}.jpg`}
               // aria-owns={open ? "mouse-over-popover" : undefined}
               // aria-haspopup="true"
               onClick={() => handleAlbumInfo(`${album._id}`)}

@@ -39,12 +39,12 @@ export const getContent = createAsyncThunk(
 );
 /* ---------------------------- get single album ---------------------------- */
 export const getAlbums = createAsyncThunk("albums", async ({ albumId }) => {
-  const response = await apiService.get(`/album/findAlbumById/${albumId}`);
+  const response = await apiService.get(`/album/result/${albumId}`);
   return response;
 });
 /* ------------------------------- get artist ------------------------------- */
 export const getArtist = createAsyncThunk("artists", async ({ artistId }) => {
-  const response = await apiService.get(`/artist/findArtistById/${artistId}`);
+  const response = await apiService.get(`/artist/${artistId}`);
   return response;
 });
 /* -------------------------- get playlist of user -------------------------- */
@@ -65,7 +65,7 @@ export const getAlbumWithSameGenre = createAsyncThunk(
   "getAlbumWithSameGenre",
   async (genreName) => {
     const response = await apiService.get(
-      `/album/getSimilarGenre?genre=${genreName}`
+      `/album/similarGenre?genre=${genreName}`
     );
     return response;
   }
@@ -74,7 +74,7 @@ export const getAlbumWithSameGenre = createAsyncThunk(
 export const getAlbumOfTheSameArtist = createAsyncThunk(
   "getAlbumOfTheSameArtist",
   async (artistId) => {
-    const response = await apiService.get(`album/getAlbumOfArtist/${artistId}`);
+    const response = await apiService.get(`album/albumOfArtist/${artistId}`);
     return response;
   }
 );
