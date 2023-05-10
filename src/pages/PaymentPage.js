@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import ClearIcon from "@mui/icons-material/Clear";
 import useCart from "../hooks/useCart";
+import { createAlertBar } from "../features/alert/alertSlice";
 import {
   Card,
   CardContent,
@@ -28,6 +29,7 @@ import { useEffect } from "react";
 function PaymentPage() {
   const [count, setCount] = React.useState(1);
   const [invisible, setInvisible] = React.useState(false);
+  const dispatch = useDispatch();
 
   const handleBadgeVisibility = () => {
     setInvisible(!invisible);
@@ -35,12 +37,20 @@ function PaymentPage() {
 
   const cartProduct = useCart();
 
+  console.log("cartProduct", cartProduct);
+
+  const time = new Date().getSeconds();
+  console.log("cartProduct", cartProduct);
+  console.log("Time", time);
+
   const cartItem = cartProduct.items;
 
   let totalCart = cartItem.reduce((acc, items) => {
     acc += items.price;
     return acc;
   }, 0);
+
+  console.log("totalCart", totalCart);
 
   const deleteItem = (id) => {
     cartProduct.deleteItem(id);
@@ -93,7 +103,35 @@ function PaymentPage() {
                         }}
                       >
                         <Stack direction="row" spacing={2}>
-                          <Button
+                          {eachItem.amount !== 1 ? (
+                            <Button
+                              sx={{
+                                height: 15,
+                                width: 5,
+                                minWidth: 10,
+                                padding: 2,
+                              }}
+                              variant="outlined"
+                              onClick={() => {
+                                // setClickedID(eachItem.reference_id);
+                                decrease(eachItem.reference_id);
+                                setCount(Math.max(count - 1, 0));
+                              }}
+                            >
+                              <RemoveIcon fontSize="small" />
+                            </Button>
+                          ) : (
+                            <Button
+                              sx={{
+                                height: 15,
+                                width: 5,
+                                minWidth: 10,
+                                padding: 2,
+                              }}
+                            ></Button>
+                          )}
+
+                          {/* <Button
                             sx={{
                               height: 15,
                               width: 5,
@@ -108,7 +146,7 @@ function PaymentPage() {
                             }}
                           >
                             <RemoveIcon fontSize="small" />
-                          </Button>
+                          </Button> */}
 
                           <Typography
                             variant="body3"
@@ -139,7 +177,10 @@ function PaymentPage() {
                   <ClearIcon
                     onClick={(e) =>
                       // deleteItem()
-                      deleteItem(eachItem.reference_id)
+                      {
+                        deleteItem(eachItem.reference_id);
+                        dispatch(createAlertBar("item deleted"));
+                      }
                     }
                     sx={{
                       color: "black",

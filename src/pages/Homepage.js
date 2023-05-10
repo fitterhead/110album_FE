@@ -10,6 +10,11 @@ import "./styles.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import useAuth from "../hooks/useAuth";
+import Recommendation from "../components/item/Recommendation";
+import { styled } from "@mui/material/styles";
+import { useRef } from "react";
+import { Card } from "@mui/material";
 // import { motion } from "framer-motion";
 
 function Homepage() {
@@ -17,7 +22,7 @@ function Homepage() {
   const [data, setData] = useState("");
   const [page, setPage] = React.useState(1);
   const listAlbum = useSelector((state) => state.content.contents);
-
+  const { user } = useAuth();
   useEffect(
     () => {
       setData(dispatch(getContent({ page })));
@@ -26,6 +31,21 @@ function Homepage() {
     [dispatch, page]
   );
 
+  /* --------------------------- check time function -------------------------- */
+  const currentTime = new Date().getHours();
+
+  let greeting = "";
+
+  if (currentTime >= 5 && currentTime < 12) {
+    greeting = "Good morning";
+  } else if (currentTime >= 12 && currentTime < 18) {
+    greeting = "Good afternoon";
+  } else {
+    greeting = "Good evening";
+  }
+
+
+  
   return (
     <Container
       maxWidth="false"
@@ -37,7 +57,14 @@ function Homepage() {
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
     >
-      <Grid container>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          
+        </Grid>
+        <Grid item xs={12}>
+          {user ? <Recommendation /> : null}
+        </Grid>
+
         <Grid item xs={12} md={6}>
           {listAlbum && (
             <NumberOneAlbum

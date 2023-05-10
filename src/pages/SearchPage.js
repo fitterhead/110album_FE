@@ -16,7 +16,7 @@ function SearchPage() {
   );
   const [data, setData] = useState(listAlbum);
   const [input, setInput] = useState();
-  const [filter, setFilter] = React.useState("");
+  const [filter, setFilter] = React.useState("album");
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -32,6 +32,7 @@ function SearchPage() {
       dispatch(getContent({ limit: "10", input: input, filterName: filter }))
     );
   };
+
   return (
     <Container
       maxWidth="false"
@@ -51,7 +52,10 @@ function SearchPage() {
           }}
         >
           <SearchBar input={input} setInput={setInput} />
-          <Button variant="filled" onClick={() => startSearching()}>
+          <Button
+            variant="filled"
+            onClick={() => startSearching()}
+          >
             Search
           </Button>
         </Box>

@@ -16,11 +16,13 @@ import PlaylistContent from "../components/item/PlaylistContent";
 import RegisterModal from "../components/item/RegisterModal";
 import PaymentPage from "../pages/PaymentPage";
 import { useLocation } from "react-router-dom";
-
+import DashboardPage from "../features/dashboard/DashboardPage";
+import UserDashboard from "../features/dashboard/UserDashboard";
+import AdminRequired from "./AdminRequired";
 function Router() {
   // const location = useLocation();
   return (
-    <Routes 
+    <Routes
     // location={location} key={location.pathname}
     >
       <Route path="/" element={<MainLayout />}>
@@ -40,6 +42,23 @@ function Router() {
         {/* <Route path="account/savedAlbum" element={<PlaylistItem />} /> */}
         <Route path="artist/:id" element={<ArtistPage />} />
         <Route path="search" element={<SearchPage />} />
+        <Route
+          path="dashboard"
+          element={
+            <AdminRequired>
+              <DashboardPage />
+            </AdminRequired>
+          }
+        />
+        <Route
+          path="dashboard/:id"
+          element={
+            <AdminRequired>
+              <UserDashboard />
+            </AdminRequired>
+          }
+        />
+
         {/* <Route path="/PlaylistContent" element={<PlaylistContent />} /> */}
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/register" element={<RegisterPage />} /> */}

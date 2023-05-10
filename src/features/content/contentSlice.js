@@ -14,6 +14,7 @@ const initialState = {
   playlist: [],
   favouriteArtist: [],
   similarAlbums: [],
+  suggestion: [],
   cart: [],
 };
 
@@ -70,6 +71,17 @@ export const getAlbumWithSameGenre = createAsyncThunk(
     return response;
   }
 );
+
+/* ----------------------- get albums from genre array ---------------------- */
+
+export const fromGenreArray = createAsyncThunk(
+  "getAlbumListFromGenreArray",
+  async (genres) => {
+    const response = await apiService.post("/album/genre", genres);
+    return response;
+  }
+);
+
 /* ---------------------- get Albums of the same Artist --------------------- */
 export const getAlbumOfTheSameArtist = createAsyncThunk(
   "getAlbumOfTheSameArtist",
@@ -91,6 +103,18 @@ export const favouriteArtist = createAsyncThunk(
     return response;
   }
 );
+
+/* ---------------------- send array of favourite genre --------------------- */
+
+// export const favouriteGenre = createAsyncThunk(
+//   "favouriteArtist",
+//   async (data) => {
+//     const response = await apiService.post("/favouriteArtist", data);
+//     console.log(response, "resssssss artist");
+//     return response;
+//   }
+// );
+
 /* -------------------------------------------------------------------------- */
 /*                                   DELETE                                   */
 /* -------------------------------------------------------------------------- */
@@ -111,15 +135,15 @@ export const addAlbumToPlaylist = createAsyncThunk(
 
 /* ---------------------------- add album to cart --------------------------- */
 
-export const addAlbumToCart = createAsyncThunk(
-  "addAlbumToCart",
+// export const addAlbumToCart = createAsyncThunk(
+//   "addAlbumToCart",
 
-  async (data) => {
-    const response = await apiService.post("/order", data);
-    console.log(response, "album was added to order ");
-    return response;
-  }
-);
+//   async (data) => {
+//     const response = await apiService.post("/order", data);
+//     console.log(response, "album was added to order ");
+//     return response;
+//   }
+// );
 /* -------------------------------------------------------------------------- */
 /*                                 createSlice                                */
 /* -------------------------------------------------------------------------- */
@@ -205,6 +229,24 @@ export const contentSlice = createSlice({
         state.status = "rejected";
         state.error = action.error.message;
         console.log("artist action", action);
+      });
+
+    /* --------------------- get album list from genre Array -------------------- */
+
+    builder
+      .addCase(fromGenreArray.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fromGenreArray.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.suggestion = [];
+        state.suggestion.push(action.payload);
+        // console.log("fromGenreArray", action.payload);
+      })
+      .addCase(fromGenreArray.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error.message;
+        console.log("fromGenreArray rejected", action);
       });
 
     /* ------------------ get Album list from the same Artists ------------------ */
@@ -305,21 +347,21 @@ export const contentSlice = createSlice({
 
     /* ---------------------------- add album to cart --------------------------- */
 
-    builder
-      .addCase(addAlbumToCart.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(addAlbumToCart.fulfilled, (state, action) => {
-        state.status = "idle";
-        console.log("added album to cart", action.payload);
-        // state.cart = [];
-        state.cart.push(action.payload);
-      })
-      .addCase(addAlbumToCart.rejected, (state, action) => {
-        state.status = "rejected";
-        state.error = action.error.message;
-        console.log("artist action", action);
-      });
+    // builder
+    //   .addCase(addAlbumToCart.pending, (state) => {
+    //     state.status = "loading";
+    //   })
+    //   .addCase(addAlbumToCart.fulfilled, (state, action) => {
+    //     state.status = "idle";
+    //     console.log("added album to cart", action.payload);
+    //     // state.cart = [];
+    //     state.cart.push(action.payload);
+    //   })
+    //   .addCase(addAlbumToCart.rejected, (state, action) => {
+    //     state.status = "rejected";
+    //     state.error = action.error.message;
+    //     console.log("artist action", action);
+    //   });
   },
 });
 // export const { test } = contentSlice.actions;

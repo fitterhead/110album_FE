@@ -32,12 +32,13 @@ function ResultList({ data, setRender }) {
                 <Grid key={Math.random()} item xs={6} md={3} padding={1}>
                   <Box>
                     <Stack sx={{ height: "100%" }}>
-                      <Card
+                      <CardMedia
+                        image="https://picsum.photos/300/300" 
                         sx={{
                           width: "100%",
                           aspectRatio: "1/1",
                           flexGrow: 1,
-                          backgroundColor: "#E4FADB",
+                          // backgroundColor: "#E4FADB",
                         }}
                       >
                         <ClearIcon
@@ -58,7 +59,7 @@ function ResultList({ data, setRender }) {
                           height="100%"
                           image={`https://final-be-production-68bf.up.railway.app/static/image/${singleData.albumRef[0]}.jpg`}
                         /> */}
-                      </Card>
+                      </CardMedia>
 
                       <Box sx={{ width: "100%" }}>
                         <Stack

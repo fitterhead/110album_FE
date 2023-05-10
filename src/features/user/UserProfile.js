@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import { useLocation, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 
+
 const style = {
   position: "absolute",
   top: "50%",

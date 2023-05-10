@@ -1,7 +1,10 @@
 import React, { createContext, useReducer } from "react";
 import { useEffect } from "react";
-
+import { createAlertBar } from "../features/alert/alertSlice";
+import { useDispatch } from "react-redux";
 const previousState = JSON.parse(window.localStorage.getItem("cartItem"));
+
+console.log("previousState", previousState);
 if (previousState === null) {
   window.localStorage.setItem("cartItem", JSON.stringify([]));
 }
@@ -14,6 +17,7 @@ const ADD_TO_CART = "THEME.ADD_TO_CART";
 const DELETE_ITEM = "THEME.DELETE_ITEM";
 const INCREASE_QUANTITY = "THEME.INCREASE_QUANTITY";
 const DECREASE_QUANTITY = "THEME.DECREASE_QUANTITY";
+const PAYMENT_SUCCESS = "THEME.PAYMENT_SUCCESS";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -44,20 +48,13 @@ const reducer = (state, action) => {
           items: [...newState],
         };
       }
+    ///
 
-    case DELETE_ITEM:
-      const deleteItem = state.items.findIndex(
-        (album) => album.reference_id === action.payload
-      );
-      console.log(deleteItem, "action payload");
-
-      const newState = state.items.splice(deleteItem, 1);
-
-      console.log(state.items, "oldState");
-      console.log(newState, "newState");
+    case PAYMENT_SUCCESS:
+      const finalState = [];
 
       return {
-        items: [...state.items],
+        items: [finalState],
       };
 
     case INCREASE_QUANTITY:
@@ -65,11 +62,12 @@ const reducer = (state, action) => {
       const updateItem = state.items.findIndex(
         (album) => album.reference_id === action.payload
       );
+
+      //find index: tim vi tri so cua item trong array
       console.log(action.payload, "action payload");
 
       if (!updatedState[updateItem].amount) {
         updatedState[updateItem].amount = 2;
-        updatedState[updateItem].amount = 19 * 2;
       } else {
         updatedState[updateItem].amount = updatedState[updateItem].amount + 1;
         updatedState[updateItem].price = 19 * updatedState[updateItem].amount;
@@ -93,11 +91,27 @@ const reducer = (state, action) => {
       } else {
         decreaseState[decreaseItem].amount =
           decreaseState[decreaseItem].amount - 1;
-          decreaseState[decreaseItem].price = 19 * decreaseState[decreaseItem].amount;
+        decreaseState[decreaseItem].price =
+          19 * decreaseState[decreaseItem].amount;
       }
       console.log("decreaseState", decreaseState);
       return {
         items: [...decreaseState],
+      };
+
+    case DELETE_ITEM:
+      const deleteItem = state.items.findIndex(
+        (album) => album.reference_id === action.payload
+      );
+      console.log(deleteItem, "action payload");
+
+      const newState = state.items.splice(deleteItem, 1);
+      window.localStorage.setItem("cartItem", JSON.stringify(newState));
+      console.log(state.items, "oldState");
+      console.log(newState, "newState");
+
+      return {
+        items: [...state.items],
       };
 
     default:
@@ -185,6 +199,11 @@ function CartProvider({ children }) {
       payload: id,
     });
   };
+  const paymentSuccess = async () => {
+    dispatch({
+      type: PAYMENT_SUCCESS,
+    });
+  };
 
   return (
     <CartContext.Provider
@@ -194,6 +213,7 @@ function CartProvider({ children }) {
         deleteItem,
         increaseQuantity,
         decreaseQuantity,
+        paymentSuccess,
       }}
     >
       {children}

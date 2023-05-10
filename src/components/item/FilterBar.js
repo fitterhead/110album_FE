@@ -12,22 +12,38 @@ export default function FilterBar({ filter, setFilter }) {
   console.log("filterrrrrr", filter);
   return (
     <FormControl variant="standard" sx={{ width: "100%" }}>
-      <InputLabel id="demo-simple-select-standard-label">Genres</InputLabel>
+      <InputLabel
+        id="demo-simple-select-standard-label"
+      >
+        Genres
+      </InputLabel>
       <Select
+        sx={{ fontSize: "16px" }}
         labelId="demo-simple-select-standard-label"
         id="demo-simple-select-standard"
         value={filter}
         onChange={handleChange}
         label="Age"
+        // variant="h3"
       >
-        <MenuItem value="">
+        <MenuItem sx={{ fontSize: "16px" }} value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={"album"}>Album</MenuItem>
-        <MenuItem value={"ranking"}>Ranking</MenuItem>
-        <MenuItem value={"artistName"}>Aritst</MenuItem>
-        <MenuItem value={"genre"}>Genre</MenuItem>
-        <MenuItem value={"releaseDate"}>Release Date</MenuItem>
+        <MenuItem sx={{ fontSize: "16px" }} value={"album"}>
+          Album
+        </MenuItem>
+        <MenuItem sx={{ fontSize: "16px" }} value={"ranking"}>
+          Ranking
+        </MenuItem>
+        <MenuItem sx={{ fontSize: "16px" }} value={"artistName"}>
+          Aritst
+        </MenuItem>
+        <MenuItem sx={{ fontSize: "16px" }} value={"genre"}>
+          Genre
+        </MenuItem>
+        <MenuItem sx={{ fontSize: "16px" }} value={"releaseDate"}>
+          Release Date
+        </MenuItem>
       </Select>
     </FormControl>
   );

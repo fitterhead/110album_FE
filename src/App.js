@@ -7,7 +7,7 @@ import { ThemeColorProvider } from "./contexts/ThemeContext";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { CLIENT_ID } from "./app/config";
 import { CartProvider } from "./contexts/CartContext";
-
+import { AlertProvider } from "./contexts/AlertContext";
 function App() {
   return (
     <PayPalScriptProvider
@@ -17,17 +17,19 @@ function App() {
         // "client-id": CLIENT_ID,
       }}
     >
-      <AuthProvider>
-        <BrowserRouter>
-          <CartProvider>
-            <ThemeColorProvider>
-              <ThemeProvider>
-                <Router />
-              </ThemeProvider>
-            </ThemeColorProvider>
-          </CartProvider>
-        </BrowserRouter>
-      </AuthProvider>
+      <AlertProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <CartProvider>
+              <ThemeColorProvider>
+                <ThemeProvider>
+                  <Router />
+                </ThemeProvider>
+              </ThemeColorProvider>
+            </CartProvider>
+          </BrowserRouter>
+        </AuthProvider>
+      </AlertProvider>
     </PayPalScriptProvider>
   );
 }

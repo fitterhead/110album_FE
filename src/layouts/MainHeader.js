@@ -16,7 +16,7 @@ import { ThemeColorContext } from "../contexts/ThemeContext";
 import Menu from "@mui/icons-material/Menu";
 import { Container, MenuItem } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
-
+import useCart from "../hooks/useCart";
 function MainHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const isMenuOpen = Boolean(anchorElNav);
@@ -33,6 +33,27 @@ function MainHeader() {
   /* ---------------------------------- menu ---------------------------------- */
 
   const navigate = useNavigate();
+
+  /* ------------------------- show the length of cart ------------------------ */
+  const cartProduct = useCart();
+  // const cartLength = cartProduct.items.length;
+  const cartLength = cartProduct.items;
+
+  // const lengthAcc = cartLength.reduce((acc, currentValue) => {
+  //   return acc + currentValue.amount;
+  // });
+
+  const lengthAcc = cartLength.reduce((acc, item) => {
+    acc += item.amount;
+
+    return acc;
+  }, 0);
+
+  console.log("cartProduct header222", lengthAcc);
+  console.log("cartProduct header222", lengthAcc);
+  /* ------------------------------------ - ----------------------------------- */
+
+  // console.log("cartLength", cartLength);
   const [open, setOpen] = React.useState(false);
   const [themeColor, setThemeColor] = React.useState("light");
   const handleOpen = () => setOpen(true);
@@ -124,6 +145,19 @@ function MainHeader() {
               >
                 LOGOUT
               </Button>
+              {user.isAdmin ? (
+                <Button
+                  sx={{
+                    fontSize: "16px",
+                    color: "black",
+                    display: { xs: "none", md: "flex" },
+                  }}
+                  variant="button"
+                  onClick={() => navigate("/dashboard")}
+                >
+                  DASHBOARD
+                </Button>
+              ) : null}
               <Button
                 sx={{
                   fontSize: "16px",
@@ -162,9 +196,13 @@ function MainHeader() {
           <Button
             sx={{ fontSize: "16px", display: { xs: "none", sm: "flex" } }}
             variant="button"
-            onClick={() => navigate("/payment")}
+            onClick={() => {
+              // window.localStorage.setItem("cartItem", JSON.stringify([]));
+              navigate("/payment");
+            }}
           >
             CART
+            {lengthAcc >= 1 ? `(${lengthAcc})` : null}
           </Button>
         </Toolbar>
         <Box

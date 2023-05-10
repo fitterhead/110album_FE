@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiService from "../../app/apiService";
 import { getPlaylist } from "../content/contentSlice";
-
+import { Alert } from "@mui/material";
+import AlertBar from "../../components/item/AlertBar";
+import { useContext } from "react";
+import { AlertContext } from "../../contexts/AlertContext";
+import { createAlertBar } from "../alert/alertSlice";
 const initialState = {
   isLoading: false,
   error: null,
@@ -48,7 +52,8 @@ export const createPlaylist =
         userRef,
       });
       dispatch(slice.actions.createPlaylistSuccess(response.data));
-      alert("create new playlist success");
+      // alert("create new playlist success");
+      dispatch(createAlertBar("create new playlist success"));
       dispatch(getPlaylist());
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
@@ -62,7 +67,8 @@ export const deletePlaylist = (playlistId) => async (dispatch) => {
       `/playlist/deletePlaylist/${playlistId}`
     );
     dispatch(slice.actions.createPlaylistSuccess(response.data));
-    alert("delete playlist success");
+    dispatch(createAlertBar("delete playlist success"));
+
     dispatch(getPlaylist());
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
@@ -78,7 +84,7 @@ export const deleteAlbumFromAPlaylist =
         { playlistId, albumId }
       );
       dispatch(slice.actions.deleteAlbumFromAPlaylistSuccess(response.data));
-      alert("delete Album From A Playlist Success");
+      dispatch(createAlertBar("delete Album From A Playlist Success"));
       dispatch(getPlaylist());
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));

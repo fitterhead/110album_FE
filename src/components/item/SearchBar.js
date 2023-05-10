@@ -6,12 +6,14 @@ function SearchBar({ input, setInput }) {
   return (
     <Grid container justifyContent="flex-end" spacing={2}>
       <Grid item xs={12} md={4}>
+
         <TextField
           sx={{ width: "100%", backgroundColor: "white" }}
           //   label="Search"
           onChange={(e) => {
             setInput(e.target.value);
           }}
+          inputProps={{style: {fontSize: "16px"}}}
           id="filled-size-normal"
           label="Search here"
           variant="filled"

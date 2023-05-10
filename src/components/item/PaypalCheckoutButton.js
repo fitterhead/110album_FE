@@ -4,11 +4,16 @@ import { addAlbumToCart } from "../../features/content/contentSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { transactionSuccess } from "../../features/order/orderSlice";
+import { createAlertBar } from "../../features/alert/alertSlice";
+import useCart from "../../hooks/useCart";
 const PaypalCheckoutButton = (props) => {
   const navigate = useNavigate();
 
   const { product } = props;
-
+  const user = useAuth();
+  const cartProduct = useCart();
   const productRendered = product.map((item) => {
     return {
       reference_id: item.description,
@@ -17,30 +22,48 @@ const PaypalCheckoutButton = (props) => {
     };
   });
 
-  console.log(productRendered, "productRendered");
+  // console.log(productRendered, "productRendered");
 
   console.log("prop2", props);
+  console.log("user initial", user);
   const dispatch = useDispatch();
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
   // const checkoutCart = useSelector((state) => state.content.contents);
 
-  const handlePaidFor = () => {
-    // alert("handlePayFor");
+  const handlePaidFor = (data) => {
     setPaidFor(true);
-    window.localStorage.setItem("cartItem", JSON.stringify([]));
+    console.log(data, "success data rendered ");
+    dispatch(transactionSuccess(data));
   };
 
-  const handleApprove = (orderId) => {
+  const handleApprove = (order) => {
+    const data = props.product.map((e) => {
+      return {
+        userId: user?.user?._id,
+        orderStatus: "finished",
+        product: [e],
+      };
+    });
+
     // call backend function to fulfill the order
 
-    const data = {
-      orderStatus: "finished",
-      product: [props.product],
-    };
+    // const newProduct = props.product.map((e) => {
+    //   return { ...e, user: user.user._id };
+    // });
+
+    // const data = {
+    //   userId: user.user._id,
+    //   orderStatus: "finished",
+    //   product: newProduct,
+    //   userLog: [order],
+    // };
     // if resonse is success
-    dispatch(addAlbumToCart(data));
-    handlePaidFor();
+    // dispatch(addAlbumToCart(data));
+
+    handlePaidFor(data);
+
+    // window.localStorage.setItem("cartItem", JSON.stringify([]));
 
     //refresh useraccount or subscription status
 
@@ -49,9 +72,14 @@ const PaypalCheckoutButton = (props) => {
   };
   if (paidFor) {
     // display success message, modal, or redirect success page
-    // console.log("checkoutCart", checkoutCart);
-    alert("thank you for purchase");
+    // console.log("checkoutCart", checkoutCart)
+
+    dispatch(createAlertBar("thank you for purchase"));
     navigate("/");
+
+    window.localStorage.setItem("cartItem", JSON.stringify([]));
+    dispatch(cartProduct.paymentSuccess());
+    // console.log(data.product,"data product")
   }
 
   if (error) {
@@ -184,7 +212,8 @@ const PaypalCheckoutButton = (props) => {
         const order = await actions.order.capture();
         console.log("order", order);
 
-        handleApprove(data.orderId);
+        // handleApprove(data.orderId);
+        handleApprove(order);
         // data.orderId
       }}
       onError={(err) => {

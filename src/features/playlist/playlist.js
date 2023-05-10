@@ -39,6 +39,21 @@ function Playlist() {
     setData(dispatch(getPlaylist()));
   }, [dispatch]);
 
+  let refinedPlaylist = [];
+  const refinedList = listAlbum?.map((e, index) => {
+    if (e.albumRef.length !== 0) {
+      refinedPlaylist.push(e.albumRef);
+    }
+  });
+
+  const spreadList = refinedPlaylist?.map((e) => {
+    for (let i = 0; i < e.length; i++) {
+      return e[i];
+    }
+  });
+
+  console.log("spread Playlist", spreadList);
+
   return (
     <Container
       maxWidth="false"

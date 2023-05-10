@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { Card, IconButton, InputAdornment } from "@mui/material";
+import { Alert, Card, IconButton, InputAdornment } from "@mui/material";
 import { Stack } from "@mui/system";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
@@ -94,7 +94,9 @@ function LoginPage({ handleClose, open }) {
             spacing={2}
           >
             <Typography variant="h7">Signin</Typography>
-
+            {!!errors.responseError && (
+              <Alert severity="error">{errors.responseError.message}</Alert>
+            )}
             <FTextField
               name="email"
               // fullWidth
@@ -193,16 +195,15 @@ function LoginPage({ handleClose, open }) {
                 {/* <Link component={RouterLink}>
                   <Typography variant="button">Forgot Password?</Typography>
                 </Link> */}
-                <Link component={RouterLink}>
-                  <Typography
-                    variant="button"
-                    onClick={() => {
-                      navigate("/register");
-                    }}
-                  >
-                    Create New Account
-                  </Typography>
-                </Link>
+
+                <Typography
+                  variant="button"
+                  onClick={() => {
+                    navigate("/register");
+                  }}
+                >
+                  Create New Account
+                </Typography>
               </Stack>
             </Box>
             {/* <Typography id="modal-modal-title" variant="h6" component="h2">

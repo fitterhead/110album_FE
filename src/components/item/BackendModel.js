@@ -15,11 +15,13 @@ import useCart from "../../hooks/useCart";
 import TextField from "@mui/material/TextField";
 import { createPlaylist } from "../../features/playlist/playlistSlice";
 import useAuth from "../../hooks/useAuth";
+import { createAlertBar } from "../../features/alert/alertSlice";
 import {
   addAlbumToCart,
   getPlaylist,
 } from "../../features/content/contentSlice";
 import { addAlbumToPlaylist } from "../../features/content/contentSlice";
+import { PAYPAL_HOSTED_FIELDS_TYPES } from "@paypal/react-paypal-js";
 
 const style = {
   position: "absolute",
@@ -45,6 +47,7 @@ export default function BackendModal() {
     e.preventDefault();
     dispatch(createPlaylist({ playlistName, userRef }));
     setPlaylistName("");
+    handleClose();
   };
 
   const [backendOpen, setBackendOpen] = React.useState(false);
@@ -96,11 +99,11 @@ export default function BackendModal() {
       console.log("useContext worked", cartFunction.items);
 
       await cartFunction.addToCart(data);
+      dispatch(createAlertBar("add to cart success"));
     } catch (error) {
       console.log(error, "cart Errorrrrrr");
     }
   };
-
 
   // const deleteItem = async (e) => {
   //   const data = {
@@ -133,9 +136,10 @@ export default function BackendModal() {
       >
         {playlistStatusBackend === "added album to playlist successfully" ? (
           <Box sx={style}>
-            <Typography>success</Typography>
+            <Typography variant="h1">success</Typography>
           </Box>
         ) : (
+          //remove this stupid box
           <Box sx={style}>
             <Typography
               sx={{ marginBottom: "1rem" }}
@@ -160,7 +164,9 @@ export default function BackendModal() {
                     if (!e.isDeleted) {
                       return (
                         <MenuItem key={Math.random()} value={e._id}>
-                          {e.playlistName}
+                          <Typography variant="body3">
+                            {e.playlistName}
+                          </Typography>
                         </MenuItem>
                       );
                     }
@@ -174,8 +180,13 @@ export default function BackendModal() {
             >
               add
             </Button>
+
+            <Typography variant="h1" sx={{ paddingTop: "1rem" }}>
+              or
+            </Typography>
             <TextField
               name="email"
+              placeholder="type your new playlist name"
               fullWidth
               sx={{ backgroundColor: "white" }}
               onChange={(e) => setPlaylistName(e.target.value)}
@@ -186,12 +197,12 @@ export default function BackendModal() {
                   fontWeight: 600,
                   fontSize: "20px",
                   lineHeight: "120%",
-                  color: "#BDBDBD",
+                  // color: "#BDBDBD",
                 },
               }} // font size of input label
             />
             <Button
-              // sx={{ maxWidth: "20vw" }}
+              sx={{ marginTop: "1rem" }}
               onClick={handleSubmit}
               variant="contained"
             >

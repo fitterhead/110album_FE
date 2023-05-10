@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { Card, IconButton, InputAdornment } from "@mui/material";
+import { Alert, Card, IconButton, InputAdornment } from "@mui/material";
 import { Stack } from "@mui/system";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
@@ -81,7 +81,6 @@ function LoginModal({ handleClose, open }) {
     } catch (error) {
       reset();
       setError("responseError", error);
-     
     }
   };
 
@@ -102,7 +101,9 @@ function LoginModal({ handleClose, open }) {
               spacing={2}
             >
               <Typography variant="h7">Signin</Typography>
-
+              {!!errors.responseError && (
+                <Alert severity="error">{errors.responseError.message}</Alert>
+              )}
               <FTextField
                 name="email"
                 // fullWidth

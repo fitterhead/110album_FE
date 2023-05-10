@@ -9,6 +9,17 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { ThemeColorContext } from "../contexts/ThemeContext";
 
+const COMPONENTS = {
+  MuiInputLabel: {
+    defaultProps: {
+      sx: {
+        fontSize: "16px",
+        top: 2,
+      },
+    },
+  },
+};
+
 const PRIMARY = {
   main: "#5DDF2A",
   dark: "#93EA71",
@@ -128,6 +139,7 @@ function ThemeProvider({ children }) {
   const toggleOption = async () => {
     if (darkMode) {
       setTheme({
+        components: COMPONENTS,
         palette: {
           primary: PRIMARY,
           secondary: SECONDARY,
@@ -136,6 +148,7 @@ function ThemeProvider({ children }) {
       });
     } else {
       setTheme({
+        components: COMPONENTS,
         palette: {
           primary: SECONDARY,
           secondary: SECONDARY,
