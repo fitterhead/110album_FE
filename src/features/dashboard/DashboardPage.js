@@ -84,7 +84,7 @@ function DashboardPage() {
   // useEffect(() => setRows(dispatch(getTableData())), [dispatch]);
   const userId = {};
   useEffect(
-    () => setRows(dispatch(getTableData("641d32e972f81a8b6800d6f6"))),
+    () => setRows(dispatch(getTableData())),
     [dispatch]
   );
   const tableData = useSelector((state) => state.order.tableData);

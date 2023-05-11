@@ -60,7 +60,7 @@ function AlbumCollection({ artistId }) {
                     <CardMedia
                       component="img"
                       height="100%"
-                      image={`https://befinal-production.up.railway.app/static/image/${album.album}.jpg`}
+                      image={`https://finalbe-production.up.railway.app/static/image/${album.album}.jpg`}
                       onClick={() => handleAlbumInfo(`${album._id}`)}
                     />
                   </Card>

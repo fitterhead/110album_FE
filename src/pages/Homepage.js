@@ -129,8 +129,7 @@ function Homepage() {
 
   useEffect(() => {
     dispatch(getTableData(user?._id));
-
-    dispatch(getPlaylist());
+    dispatch(getPlaylist(user?._id));
     dispatch(fromGenreArray(genreObject));
   }, [dispatch, listAlbum, user]);
 

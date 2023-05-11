@@ -49,8 +49,14 @@ export const getArtist = createAsyncThunk("artists", async ({ artistId }) => {
   return response;
 });
 /* -------------------------- get playlist of user -------------------------- */
-export const getPlaylist = createAsyncThunk("Playlist", async () => {
-  const response = await apiService.get("/playlist");
+export const getPlaylist = createAsyncThunk("Playlist", async (userId) => {
+  let query = "/playlist";
+
+  query = `/playlist?userId=${userId}`;
+
+  // console.log("userIddddd", { userId });
+  // console.log("ini querry", query);
+  const response = await apiService.get(query);
   return response;
 });
 /* ----------------- get list of favourite artist of an user ---------------- */
@@ -330,7 +336,6 @@ export const contentSlice = createSlice({
         state.status = "idle";
         console.log("addAlbumToPlaylist Successful", action.payload);
         state.playlistStatus = "added album to playlist successfully";
-
       })
       .addCase(addAlbumToPlaylist.rejected, (state, action) => {
         state.status = "rejected";

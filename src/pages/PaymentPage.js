@@ -190,7 +190,7 @@ function PaymentPage() {
                     component="img"
                     sx={{ height: 150, width: 150 }}
                     // sx={{ maxWidth: "10rem" }}
-                    image={`https://befinal-production.up.railway.app/static/image/${eachItem.description}.jpg`}
+                    image={`https://finalbe-production.up.railway.app/static/image/${eachItem.description}.jpg`}
                   ></CardMedia>
                 </Card>
               );

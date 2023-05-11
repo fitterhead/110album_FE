@@ -31,9 +31,11 @@ import { Box, Container, Grid, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 function UserDashboard() {
+  //
   const { user } = useAuth();
   const theme = useTheme();
   const { id } = useParams();
+  console.log(id, "iddddddddddd");
   const dispatch = useDispatch();
   const accountCreated = new Date(user.createdAt).toLocaleString();
   console.log("accountCreated", accountCreated);
@@ -41,12 +43,17 @@ function UserDashboard() {
   const listAlbum = useSelector(
     (state) => state.content?.playlist[0]?.data?.data
   );
+
   const userPastOrder = useSelector((state) => state.order.tableData);
+
+  // if (id) {
+  //   dispatch(getPlaylist(id));
+  // }
 
   useEffect(() => {
     dispatch(getTableData(id));
-    dispatch(getPlaylist());
-  }, [dispatch]);
+    dispatch(getPlaylist(id));
+  }, [dispatch,id ]);
 
   const customStyle = {
     fontSize: "16px",
@@ -356,7 +363,7 @@ function UserDashboard() {
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center", 
+                  alignItems: "center",
                 }}
               >
                 <Typography variant="h1">No Data Recorded</Typography>

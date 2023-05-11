@@ -179,7 +179,7 @@ function Recommendation({ randomFavouriteAlbum, suggestionList }) {
                       height: "300px",
                       objectFit: "cover",
                     }}
-                    image={`https://befinal-production.up.railway.app/static/image/${album.album}.jpg`}
+                    image={`https://finalbe-production.up.railway.app/static/image/${album.album}.jpg`}
                     alt="Random image"
                     onClick={() => handleAlbumInfo(`${album._id}`)}
                   />

@@ -78,7 +78,7 @@ function SearchResult({ data, input }) {
                         <CardMedia
                           component="img"
                           height="100%"
-                          image={`https://befinal-production.up.railway.app/static/image/${singleData.album}.jpg`}
+                          image={`https://finalbe-production.up.railway.app/static/image/${singleData.album}.jpg`}
                           onClick={() => handleAlbumInfo(`${singleData._id}`)}
                         />
                       </Card>

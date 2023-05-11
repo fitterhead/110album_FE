@@ -81,7 +81,7 @@ function SingleAlbum({ album }) {
             <CardMedia
               component="img"
               height="100%"
-              image={`https://befinal-production.up.railway.app/static/image/${album.album}.jpg`}
+              image={`https://finalbe-production.up.railway.app/static/image/${album.album}.jpg`}
               // aria-owns={open ? "mouse-over-popover" : undefined}
               // aria-haspopup="true"
               onClick={() => handleAlbumInfo(`${album._id}`)}
