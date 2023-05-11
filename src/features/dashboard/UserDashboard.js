@@ -11,6 +11,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import useAuth from "../../hooks/useAuth";
+import { Card } from "@mui/material";
 
 import {
   PieChart,
@@ -277,14 +278,6 @@ function UserDashboard() {
 
   /* ------------------------------ tab component ----------------------------- */
 
-  // const data1 = [
-  //   { year: "2015", sales: 1000 },
-  //   { year: "2016", sales: 2500 },
-  //   { year: "2017", sales: 3000 },
-  //   { year: "2018", sales: 2000 },
-  //   { year: "2019", sales: 4000 },
-  // ];
-
   const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
 
@@ -313,18 +306,16 @@ function UserDashboard() {
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
-          <Paper sx ={{padding:"1rem"}}>
-            
+          <Paper sx={{ padding: "1rem" }}>
             <Typography variant="h1">User</Typography>
-            <Typography variant="body3">{user.username}</Typography>
-            <Typography sx={{ paddingTop: "1rem" }} variant="h1">
+            <Typography variant="body3">{id}</Typography>
+            {/* <Typography sx={{ paddingTop: "1rem" }} variant="h1">
               Register since
             </Typography>
-            <Typography variant="body3">{accountCreated}</Typography>
+            <Typography variant="body3">{accountCreated}</Typography> */}
           </Paper>
         </Grid>
 
-        
         {/* -------------------------------- pie chart ------------------------------- */}
         <Grid item xs={12} sm={6} md={4}>
           <Typography
@@ -332,32 +323,45 @@ function UserDashboard() {
             sx={{ paddingBottom: "1rem" }}
             variant="h1"
           >
-            genres purchased
+            genres on Playlist
           </Typography>
           <ResponsiveContainer width="100%" height={400}>
-            <PieChart width={400} height={400} style={customStyle}>
-              <Pie
-                data={favouriteGenrePlaylist}
-                dataKey="quantity"
-                nameKey="genre"
-                cx="50%"
-                cy="50%"
-                outerRadius={120}
-                fill="#8884d8"
-                label
+            {favouriteGenrePlaylist.length > 0 ? (
+              <PieChart width={400} height={400} style={customStyle}>
+                <Pie
+                  data={favouriteGenrePlaylist}
+                  dataKey="quantity"
+                  nameKey="genre"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={120}
+                  fill="#8884d8"
+                  label
+                >
+                  {favouriteGenrePlaylist.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={`#${Math.floor(Math.random() * 16777215).toString(
+                        16
+                      )}`}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            ) : (
+              <Container
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center", 
+                }}
               >
-                {favouriteGenrePlaylist.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={`#${Math.floor(Math.random() * 16777215).toString(
-                      16
-                    )}`}
-                  />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
+                <Typography variant="h1">No Data Recorded</Typography>
+              </Container>
+            )}
           </ResponsiveContainer>
           {/* </Box> */}
         </Grid>
@@ -375,7 +379,7 @@ function UserDashboard() {
             sx={{ paddingBottom: "1rem" }}
             variant="h1"
           >
-            genres on playlists
+            genres purchased
           </Typography>
 
           <ResponsiveContainer width="100%" height={400}>
@@ -403,24 +407,50 @@ function UserDashboard() {
           </Tabs>
           <TabPanel value={value} index={0}>
             <ResponsiveContainer width="100%" height={400}>
-              <LineChart width={800} height={400} data={orderYear}>
-                <Line type="monotone" dataKey="amount" stroke="#8884d8" />
-                <CartesianGrid stroke="#ccc" />
-                <XAxis dataKey="year" />
-                <YAxis />
-                <Tooltip />
-              </LineChart>
+              {orderYear.length > 0 ? (
+                <LineChart width={800} height={400} data={orderYear}>
+                  <Line type="monotone" dataKey="amount" stroke="#8884d8" />
+                  <CartesianGrid stroke="#ccc" />
+                  <XAxis dataKey="year" />
+                  <YAxis />
+                  <Tooltip />
+                </LineChart>
+              ) : (
+                <Container
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="h1">No Data Recorded</Typography>
+                </Container>
+              )}
             </ResponsiveContainer>
           </TabPanel>
           <TabPanel value={value} index={1}>
             <ResponsiveContainer width="100%" height={400}>
-              <LineChart width={800} height={400} data={playlistYear}>
-                <Line type="monotone" dataKey="amount" stroke="#82ca9d" />
-                <CartesianGrid stroke="#ccc" />
-                <XAxis dataKey="year" />
-                <YAxis />
-                <Tooltip />
-              </LineChart>
+              {playlistYear.length > 0 ? (
+                <LineChart width={800} height={400} data={playlistYear}>
+                  <Line type="monotone" dataKey="amount" stroke="#8884d8" />
+                  <CartesianGrid stroke="#ccc" />
+                  <XAxis dataKey="year" />
+                  <YAxis />
+                  <Tooltip />
+                </LineChart>
+              ) : (
+                <Container
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="h1">No Data Recorded</Typography>
+                </Container>
+              )}
             </ResponsiveContainer>
           </TabPanel>
         </Grid>

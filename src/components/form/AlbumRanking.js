@@ -38,7 +38,6 @@ function AlbumRanking({ albums, setPage, page }) {
         </Box>
         <Container
           sx={{
-            // backgroundColor: "red",
             display: "flex",
             justifyContent: "center",
           }}

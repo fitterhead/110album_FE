@@ -65,6 +65,7 @@ export const getTableData = (userId) => async (dispatch) => {
 
     // const response = await apiService.get("/order", { userId });
     const response = await apiService.get(customQuery, { userId });
+    console.log("customQuery", customQuery);
     console.log("table data successsss aaaaa", response);
 
     dispatch(slice.actions.getTableDataSuccess(response.data));

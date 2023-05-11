@@ -7,7 +7,6 @@ import Modal from "@mui/material/Modal";
 import { useLocation, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -46,6 +45,15 @@ function UserProfile() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const registeredDate = new Date(user?.createdAt);
+  const formattedDate = registeredDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  console.log("registeredDate", registeredDate);
+  console.log("formattedDate", formattedDate);
 
   return (
     <div>
@@ -99,6 +107,16 @@ function UserProfile() {
           <Typography variant="h1" sx={{ fontSize: "16px" }}>
             {" "}
             {user ? user.email : "loading"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Typography variant="h1" sx={{ fontSize: "16px" }}>
+            Member since:
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Typography variant="h1" sx={{ fontSize: "16px" }}>
+            {formattedDate}
           </Typography>
         </Grid>
       </Grid>

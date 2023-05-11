@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, Grid, Paper } from "@mui/material";
+import { Box, Card, Grid, Paper, Badge, styled } from "@mui/material";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
@@ -17,6 +17,22 @@ function SearchResult({ data, input }) {
   const handleAlbumInfo = (artistId) => {
     navigate(`/album/result/${artistId}`);
   };
+
+  const SquareBadge = styled(Badge)(({ theme }) => ({
+    position: "absolute",
+    padding: "1.2rem",
+    opacity: 0.5,
+    // margin: "0.7rem",
+    width: "20px", // Set the desired width
+    height: "20px", // Set the desired height
+    borderRadius: "0", // Set the border radius to 0 for square shape
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#5DDF2A",
+    color: "white", // Set the desired text color
+    fontWeight: "bold", // Set the desired font weight
+  }));
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -46,16 +62,23 @@ function SearchResult({ data, input }) {
                     <Stack sx={{ height: "100%" }}>
                       <Card
                         sx={{
+                          position: "relative",
                           width: "100%",
                           aspectRatio: "1/1",
                           flexGrow: 1,
                           backgroundColor: "gray",
                         }}
                       >
+                        <SquareBadge>
+                          <Typography variant="button">
+                            {singleData.ranking}
+                          </Typography>
+                        </SquareBadge>
+
                         <CardMedia
                           component="img"
                           height="100%"
-                          image={`https://final-be-production-e891.up.railway.app/static/image/${singleData.album}.jpg`}
+                          image={`https://befinal-production.up.railway.app/static/image/${singleData.album}.jpg`}
                           onClick={() => handleAlbumInfo(`${singleData._id}`)}
                         />
                       </Card>
@@ -85,7 +108,7 @@ function SearchResult({ data, input }) {
                           <Typography variant="button">
                             {singleData.genre}
                           </Typography>
-                          <Typography variant="body1">
+                          <Typography variant="body3">
                             {singleData.releaseDate}
                           </Typography>
                         </Stack>

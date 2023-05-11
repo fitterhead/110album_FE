@@ -1,6 +1,6 @@
 // import "./styles.css";
 import React from "react";
-import { Box, Card, Grid, Paper } from "@mui/material";
+import { Box, Card, Grid, Paper, styled, Badge } from "@mui/material";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
@@ -42,12 +42,31 @@ function SingleAlbum({ album }) {
 
   const open = Boolean(anchorEl);
 
+  /* ------------------------------ custom badge ------------------------------ */
+  const SquareBadge = styled(Badge)(({ theme }) => ({
+    position: "absolute",
+    padding: "0.6rem",
+    // opacity: 0.5,
+    // margin: "0.7rem",
+
+    width: "20px", // Set the desired width
+    height: "20px", // Set the desired height
+    borderRadius: "0", // Set the border radius to 0 for square shape
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+    color: "white", // Set the desired text color
+    fontWeight: "bold", // Set the desired font weight
+  }));
+
   return (
     <Grid item xs={6} md={4} padding={1}>
       <Box sx={{}}>
         <Stack sx={{ height: "100%" }}>
           <Card
             sx={{
+              position: "relative",
               width: "100%",
               aspectRatio: "1/1",
               flexGrow: 1,
@@ -56,10 +75,13 @@ function SingleAlbum({ album }) {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
+            <SquareBadge sx={{ bgcolor: "primary.main" }}>
+              <Typography variant="button">{album.ranking}</Typography>
+            </SquareBadge>
             <CardMedia
               component="img"
               height="100%"
-              image={`https://final-be-production-e891.up.railway.app/static/image/${album.album}.jpg`}
+              image={`https://befinal-production.up.railway.app/static/image/${album.album}.jpg`}
               // aria-owns={open ? "mouse-over-popover" : undefined}
               // aria-haspopup="true"
               onClick={() => handleAlbumInfo(`${album._id}`)}
@@ -73,14 +95,10 @@ function SingleAlbum({ album }) {
                 // marginBottom:"10vh"
               }}
             >
-              <Typography sx={{ paddingBottom: "0.2rem" }} variant="body1">
-                {album.ranking}
-              </Typography>
-
               <Typography
                 // sx ={{padding:"2rem"}}
                 sx={{
-                  marginBottom: "1rem",
+                  // marginBottom: "0.5rem",
                 }}
                 onClick={() => handleAlbumInfo(`${album._id}`)}
                 variant="button"

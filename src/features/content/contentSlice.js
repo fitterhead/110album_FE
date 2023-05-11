@@ -331,12 +331,6 @@ export const contentSlice = createSlice({
         console.log("addAlbumToPlaylist Successful", action.payload);
         state.playlistStatus = "added album to playlist successfully";
 
-        // state.playlist = [state.playlist, ...action.payload];
-        // state.playlist.map((e) => {
-        //   if (e._id === action.payload._id) {
-        //     e = action.payload;
-        //   }
-        // });
       })
       .addCase(addAlbumToPlaylist.rejected, (state, action) => {
         state.status = "rejected";

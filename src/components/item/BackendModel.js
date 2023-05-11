@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { ListItemText } from "@mui/material";
+import { Card, ListItemText } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useCart from "../../hooks/useCart";
@@ -105,25 +105,6 @@ export default function BackendModal() {
     }
   };
 
-  // const deleteItem = async (e) => {
-  //   const data = {
-  //     reference_id: selectedAlbum._id,
-  //     description: selectedAlbum.album,
-  //     price: 19,
-  //   };
-  //   try {
-  //     console.log("useContext worked", cartFunction.items);
-
-  //     await cartFunction.addToCart(data);
-  //   } catch (error) {
-  //     console.log(error, "cart Errorrrrrr");
-  //   }
-  // };
-
-  //   const sendMessage = () ={
-  // }
-  //   console.log("playlist modal", playlist);
-  // console.log("playlist selectedAlbum", selectedAlbum);
   return (
     <div>
       <Button onClick={handleOpen}>Add to favourite</Button>
@@ -135,9 +116,9 @@ export default function BackendModal() {
         aria-describedby="modal-modal-description"
       >
         {playlistStatusBackend === "added album to playlist successfully" ? (
-          <Box sx={style}>
+          <Card sx={style}>
             <Typography variant="h1">success</Typography>
-          </Box>
+          </Card>
         ) : (
           //remove this stupid box
           <Box sx={style}>
