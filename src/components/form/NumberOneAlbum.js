@@ -31,11 +31,11 @@ function NumberOneAlbum({ albums }) {
         spacing={2}
       >
         <Card
+          onClick={() => handleAlbumInfo(`${albums._id}`)}
           sx={{
             width: "100%",
             maxHeight: "600px",
             aspectRatio: "1/1",
-
             // maxHeight: "600px",
             // maxWidth: "600px",
             backgroundColor: "yellow",
@@ -53,6 +53,9 @@ function NumberOneAlbum({ albums }) {
               <Typography
                 variant="h1"
                 color="text.secondary"
+                style={{
+                  cursor: "pointer",
+                }}
                 onClick={() => handleArtistBio(`${albums.artistRef._id}`)}
 
                 //   gutterBottom
@@ -62,6 +65,11 @@ function NumberOneAlbum({ albums }) {
               </Typography>
               <Typography
                 variant="h7"
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => handleAlbumInfo(`${albums._id}`)}
+
                 // component="div"
               >
                 {/* OK COMPUTER */}
@@ -79,7 +87,9 @@ function NumberOneAlbum({ albums }) {
                 //   dispatch(getContent());
                 //   console.log("clicked", dispatch(getContent()));
                 // }}
-
+                style={{
+                  cursor: "pointer",
+                }}
                 onClick={() => handleAlbumInfo(`${albums._id}`)}
                 size="small"
               >

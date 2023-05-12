@@ -54,6 +54,9 @@ function ItemCarousel({ genre }) {
                       backgroundColor: "gray",
                       display: "block",
                     }}
+                    style={{
+                      cursor: "pointer",
+                    }}
                   >
                     <CardMedia
                       onClick={() => handleAlbumInfo(`${album._id}`)}
@@ -75,12 +78,18 @@ function ItemCarousel({ genre }) {
                       <Typography
                         sx={{ textAlign: "center", color: "white" }}
                         variant="h1"
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => handleAlbumInfo(`${album._id}`)}
                       >
                         {album.album}
                       </Typography>
                       <Typography
                         sx={{ color: "white" }}
+                        style={{
+                          cursor: "pointer",
+                        }}
                         variant="button"
                         onClick={() => handleArtistBio(`${album.artistRef}`)}
                       >

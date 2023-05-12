@@ -3,6 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Typography } from "@mui/material";
 
 export default function FilterBar({ filter, setFilter }) {
   const handleChange = (event) => {
@@ -11,14 +12,12 @@ export default function FilterBar({ filter, setFilter }) {
 
   console.log("filterrrrrr", filter);
   return (
-    <FormControl variant="standard" sx={{ width: "100%" }}>
-      <InputLabel
-        id="demo-simple-select-standard-label"
-      >
-        Genres
+    <FormControl variant="standard" sx={{ maxWidth: "100vw" }}>
+      <InputLabel id="demo-simple-select-standard-label">
+        <Typography variant="button">Genres</Typography>
       </InputLabel>
       <Select
-        sx={{ fontSize: "16px" }}
+        sx={{ fontSize: "16px", width: "20vw" }}
         labelId="demo-simple-select-standard-label"
         id="demo-simple-select-standard"
         value={filter}
@@ -31,9 +30,6 @@ export default function FilterBar({ filter, setFilter }) {
         </MenuItem>
         <MenuItem sx={{ fontSize: "16px" }} value={"album"}>
           Album
-        </MenuItem>
-        <MenuItem sx={{ fontSize: "16px" }} value={"ranking"}>
-          Ranking
         </MenuItem>
         <MenuItem sx={{ fontSize: "16px" }} value={"artistName"}>
           Aritst

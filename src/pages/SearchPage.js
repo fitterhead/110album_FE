@@ -9,6 +9,7 @@ import SearchResult from "../components/item/SearchResult";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent } from "../features/content/contentSlice";
+import {Divider} from "@mui/material";
 
 function SearchPage() {
   const listAlbum = useSelector(
@@ -26,6 +27,12 @@ function SearchPage() {
   // }, []);
   // console.log("search data", listAlbum);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      startSearching();
+    }
+  };
+
   const startSearching = () => {
     console.log(input);
     setData(
@@ -35,11 +42,11 @@ function SearchPage() {
 
   return (
     <Container
-      maxWidth="false"
+      maxWidth="xl"
       sx={{
         flexGrow: 1,
-        maxWidth: "1344px",
-        padding: "2rem",
+        // maxWidth: "1344px",
+        // padding: "2rem",
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
     >
@@ -49,19 +56,26 @@ function SearchPage() {
             padding: "1rem",
             display: "flex",
             justifyContent: "flex-end",
+            // marginBottom: "2rem",
           }}
         >
-          <SearchBar input={input} setInput={setInput} />
+          <Box sx={{ padding: "0rem 2rem 0rem 0rem" }}>
+            <FilterBar filter={filter} setFilter={setFilter} />
+          </Box>
+          <SearchBar
+            input={input}
+            setInput={setInput}
+            startSearching={startSearching}
+          />
           <Button
+            sx={{ padding: "1rem" }}
             variant="filled"
             onClick={() => startSearching()}
           >
             Search
           </Button>
         </Box>
-        <Box sx={{ padding: "1rem" }}>
-          <FilterBar filter={filter} setFilter={setFilter} />
-        </Box>
+        <Divider />
         <SearchResult data={listAlbum} input={input} />
       </Stack>
     </Container>

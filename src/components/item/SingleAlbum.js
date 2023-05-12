@@ -81,6 +81,9 @@ function SingleAlbum({ album }) {
             <CardMedia
               component="img"
               height="100%"
+              style={{
+                cursor: "pointer",
+              }}
               image={`https://finalbe-production.up.railway.app/static/image/${album.album}.jpg`}
               // aria-owns={open ? "mouse-over-popover" : undefined}
               // aria-haspopup="true"
@@ -97,8 +100,13 @@ function SingleAlbum({ album }) {
             >
               <Typography
                 // sx ={{padding:"2rem"}}
-                sx={{
-                  // marginBottom: "0.5rem",
+                sx={
+                  {
+                    // marginBottom: "0.5rem",
+                  }
+                }
+                style={{
+                  cursor: "pointer",
                 }}
                 onClick={() => handleAlbumInfo(`${album._id}`)}
                 variant="button"
@@ -110,6 +118,9 @@ function SingleAlbum({ album }) {
                 sx={{ paddingBottom: "0.2rem" }}
                 onClick={() => handleArtistBio(`${album.artistRef._id}`)}
                 variant="body2"
+                style={{
+                  cursor: "pointer",
+                }}
               >
                 {album.artistName}
               </Typography>

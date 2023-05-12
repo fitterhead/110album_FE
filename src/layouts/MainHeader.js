@@ -50,7 +50,6 @@ function MainHeader() {
   }, 0);
 
   console.log("cartProduct header222", lengthAcc);
-  console.log("cartProduct header222", lengthAcc);
   /* ------------------------------------ - ----------------------------------- */
 
   // console.log("cartLength", cartLength);
@@ -121,6 +120,9 @@ function MainHeader() {
               navigate("/");
             }}
             variant="h7"
+            style={{
+              cursor: "pointer",
+            }}
             component="div"
             sx={{
               flexGrow: 1,

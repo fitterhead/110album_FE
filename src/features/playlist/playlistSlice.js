@@ -54,7 +54,7 @@ export const createPlaylist =
       dispatch(slice.actions.createPlaylistSuccess(response.data));
       // alert("create new playlist success");
       dispatch(createAlertBar("create new playlist success"));
-      dispatch(getPlaylist());
+      dispatch(getPlaylist(userRef));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
@@ -69,7 +69,7 @@ export const deletePlaylist = (playlistId) => async (dispatch) => {
     dispatch(slice.actions.createPlaylistSuccess(response.data));
     dispatch(createAlertBar("delete playlist success"));
 
-    dispatch(getPlaylist());
+    dispatch(getPlaylist(playlistId));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
   }
@@ -85,7 +85,7 @@ export const deleteAlbumFromAPlaylist =
       );
       dispatch(slice.actions.deleteAlbumFromAPlaylistSuccess(response.data));
       dispatch(createAlertBar("delete Album From A Playlist Success"));
-      dispatch(getPlaylist());
+      dispatch(getPlaylist(playlistId));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

@@ -10,6 +10,9 @@ import PlaylistItem from "../../components/item/PlaylistItem";
 import PlaylistContent from "../../components/item/PlaylistContent";
 import { useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
+import { TextField } from "@mui/material";
+import { createPlaylist } from "./playlistSlice";
+import useAuth from "../../hooks/useAuth";
 
 const style = {
   position: "absolute",
@@ -24,19 +27,36 @@ const style = {
 };
 
 function Playlist() {
+  const [playlistName, setPlaylistName] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [data, setData] = useState("");
   const [render, setRender] = useState(0);
+
   const listAlbum = useSelector(
     (state) => state.content?.playlist[0]?.data?.data
   );
+  const { user } = useAuth();
+  const userRef = user._id;
+
+  console.log("userRef", userRef);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createPlaylist({ playlistName, userRef }));
+    setPlaylistName("");
+    handleClose();
+  };
 
   useEffect(() => {
-    setData(dispatch(getPlaylist()));
+    if (userRef) {
+      dispatch(getPlaylist(userRef));
+    }
   }, [dispatch]);
 
   let refinedPlaylist = [];
@@ -72,12 +92,30 @@ function Playlist() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <TextField
+              name="email"
+              placeholder="type your new playlist name"
+              fullWidth
+              sx={{ backgroundColor: "white" }}
+              onChange={(e) => setPlaylistName(e.target.value)}
+              InputProps={{
+                style: {
+                  fontFamily: "Poppins",
+                  fontStyle: "normal",
+                  fontWeight: 600,
+                  fontSize: "20px",
+                  lineHeight: "120%",
+                  // color: "#BDBDBD",
+                },
+              }} // font size of input label
+            />
+            <Button
+              sx={{ marginTop: "1rem" }}
+              onClick={handleSubmit}
+              variant="contained"
+            >
+              create new playlist
+            </Button>
           </Box>
         </Modal>
       </div>

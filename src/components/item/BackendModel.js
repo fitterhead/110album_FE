@@ -41,6 +41,8 @@ export default function BackendModal() {
   const [playlistName, setPlaylistName] = React.useState("");
   const { user } = useAuth();
   const userRef = user._id;
+
+  console.log("userRef", userRef);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -71,7 +73,7 @@ export default function BackendModal() {
   );
 
   useEffect(() => {
-    dispatch(getPlaylist());
+    dispatch(getPlaylist(userRef));
   }, [dispatch]);
 
   const [playlistId, setPlaylistId] = React.useState("");
