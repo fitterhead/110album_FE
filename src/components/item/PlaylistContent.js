@@ -7,10 +7,22 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { deleteAlbumFromAPlaylist } from "../../features/playlist/playlistSlice";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-function PlaylistContent({ data }) {
+import { useEffect } from "react";
+import { getSinglePlaylist } from "../../features/playlist/playlistSlice";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+function PlaylistContent() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
+  console.log("param playlistContent", params);
+  const singlePlaylist = useSelector((state) => state.playlist?.singlePlaylist);
+  // const refinedPlaylist = [...new Set(singlePlaylist)];
+
+  const refinedPlaylist = singlePlaylist.filter(
+    (obj, index, self) => index === self.findIndex((o) => o._id === obj._id)
+  );
+  console.log(" refinedPlaylist singlePlaylist", refinedPlaylist);
   const handleClick = (e) => {
     // e.preventDefault();
 
@@ -20,6 +32,10 @@ function PlaylistContent({ data }) {
     // setPlaylistName("");
   };
 
+  useEffect(() => {
+    dispatch(getSinglePlaylist(params.id));
+  }, [dispatch]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
@@ -28,8 +44,8 @@ function PlaylistContent({ data }) {
         justifyContent="space-evenly"
         alignItems="flex-start"
       >
-        {data[0] ? (
-          data.map((singleData) => {
+        {refinedPlaylist ? (
+          refinedPlaylist.map((singleData) => {
             console.log("singleData", singleData);
             if (!singleData.isDeleted) {
               return (
@@ -45,6 +61,9 @@ function PlaylistContent({ data }) {
                         }}
                       >
                         <ClearIcon
+                          style={{
+                            cursor: "pointer",
+                          }}
                           onClick={() => handleClick(singleData._id)}
                           sx={{
                             position: "absolute",
@@ -66,10 +85,21 @@ function PlaylistContent({ data }) {
                           spacing={0.5}
                           sx={{ padding: "0.5rem" }}
                         >
-                          <Typography variant="button">
+                          <Typography
+                            variant="button"
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
                             {singleData.artistName}
                           </Typography>
-                          <Typography sx={{ textAlign: "center" }} variant="h1">
+                          <Typography
+                            style={{
+                              cursor: "pointer",
+                            }}
+                            sx={{ textAlign: "center" }}
+                            variant="h1"
+                          >
                             {singleData.album}
                           </Typography>
                           {/* <Typography variant="button">rock</Typography>

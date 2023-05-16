@@ -87,8 +87,9 @@ export default function BackendModal() {
 
     // console.log("data send to playlist update", data);
     dispatch(addAlbumToPlaylist(data));
-    // handleClose();
-    handleOpen();
+    dispatch(createAlertBar("add to playlist success"));
+    handleClose();
+    // handleOpen();
   };
 
   const sendAlbumToCart = async (e) => {
@@ -117,82 +118,75 @@ export default function BackendModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {playlistStatusBackend === "added album to playlist successfully" ? (
-          <Card sx={style}>
-            <Typography variant="h1">success</Typography>
-          </Card>
-        ) : (
-          //remove this stupid box
-          <Box sx={style}>
-            <Typography
-              sx={{ marginBottom: "1rem" }}
-              id="modal-modal-title"
-              variant="h1"
-              component="h2"
-            >
-              Select Playlist
-            </Typography>
+        <Box sx={style}>
+          <Typography
+            sx={{ marginBottom: "1rem" }}
+            id="modal-modal-title"
+            variant="h1"
+            component="h2"
+          >
+            Select Playlist
+          </Typography>
 
-            <FormControl fullWidth sx={{ marginBottom: "1rem" }}>
-              {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={playlistId}
-                label="playlistID"
-                onChange={handleChange}
-              >
-                {playlist &&
-                  playlist.map((e) => {
-                    if (!e.isDeleted) {
-                      return (
-                        <MenuItem key={Math.random()} value={e._id}>
-                          <Typography variant="body3">
-                            {e.playlistName}
-                          </Typography>
-                        </MenuItem>
-                      );
-                    }
-                  })}
-              </Select>
-            </FormControl>
-            <Button
-              sx={{ maxWidth: "20vw" }}
-              onClick={() => sendAlbumToPlaylist()}
-              variant="contained"
+          <FormControl fullWidth sx={{ marginBottom: "1rem" }}>
+            {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={playlistId}
+              label="playlistID"
+              onChange={handleChange}
             >
-              add
-            </Button>
+              {playlist &&
+                playlist.map((e) => {
+                  if (!e.isDeleted) {
+                    return (
+                      <MenuItem key={Math.random()} value={e._id}>
+                        <Typography variant="body3">
+                          {e.playlistName}
+                        </Typography>
+                      </MenuItem>
+                    );
+                  }
+                })}
+            </Select>
+          </FormControl>
+          <Button
+            sx={{ maxWidth: "20vw" }}
+            onClick={() => sendAlbumToPlaylist()}
+            variant="contained"
+          >
+            add
+          </Button>
 
-            <Typography variant="h1" sx={{ paddingTop: "1rem" }}>
-              or
-            </Typography>
-            <TextField
-              name="email"
-              placeholder="type your new playlist name"
-              fullWidth
-              sx={{ backgroundColor: "white" }}
-              onChange={(e) => setPlaylistName(e.target.value)}
-              InputProps={{
-                style: {
-                  fontFamily: "Poppins",
-                  fontStyle: "normal",
-                  fontWeight: 600,
-                  fontSize: "20px",
-                  lineHeight: "120%",
-                  // color: "#BDBDBD",
-                },
-              }} // font size of input label
-            />
-            <Button
-              sx={{ marginTop: "1rem" }}
-              onClick={handleSubmit}
-              variant="contained"
-            >
-              create new playlist
-            </Button>
-          </Box>
-        )}
+          <Typography variant="h1" sx={{ paddingTop: "1rem" }}>
+            or
+          </Typography>
+          <TextField
+            name="email"
+            placeholder="type your new playlist name"
+            fullWidth
+            sx={{ backgroundColor: "white" }}
+            onChange={(e) => setPlaylistName(e.target.value)}
+            InputProps={{
+              style: {
+                fontFamily: "Poppins",
+                fontStyle: "normal",
+                fontWeight: 600,
+                fontSize: "20px",
+                lineHeight: "120%",
+                // color: "#BDBDBD",
+              },
+            }} // font size of input label
+          />
+          <Button
+            sx={{ marginTop: "1rem" }}
+            onClick={handleSubmit}
+            variant="contained"
+          >
+            create new playlist
+          </Button>
+        </Box>
       </Modal>
     </div>
   );

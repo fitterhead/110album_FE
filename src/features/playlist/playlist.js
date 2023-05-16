@@ -128,12 +128,16 @@ function Playlist() {
           }}
         >
           <Typography variant="h1">
-            {render !== 0 ? `${render}` : "Playlist"}
+            {render !== 0 ? (
+              `${render}`
+            ) : (
+              <Button onClick={handleOpen} sx={{ color: "white" }}>
+                Create new Playlist
+              </Button>
+            )}
           </Typography>
         </Box>
-        <Button onClick={handleOpen} sx={{ color: "white" }}>
-          Create new Playlist
-        </Button>
+
         {/* <ResultList data={listAlbum} setRender={setRender} /> */}
         {/* <PlaylistItem /> */}
 

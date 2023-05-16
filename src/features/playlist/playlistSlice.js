@@ -9,6 +9,7 @@ import { createAlertBar } from "../alert/alertSlice";
 const initialState = {
   isLoading: false,
   error: null,
+  singlePlaylist: [],
 };
 
 const slice = createSlice({
@@ -36,6 +37,11 @@ const slice = createSlice({
     deleteAlbumFromAPlaylistSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
+    },
+    getSinglePlaylistSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.singlePlaylist = action.payload;
     },
   },
 });
@@ -85,9 +91,24 @@ export const deleteAlbumFromAPlaylist =
       );
       dispatch(slice.actions.deleteAlbumFromAPlaylistSuccess(response.data));
       dispatch(createAlertBar("delete Album From A Playlist Success"));
-      dispatch(getPlaylist(playlistId));
+      dispatch(getSinglePlaylist(playlistId));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
   };
+
+export const getSinglePlaylist = (playlistId) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/playlist/${playlistId}`);
+    console.log("singlePlaylist response", response);
+    dispatch(
+      slice.actions.getSinglePlaylistSuccess(response.data?.data[0].albumRef)
+    );
+
+    // dispatch(getPlaylist(playlistId));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};
 //   http://localhost:8000/playlist/deletePlaylist/63b38e1743c84446d10e8f20
