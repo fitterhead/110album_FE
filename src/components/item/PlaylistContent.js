@@ -1,5 +1,23 @@
 import React, { useEffect } from "react";
-import { Box, Card, Grid, Paper } from "@mui/material";
+import {
+  Box,
+  Card,
+  Grid,
+  Paper,
+  Modal,
+  Backdrop,
+  Fade,
+  Button,
+  TextField,
+  CardActions,
+  Pagination,
+  CardContent,
+  Divider,
+  Fab,
+  Avatar,
+  Zoom,
+  Tooltip,
+} from "@mui/material";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,8 +28,40 @@ import { useDispatch } from "react-redux";
 import { getSinglePlaylist } from "../../features/playlist/playlistSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getContent } from "../../features/content/contentSlice";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { addAlbumToPlaylist } from "../../features/content/contentSlice";
+import { createAlertBar } from "../../features/alert/alertSlice";
+import { getPlaylist } from "../../features/content/contentSlice";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80vw",
+  // maxHeight: "80vh",
+  bgcolor: "background.paper",
+  // border: "2px solid #000",
+  boxShadow: 24,
+  p: 2,
+  overflowY: "auto",
+  display: "flex",
+  flexDirection: "column",
+};
 
-function PlaylistContent({ data, userId }) {
+function PlaylistContent({
+  data,
+  userId,
+  albumListOpen,
+  handleAlbumListClose,
+}) {
+  // const [open, setOpen] = React.useState(false);
+  const [page, setPage] = React.useState(1);
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
@@ -40,6 +90,10 @@ function PlaylistContent({ data, userId }) {
     // setPlaylistName("");
   };
 
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   // const singlePlaylist = useSelector(
   //   (state) => state.content?.playlist.singlePlaylist
   // );
@@ -49,8 +103,185 @@ function PlaylistContent({ data, userId }) {
 
   console.log("playlist content data", data);
 
+  /* -------------------------------- maindata -------------------------------- */
+  const allAlbums = useSelector((state) => state.content?.contents[0]?.data);
+  console.log("allAlbums", allAlbums);
+  useEffect(
+    () => {
+      dispatch(getContent({ page }));
+    },
+    //  [page]);
+    [dispatch, page]
+  );
+
+  const sendAlbumToPlaylist = (data) => {
+    console.log("dataaaaaaa", data);
+    dispatch(addAlbumToPlaylist(data));
+    dispatch(createAlertBar("add to playlist success"));
+    // handleClose();
+    handleAlbumListClose();
+    dispatch(getSinglePlaylist(params.id));
+
+    dispatch(getPlaylist(userId));
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Box>
+        <Modal
+          open={albumListOpen}
+          onClose={handleAlbumListClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={albumListOpen}>
+            <Card sx={style}>
+              <Grid container padding={2}>
+                <Box
+                  sx={{
+                    width: "100%",
+                    maxHeight: "80vh",
+                    overflowY: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {allAlbums?.data?.map((item) => {
+                    return (
+                      <Grid container item padding={2}>
+                        <Grid
+                          item
+                          xs={5}
+                          sm={5}
+                          sx={{ paddingBottom: "0.5rem" }}
+                        >
+                          <CardContent
+                            sx={{
+                              height: "5vh",
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Tooltip
+                              style={{
+                                cursor: "pointer",
+                              }}
+                              followCursor
+                              title={
+                                <img
+                                  src={`https://finalbe-production.up.railway.app/static/image/${item.album}.jpg`}
+                                  alt="Tooltip"
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                  }}
+                                />
+                              }
+                              TransitionComponent={Zoom}
+                              arrow
+                              // placement="right"
+                            >
+                              <Typography variant="button">
+                                {item.album}
+                              </Typography>
+                            </Tooltip>
+                          </CardContent>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={5}
+                          sm={5}
+                          sx={{ paddingBottom: "0.5rem" }}
+                        >
+                          <CardContent
+                            sx={{
+                              height: "5vh",
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Typography variant="body3">
+                              {item.artistName}
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+
+                        <Grid
+                          item
+                          xs={2}
+                          sm={2}
+                          sx={{ paddingBottom: "0.5rem" }}
+                        >
+                          <CardContent
+                            sx={{
+                              height: "5vh",
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Typography
+                              sx={{ color: "primary.main" }}
+                              style={{
+                                cursor: "pointer",
+                              }}
+                              onClick={() =>
+                                sendAlbumToPlaylist({
+                                  playlistId: params.id,
+                                  albumId: item._id,
+                                })
+                              }
+                              variant="button"
+                            >
+                              {<AddCircleIcon />}
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+                      </Grid>
+                    );
+                  })}
+                  {/* <Grid container item padding={2}>
+                    <Grid item xs={5} sm={5} sx={{ paddingBottom: "0.5rem" }}>
+                      <CardContent sx={{ height: "5vh" }}>
+                        <Typography variant="button">name</Typography>
+                      </CardContent>
+                    </Grid>
+                    <Grid item xs={5} sm={5} sx={{ paddingBottom: "0.5rem" }}>
+                      <CardContent sx={{ height: "5vh" }}>
+                        <Typography variant="button">artist</Typography>
+                      </CardContent>
+                    </Grid>
+                    <Grid item xs={2} sm={2} sx={{ paddingBottom: "0.5rem" }}>
+                      <CardContent sx={{ height: "5vh" }}>
+                        <Typography variant="button">add button</Typography>
+                      </CardContent>
+                    </Grid>
+                  </Grid> */}
+                </Box>
+
+                <CardActions
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Pagination
+                    count={10}
+                    color="primary"
+                    onChange={handleChange}
+                  />
+                </CardActions>
+              </Grid>
+            </Card>
+          </Fade>
+        </Modal>
+      </Box>
       <Grid
         container
         direction="row"
@@ -144,6 +375,9 @@ function PlaylistContent({ data, userId }) {
           </Grid>
         )}
       </Grid>
+      {/* <Button sx={{ color: "black" }} onClick={handleOpen}>
+        click here for second modal
+      </Button> */}
     </Box>
   );
 }

@@ -1,4 +1,14 @@
-import { Grid, Button, Paper, Fab, Tooltip, Zoom, Card } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Paper,
+  Fab,
+  Tooltip,
+  Zoom,
+  Card,
+  Backdrop,
+  Fade,
+} from "@mui/material";
 import { Container, Stack, Box } from "@mui/system";
 import React from "react";
 import Typography from "@mui/material/Typography";
@@ -33,11 +43,17 @@ const style = {
 function Playlist() {
   const [playlistName, setPlaylistName] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [albumListOpen, setAlbumListOpen] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const handleOpen = () => setOpen(true);
+  const handleAlbumListOpen = () => setAlbumListOpen(true);
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleAlbumListClose = () => {
+    setAlbumListOpen(false);
   };
   const [data, setData] = useState("");
   const [render, setRender] = useState(0);
@@ -65,19 +81,19 @@ function Playlist() {
         </Tooltip>
       );
     } else if (render !== 0) {
-      return null;
-      // return (
-      //   <Tooltip
-      //     title="create new playlist"
-      //     TransitionComponent={Zoom}
-      //     arrow
-      //     placement="right"
-      //   >
-      //     <Fab color="gray">
-      //       <AddIcon />
-      //     </Fab>
-      //   </Tooltip>
-      // );
+      // return null;
+      return (
+        <Tooltip
+          title="add album"
+          TransitionComponent={Zoom}
+          arrow
+          placement="right"
+        >
+          <Fab onClick={handleAlbumListOpen} color="gray">
+            <AddIcon />
+          </Fab>
+        </Tooltip>
+      );
     }
     // Render null if no FAB should be shown for the active tab
     return null;
@@ -167,6 +183,7 @@ function Playlist() {
           </Card>
         </Modal>
       </div>
+
       <Stack sx={{ bgcolor: "primary.main" }} spacing={2}>
         <Box
           sx={{
@@ -202,13 +219,15 @@ function Playlist() {
                 <PlaylistContent
                   data={singlePlaylist.albumRef}
                   userId={userRef}
+                  albumListOpen={albumListOpen}
+                  handleAlbumListClose={handleAlbumListClose}
                 />
               );
             }
           })
         )}
+        {renderFabButton()}
       </Stack>
-      {renderFabButton()}
     </Container>
   );
 }
