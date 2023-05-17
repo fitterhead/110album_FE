@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, Grid, Paper, Button } from "@mui/material";
+import { Box, Card, Grid, Paper } from "@mui/material";
 import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
@@ -7,12 +7,15 @@ import { useNavigate } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
 import { deletePlaylist } from "../../features/playlist/playlistSlice";
 import { useDispatch } from "react-redux";
+import useAuth from "../../hooks/useAuth";
 
-function ResultList({ data, setRender, handleOpen }) {
+function ResultList({ data, setRender }) {
+  const { user } = useAuth();
   const dispatch = useDispatch();
   const handleClick = (playlistId) => {
     // alert(playlistId);
-    dispatch(deletePlaylist(playlistId));
+    console.log("handleClick PlaylistId", playlistId);
+    dispatch(deletePlaylist({ playlistId, userId: user._id }));
   };
 
   console.log("data playlist", data);
@@ -33,27 +36,17 @@ function ResultList({ data, setRender, handleOpen }) {
                   <Box>
                     <Stack sx={{ height: "100%" }}>
                       <CardMedia
-                        // image="https://picsum.photos/300/300"
+                        image="https://picsum.photos/300/300"
                         sx={{
                           width: "100%",
                           aspectRatio: "1/1",
                           flexGrow: 1,
-                          backgroundColor: "#E4FADB",
-                        }}
-                        onClick={() => {
-                          setRender(singleData.playlistName);
-                          navigate(`/account/${singleData._id}`);
-                        }}
-                        style={{
-                          cursor: "pointer",
+                          // backgroundColor: "#E4FADB",
                         }}
                       >
                         <ClearIcon
                           onClick={(e) => handleClick(singleData._id)}
-                          sx={{ color: "black" }}
-                          style={{
-                            cursor: "pointer",
-                          }}
+                          sx={{ color: "white" }}
                         />
                         <Typography
                         // onClick={() => {
@@ -83,9 +76,6 @@ function ResultList({ data, setRender, handleOpen }) {
                             onClick={() => {
                               setRender(singleData.playlistName);
                               navigate(`/account/${singleData._id}`);
-                            }}
-                            style={{
-                              cursor: "pointer",
                             }}
                             variant="button"
                           >

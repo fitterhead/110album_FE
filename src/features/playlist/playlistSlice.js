@@ -66,20 +66,24 @@ export const createPlaylist =
     }
   };
 
-export const deletePlaylist = (playlistId) => async (dispatch) => {
-  dispatch(slice.actions.startLoading());
-  try {
-    const response = await apiService.delete(
-      `/playlist/deletePlaylist/${playlistId}`
-    );
-    dispatch(slice.actions.createPlaylistSuccess(response.data));
-    dispatch(createAlertBar("delete playlist success"));
+export const deletePlaylist =
+  ({ playlistId, userId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      console.log("userID", userId);
+      console.log("playlistId", playlistId);
+      const response = await apiService.delete(
+        `/playlist/deletePlaylist/${playlistId}`
+      );
+      // dispatch(slice.actions.createPlaylistSuccess(response.data));
+      dispatch(createAlertBar("delete playlist success"));
 
-    dispatch(getPlaylist(playlistId));
-  } catch (error) {
-    dispatch(slice.actions.hasError(error.message));
-  }
-};
+      dispatch(getPlaylist(userId));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
 export const deleteAlbumFromAPlaylist =
   ({ playlistId, albumId }) =>
   async (dispatch) => {

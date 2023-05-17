@@ -42,10 +42,15 @@ function Playlist() {
   const listAlbum = useSelector(
     (state) => state.content?.playlist[0]?.data?.data
   );
+  const singlePlaylist = useSelector(
+    (state) => state.content?.playlist.singlePlaylist
+  );
+
   const { user } = useAuth();
   const userRef = user._id;
 
   console.log("userRef", userRef);
+  console.log("singlePlaylist", singlePlaylist);
   console.log("listAlbum", listAlbum);
 
   const handleSubmit = (e) => {
@@ -61,20 +66,20 @@ function Playlist() {
     }
   }, [dispatch]);
 
-  let refinedPlaylist = [];
-  const refinedList = listAlbum?.map((e, index) => {
-    if (e.albumRef.length !== 0) {
-      refinedPlaylist.push(e.albumRef);
-    }
-  });
+  // let refinedPlaylist = [];
+  // const refinedList = listAlbum?.map((e, index) => {
+  //   if (e.albumRef.length !== 0) {
+  //     refinedPlaylist.push(e.albumRef);
+  //   }
+  // });
 
-  const spreadList = refinedPlaylist?.map((e) => {
-    for (let i = 0; i < e.length; i++) {
-      return e[i];
-    }
-  });
+  // const spreadList = refinedPlaylist?.map((e) => {
+  //   for (let i = 0; i < e.length; i++) {
+  //     return e[i];
+  //   }
+  // });
 
-  console.log("spread Playlist", spreadList);
+  // console.log("spread Playlist", spreadList);
 
   return (
     <Container
@@ -140,23 +145,27 @@ function Playlist() {
           </Typography>
         </Box>
 
-        {render === 0 ? (
+        {/* {render === 0 ? (
           <ResultList data={listAlbum} setRender={setRender} />
         ) : (
           listAlbum &&
           listAlbum.map((singlePlaylist) => {
-            if (
-              singlePlaylist.playlistName === render &&
-              !singlePlaylist.isDeleted
-            ) {
-              console.log(singlePlaylist, "singlePlaylist");
+            if (singlePlaylist.playlistName === render) {
               return (
-                // <Typography variant="h1">{singlePlaylist.albumRef}</Typography>
                 <PlaylistContent data={singlePlaylist.albumRef} />
               );
             }
           })
-        )}
+        )} */}
+        <ResultList data={listAlbum} setRender={setRender} />
+        {/* listAlbum &&
+          listAlbum.map((singlePlaylist) => {
+            if (singlePlaylist.playlistName === render) {
+              return (
+                <PlaylistContent data={singlePlaylist.albumRef} />
+              );
+            }
+          }) */}
       </Stack>
     </Container>
   );
