@@ -106,9 +106,15 @@ function PlaylistContent({
   /* -------------------------------- maindata -------------------------------- */
   const allAlbums = useSelector((state) => state.content?.contents[0]?.data);
   console.log("allAlbums", allAlbums);
+  const playlistList = useSelector(
+    (state) => state.content?.playlist[0]?.data?.data
+  );
+  console.log("playlistList", playlistList);
   useEffect(
     () => {
       dispatch(getContent({ page }));
+      dispatch(getPlaylist(userId));
+      // dispatch(getSinglePlaylist(params.id));
     },
     //  [page]);
     [dispatch, page]
