@@ -85,7 +85,7 @@ export const deletePlaylist =
     }
   };
 export const deleteAlbumFromAPlaylist =
-  ({ playlistId, albumId }) =>
+  ({ playlistId, albumId, userId }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -96,6 +96,7 @@ export const deleteAlbumFromAPlaylist =
       dispatch(slice.actions.deleteAlbumFromAPlaylistSuccess(response.data));
       dispatch(createAlertBar("delete Album From A Playlist Success"));
       dispatch(getSinglePlaylist(playlistId));
+      dispatch(getPlaylist(userId));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

@@ -1,4 +1,4 @@
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Paper, Fab, Tooltip, Zoom, Card } from "@mui/material";
 import { Container, Stack, Box } from "@mui/system";
 import React from "react";
 import Typography from "@mui/material/Typography";
@@ -14,6 +14,9 @@ import { TextField } from "@mui/material";
 import { createPlaylist } from "./playlistSlice";
 import useAuth from "../../hooks/useAuth";
 import { getSinglePlaylist } from "./playlistSlice";
+import AddIcon from "@mui/icons-material/Add";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { IconButton } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -22,7 +25,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  // border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -47,6 +50,38 @@ function Playlist() {
 
   console.log("userRef", userRef);
   console.log("listAlbum", listAlbum);
+  const renderFabButton = () => {
+    if (render === 0) {
+      return (
+        <Tooltip
+          title="create new playlist"
+          TransitionComponent={Zoom}
+          arrow
+          placement="right"
+        >
+          <Fab onClick={handleOpen} color="secondary">
+            <AddIcon />
+          </Fab>
+        </Tooltip>
+      );
+    } else if (render !== 0) {
+      return null;
+      // return (
+      //   <Tooltip
+      //     title="create new playlist"
+      //     TransitionComponent={Zoom}
+      //     arrow
+      //     placement="right"
+      //   >
+      //     <Fab color="gray">
+      //       <AddIcon />
+      //     </Fab>
+      //   </Tooltip>
+      // );
+    }
+    // Render null if no FAB should be shown for the active tab
+    return null;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -86,6 +121,17 @@ function Playlist() {
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
     >
+      {render !== 0 ? (
+        <IconButton
+          color="primary"
+          // onClick={onClick}
+        >
+          <ArrowBackIcon />
+          <Typography onClick={() => setRender(0)} variant="button">
+            Return
+          </Typography>
+        </IconButton>
+      ) : null}
       <div>
         <Modal
           open={open}
@@ -93,7 +139,7 @@ function Playlist() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Card sx={style}>
             <TextField
               name="email"
               placeholder="type your new playlist name"
@@ -118,7 +164,7 @@ function Playlist() {
             >
               create new playlist
             </Button>
-          </Box>
+          </Card>
         </Modal>
       </div>
       <Stack sx={{ bgcolor: "primary.main" }} spacing={2}>
@@ -130,13 +176,14 @@ function Playlist() {
           }}
         >
           <Typography variant="h1">
-            {render !== 0 ? (
-              `${render}`
-            ) : (
-              <Button onClick={handleOpen} sx={{ color: "white" }}>
-                Create new Playlist
-              </Button>
-            )}
+            {render !== 0
+              ? `Playlist: ${render}`
+              : // <Paper>
+                //   <Button onClick={handleOpen} sx={{ padding: 1 }}>
+                //     Create new Playlist
+                //   </Button>
+                // </Paper>
+                `Playlist created by ${user.username}`}
           </Typography>
         </Box>
 
@@ -152,12 +199,16 @@ function Playlist() {
               console.log(singlePlaylist, "singlePlaylist");
               return (
                 // <Typography variant="h1">{singlePlaylist.albumRef}</Typography>
-                <PlaylistContent data={singlePlaylist.albumRef} />
+                <PlaylistContent
+                  data={singlePlaylist.albumRef}
+                  userId={userRef}
+                />
               );
             }
           })
         )}
       </Stack>
+      {renderFabButton()}
     </Container>
   );
 }

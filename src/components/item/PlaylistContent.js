@@ -9,13 +9,31 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getSinglePlaylist } from "../../features/playlist/playlistSlice";
 import { useSelector } from "react-redux";
-function PlaylistContent({ data }) {
+import { useNavigate } from "react-router-dom";
+
+function PlaylistContent({ data, userId }) {
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
+
+  // tao handle click function
+  const handleArtistBio = (artistId) => {
+    navigate(`/artist/${artistId}`);
+  };
+
+  const handleAlbumInfo = (artistId) => {
+    navigate(`/album/result/${artistId}`);
+  };
   const handleClick = (e) => {
     // e.preventDefault();
 
-    dispatch(deleteAlbumFromAPlaylist({ albumId: e, playlistId: params.id }));
+    dispatch(
+      deleteAlbumFromAPlaylist({
+        albumId: e,
+        playlistId: params.id,
+        userId: userId,
+      })
+    );
 
     // console.log({ playlistId: e, albumId: params.id }, "test");
     // alert(e);
@@ -57,6 +75,9 @@ function PlaylistContent({ data }) {
                     >
                       <ClearIcon
                         onClick={() => handleClick(singleData._id)}
+                        style={{
+                          cursor: "pointer",
+                        }}
                         sx={{
                           position: "absolute",
                           color: "white",
@@ -77,10 +98,25 @@ function PlaylistContent({ data }) {
                         spacing={0.5}
                         sx={{ padding: "0.5rem" }}
                       >
-                        <Typography variant="button">
+                        <Typography
+                          variant="button"
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            handleArtistBio(`${singleData.artistRef._id}`)
+                          }
+                        >
                           {singleData.artistName}
                         </Typography>
-                        <Typography sx={{ textAlign: "center" }} variant="h1">
+                        <Typography
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          onClick={() => handleAlbumInfo(`${singleData._id}`)}
+                          sx={{ textAlign: "center" }}
+                          variant="h1"
+                        >
                           {singleData.album}
                         </Typography>
                         {/* <Typography variant="button">rock</Typography>
@@ -101,7 +137,7 @@ function PlaylistContent({ data }) {
               alignItems="center"
               height="50vh"
             >
-              <Typography variant="h1" align="center">
+              <Typography variant="h7" align="center">
                 no content yet
               </Typography>
             </Box>

@@ -8,6 +8,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { deletePlaylist } from "../../features/playlist/playlistSlice";
 import { useDispatch } from "react-redux";
 import useAuth from "../../hooks/useAuth";
+import { useRef, useEffect } from "react";
 
 function ResultList({ data, setRender }) {
   const { user } = useAuth();
@@ -20,51 +21,78 @@ function ResultList({ data, setRender }) {
 
   console.log("data playlist", data);
   const navigate = useNavigate();
+
+  /* ------------------------- record component width ------------------------- */
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
         container
         direction="row"
         justifyContent="space-evenly"
-        alignItems="flex-start"
+        alignItems="center"
+        alignContent="center"
       >
         {data &&
           data.map((singleData) => {
             if (!singleData.isDeleted) {
+              console.log(singleData, "singleData result");
+
               return (
-                <Grid key={Math.random()} item xs={6} md={3} padding={1}>
+                <Grid key={Math.random()} item xs={12} md={3} padding={1}>
                   <Box>
                     <Stack sx={{ height: "100%" }}>
-                      <CardMedia
-                        image="https://picsum.photos/300/300"
+                      <ClearIcon
+                        onClick={() => handleClick(singleData._id)}
+                        style={{
+                          cursor: "pointer",
+                        }}
                         sx={{
-                          width: "100%",
+                          position: "absolute",
+                          color: "white",
+                          fontSize: "2rem",
+                        }}
+                      />
+                      <Card
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          setRender(singleData.playlistName);
+                          navigate(`/account/${singleData._id}`);
+                        }}
+                        sx={{
+                          minWidth: 300,
                           aspectRatio: "1/1",
-                          flexGrow: 1,
-                          // backgroundColor: "#E4FADB",
+                          backgroundColor: "gray",
                         }}
                       >
-                        <ClearIcon
-                          onClick={(e) => handleClick(singleData._id)}
-                          sx={{ color: "white" }}
-                        />
-                        <Typography
-                        // onClick={() => {
-                        //   setRender(singleData.playlistName);
-                        //   navigate(`/account/${singleData._id}`);
-                        // }}
-                        // variant="button"
-                        >
-                          {/* {singleData?.albumRef?.length} */}
-                        </Typography>
-                        {/* <CardMedia
-                          component="img"
-                          height="100%"
-                          image={`https://final-be-production-68bf.up.railway.app/static/image/${singleData.albumRef[0]}.jpg`}
-                        /> */}
-                      </CardMedia>
+                        <Grid container spacing={1} sx={{ height: "100%" }}>
+                          {singleData.albumRef
+                            .slice(0, 4)
+                            .map((item, index) => {
+                              return (
+                                <Grid item xs={6} sm={6} sx={{ height: "50%" }}>
+                                  <CardMedia
+                                    component="img"
+                                    image={
+                                      item.album
+                                        ? `https://finalbe-production.up.railway.app/static/image/${item.album}.jpg`
+                                        : null
+                                    }
+                                    alt={`Image ${index + 1}`}
+                                    sx={{
+                                      width: "100%",
+                                      height: "100%",
+                                    }}
+                                  />
+                                </Grid>
+                              );
+                            })}
+                        </Grid>
+                      </Card>
 
-                      <Box sx={{ width: "100%" }}>
+                      <Box sx={{ minWidth: 300 }}>
                         <Stack
                           direction="column"
                           justifyContent="center"
@@ -73,16 +101,22 @@ function ResultList({ data, setRender }) {
                           sx={{ padding: "0.5rem" }}
                         >
                           <Typography
+                            style={{
+                              cursor: "pointer",
+                            }}
                             onClick={() => {
                               setRender(singleData.playlistName);
                               navigate(`/account/${singleData._id}`);
                             }}
-                            variant="button"
+                            variant="h1"
                           >
                             {singleData.playlistName}
                           </Typography>
-                          <Typography sx={{ textAlign: "center" }} variant="h1">
-                            {singleData.title}
+                          <Typography
+                            sx={{ textAlign: "center" }}
+                            variant="body3"
+                          >
+                            {singleData.albumRef.length} item
                           </Typography>
                         </Stack>
                       </Box>
