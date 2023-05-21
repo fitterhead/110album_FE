@@ -40,6 +40,9 @@ function NumberOneAlbum({ albums }) {
             // maxWidth: "600px",
             backgroundColor: "yellow",
           }}
+          style={{
+            cursor: "pointer",
+          }}
         >
           <CardMedia
             component="img"

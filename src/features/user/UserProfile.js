@@ -66,14 +66,14 @@ function UserProfile() {
         <Box sx={style}>
           <Typography
             id="modal-modal-title"
-            variant="h1"
+            variant="h2"
             // component="h2"
           >
             Do you wish to delete this account?
           </Typography>
           <Typography
             id="modal-modal-description"
-            variant="body2"
+            variant="body1"
             sx={{ mt: 2 }}
           >
             After confirmed, this step can not be reversed.

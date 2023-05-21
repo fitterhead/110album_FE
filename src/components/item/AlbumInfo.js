@@ -24,7 +24,14 @@ function AlbumInfo({ bio }) {
         <Box sx={{ width: "100%" }}>
           <Stack spacing={0.1} sx={{ padding: "2rem" }}>
             {/* <Typography variant="h2">OK COMPUTER</Typography> */}
-            <Typography variant="button">{bio.artistName}</Typography>
+            <Typography
+              style={{
+                cursor: "pointer",
+              }}
+              variant="button"
+            >
+              {bio.artistName}
+            </Typography>
             <Typography variant="h1">{bio.album}</Typography>
             {/* <Typography variant="h1">1995</Typography> */}
           </Stack>
