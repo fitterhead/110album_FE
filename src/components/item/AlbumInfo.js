@@ -4,6 +4,9 @@ import { Container, Stack } from "@mui/system";
 import React from "react";
 import HomepagePagination from "./HomepagePagination";
 import ItemCarousel from "./ItemCarousel";
+import MusicPlayer from "../form/MusicPlayer";
+import PlayerWidget from "../../features/song/PlayerWidget";
+
 function AlbumInfo({ bio }) {
   console.log(bio, "biooooooo");
   return (
@@ -15,7 +18,6 @@ function AlbumInfo({ bio }) {
       }}
     >
       <Stack
-        spacing={2}
         sx={{
           padding: "1rem 0rem 1rem 0rem",
           height: "100%",
@@ -46,6 +48,20 @@ function AlbumInfo({ bio }) {
           >
             <Typography variant="h7">Description</Typography>
             <Typography variant="body3">{bio.description}</Typography>
+          </Stack>
+        </Box>
+        <Box sx={{ backgroundColor: "#F2F2F2", width: "100%" }}>
+          <Stack
+            spacing={1}
+            sx={{
+              padding: "2rem 0rem 2rem 0rem",
+              "@media screen and (max-width: 600px)": {
+                padding: "2rem 0rem 2rem 0rem",
+              },
+            }}
+          >
+            <MusicPlayer />
+            <PlayerWidget />
           </Stack>
         </Box>
         <Box sx={{ flexGrow: 1, height: "100%" }}>

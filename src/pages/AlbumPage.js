@@ -33,7 +33,9 @@ function AlbumPage() {
       }}
     >
       {listAlbum && (
-        <Grid key={Math.random()} container sx={{ height: "100%" }}>
+        <Grid key={Math.random()} container 
+        sx={{ height: "100%" }}
+        >
           <Grid item xs={12} md={4}>
             <AlbumCover bio={listAlbum} type="album" />
           </Grid>

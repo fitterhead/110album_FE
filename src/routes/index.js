@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 import DashboardPage from "../features/dashboard/DashboardPage";
 import UserDashboard from "../features/dashboard/UserDashboard";
 import AdminRequired from "./AdminRequired";
+import SongPage from "../features/song/SongPage";
 function Router() {
   // const location = useLocation();
   return (
@@ -47,6 +48,14 @@ function Router() {
           element={
             <AdminRequired>
               <DashboardPage />
+            </AdminRequired>
+          }
+        />
+        <Route
+          path="management"
+          element={
+            <AdminRequired>
+              <SongPage />
             </AdminRequired>
           }
         />
