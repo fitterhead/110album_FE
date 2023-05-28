@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { getAlbums, getContent } from "../features/content/contentSlice";
 import AlbumCover from "../components/item/AlbumCover";
 import AlbumInfo from "../components/item/AlbumInfo";
-
+import { findMedia } from "../features/song/songSlice";
 
 function AlbumPage() {
   const param = useParams();
@@ -16,10 +16,13 @@ function AlbumPage() {
   console.log("albumId", albumId);
   const dispatch = useDispatch();
   const listAlbum = useSelector((state) => state.content?.albums[0]?.data.data);
+  const albumSong = useSelector((state) => state.song?.song);
   console.log("listAlbum", listAlbum);
-  
+  console.log("albumSong", albumSong);
+
   useEffect(() => {
     dispatch(getAlbums({ albumId }));
+    dispatch(findMedia({ filterName: "albumRef", input: albumId }));
   }, [dispatch, albumId]);
 
   return (
@@ -33,9 +36,7 @@ function AlbumPage() {
       }}
     >
       {listAlbum && (
-        <Grid key={Math.random()} container 
-        sx={{ height: "100%" }}
-        >
+        <Grid key={Math.random()} container sx={{ height: "100%" }}>
           <Grid item xs={12} md={4}>
             <AlbumCover bio={listAlbum} type="album" />
           </Grid>

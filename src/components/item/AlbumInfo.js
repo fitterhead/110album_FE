@@ -6,9 +6,13 @@ import HomepagePagination from "./HomepagePagination";
 import ItemCarousel from "./ItemCarousel";
 import MusicPlayer from "../form/MusicPlayer";
 import PlayerWidget from "../../features/song/PlayerWidget";
+import { useDispatch, useSelector } from "react-redux";
 
 function AlbumInfo({ bio }) {
   console.log(bio, "biooooooo");
+  const songList = useSelector((state) => state.song?.song);
+  console.log(songList, "songList");
+
   return (
     <Box
       sx={{
@@ -60,8 +64,8 @@ function AlbumInfo({ bio }) {
               },
             }}
           >
-            <MusicPlayer />
-            <PlayerWidget />
+            {/* <MusicPlayer /> */}
+            <PlayerWidget songs={songList} />
           </Stack>
         </Box>
         <Box sx={{ flexGrow: 1, height: "100%" }}>

@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   song: [],
   status: "idle",
+  listType: "",
 };
 
 const slice = createSlice({
@@ -39,6 +40,11 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    getSongSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.song = action.payload;
+    },
   },
 });
 
@@ -58,11 +64,38 @@ export const addMedia = (media) => async (dispatch) => {
       /* ----------------- post to server and include the song url ---------------- */
       console.log(songUrl, `${i} times`);
       if (songUrl) {
-        const response = await apiService.post("/song", { songUrl: songUrl });
+        const parts = songUrl.public_id.split("/");
+        const fullName = parts[parts.length - 1];
+        const name = fullName.replace(/^\d+\s/, "");
+        console.log(songUrl.duration, "songUrl.duration");
+        const response = await apiService.post("/song", {
+          songUrl: songUrl.secure_url,
+          albumRef: media.albumId,
+          artistRef: media.artistId,
+          songName: name,
+          duration: songUrl.duration,
+        });
 
         dispatch(slice.actions.addSongSuccess(response));
       }
     }
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};
+
+/* ------------------------------- find media ------------------------------- */
+
+export const findMedia = (media) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const filterName = media.filterName;
+    const input = media.input;
+
+    let url = `/song?filterName=${filterName}&input=${input}`;
+    const response = await apiService.get(url);
+    console.log(response.data, "response.data");
+    dispatch(slice.actions.getSongSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
   }

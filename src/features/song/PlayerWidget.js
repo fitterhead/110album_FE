@@ -1,141 +1,164 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Container, Grid, Paper } from "@mui/material";
 import SongTable from "./SongTable";
 import SongCard from "./SongCard";
+import { useDispatch, useSelector } from "react-redux";
+import { format } from "date-fns";
 
-const songs = [
-  {
-    id: 1,
-    name: "Song 1",
-    length: "3:45",
-    artist: "Artist 1",
-    album: "Album 1",
-    coverImage: "https://example.com/cover1.jpg",
-    songUrl:
-      "https://res.cloudinary.com/dxvq8cp81/video/upload/v1684823808/aaa/ttt/CoAyCuaAnhAy-BaoAnh-9430793_nsgkev.mp3",
-  },
-  {
-    id: 2,
-    name: "Song 2",
-    length: "4:20",
-    artist: "Artist 2",
-    album: "Album 2",
-    coverImage: "https://example.com/cover2.jpg",
-    songUrl:
-      "https://res.cloudinary.com/dxvq8cp81/video/upload/v1684823806/aaa/ttt/HaPhom-HoangThuyLinh-7702273_vyd4u3.mp3",
-  },
-  // Add 10 more songs
-  {
-    id: 3,
-    name: "Song 3",
-    length: "3:30",
-    artist: "Artist 3",
-    album: "Album 3",
-    coverImage: "https://example.com/cover3.jpg",
-    songUrl:
-      "https://res.cloudinary.com/dxvq8cp81/video/upload/v1684823804/aaa/ttt/BoXiBo-HoangThuyLinh-7702270_zrbth1.mp3",
-  },
-  {
-    id: 4,
-    name: "Song 4",
-    length: "2:55",
-    artist: "Artist 4",
-    album: "Album 4",
-    coverImage: "https://example.com/cover4.jpg",
-  },
-  {
-    id: 5,
-    name: "Song 5",
-    length: "3:15",
-    artist: "Artist 5",
-    album: "Album 5",
-    coverImage: "https://example.com/cover5.jpg",
-  },
-  {
-    id: 6,
-    name: "Song 6",
-    length: "4:10",
-    artist: "Artist 6",
-    album: "Album 6",
-    coverImage: "https://example.com/cover6.jpg",
-  },
-  {
-    id: 7,
-    name: "Song 7",
-    length: "3:50",
-    artist: "Artist 7",
-    album: "Album 7",
-    coverImage: "https://example.com/cover7.jpg",
-  },
-  {
-    id: 8,
-    name: "Song 8",
-    length: "3:25",
-    artist: "Artist 8",
-    album: "Album 8",
-    coverImage: "https://example.com/cover8.jpg",
-  },
-  {
-    id: 9,
-    name: "Song 9",
-    length: "3:40",
-    artist: "Artist 9",
-    album: "Album 9",
-    coverImage: "https://example.com/cover9.jpg",
-  },
-  {
-    id: 10,
-    name: "Song 10",
-    length: "4:05",
-    artist: "Artist 10",
-    album: "Album 10",
-    coverImage: "https://example.com/cover10.jpg",
-  },
-  {
-    id: 11,
-    name: "Song 11",
-    length: "3:55",
-    artist: "Artist 11",
-    album: "Album 11",
-    coverImage: "https://example.com/cover11.jpg",
-  },
-  {
-    id: 12,
-    name: "Song 12",
-    length: "3:20",
-    artist: "Artist 12",
-    album: "Album 12",
-    coverImage: "https://example.com/cover12.jpg",
-  },
-];
-
-const PlayerWidget = () => {
-  const [selectedSongId, setSelectedSongId] = useState(1);
+const PlayerWidget = ({ songs }) => {
+  // const [selectedSongId, setSelectedSongId] = useState(1);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [currentSong, setCurrentSong] = useState(songs[currentSongIndex]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isShuffleEnabled, setIsShuffleEnabled] = useState(false);
+  const [isRepeatEnabled, setIsRepeatEnabled] = useState(false);
+  const [audioElement, setAudioElement] = useState(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
 
-  const handleSongSelect = (songId) => {
-    setSelectedSongId(songId);
+  const songList = useSelector((state) => state.song?.song);
+  console.log("songList", songList);
+
+  const handleSongSelect = (songIndex) => {
+    console.log(songIndex, "currentSongIndex");
+    setCurrentSongIndex(songIndex);
   };
+  // const handleSongSelect = (songId) => {
+  //   setSelectedSongId(songId);
+  // };
+
+  // useEffect(() => {}, [third]);
 
   const handleAddToPlaylist = (song) => {
     // Logic to add the song to the playlist
     console.log("Added to playlist:", song);
   };
 
-  const selectedSong = songs.find((song) => song.id === selectedSongId) || {};
+  useEffect(() => {
+    setCurrentSong(songs[currentSongIndex]);
 
+    console.log("currentSong", currentSong);
+  }, [currentSongIndex]);
+
+  // const currentSong = songs.find((song) => song[currentSongIndex]) || {};
+  // const selectedSong = songs.find((song) => song.id === selectedSongId) || {};
+  const audioRef = useRef();
+  const progressBarRef = useRef();
+
+  // console.log("audioRef", audioRef);
+  // console.log("audioRef2", timeProgress);
+
+  const handleProgressChange = (e) => {
+    audioRef.current.currentTime = progressBarRef.current.value;
+  };
+
+  const onLoadedMetadata = () => {
+    console.log(audioRef.current.duration, "onLoadedMetadata");
+    const seconds = audioRef.current.duration;
+    setDuration(seconds);
+    progressBarRef.current.max = seconds;
+  };
+
+  const playAnimationRef = useRef();
+
+  const repeat = useCallback(() => {
+    // console.log("run");
+    // console.log("timeprogress", timeProgress);
+
+    const currentTime = audioRef.current.currentTime;
+    const duration = audioRef.current.duration;
+    setTimeProgress(currentTime);
+    setDuration(duration);
+    progressBarRef.current.value = currentTime;
+    playAnimationRef.current = requestAnimationFrame(repeat);
+  }, []);
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+      playAnimationRef.current = requestAnimationFrame(repeat);
+    } else {
+      audioRef.current.pause();
+      cancelAnimationFrame(playAnimationRef.current);
+    }
+  }, [isPlaying, audioRef, repeat]);
+
+  console.log("duration", duration);
+  console.log("timeProgress", timeProgress);
+  /* ------------------------------- handle play ------------------------------ */
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  /* -------------------------- handle previous song -------------------------- */
+  const handlePrevSong = () => {
+    //   setIsPlaying(!isPlaying);
+
+    if (currentSongIndex === 0) {
+      let lastTrackIndex = songs.length - 1;
+      setCurrentSongIndex(lastTrackIndex);
+      setCurrentSong(songs[lastTrackIndex]);
+    } else {
+      setCurrentSongIndex((prev) => prev - 1);
+      setCurrentSong(songs[currentSongIndex - 1]);
+    }
+  };
+  /* ---------------------------- handle next song ---------------------------- */
+
+  const handleNextSong = () => {
+    //   setIsPlaying(!isPlaying);
+
+    if (currentSongIndex >= songs.length - 1) {
+      setCurrentSongIndex(0);
+      setCurrentSong(songs[0]);
+      setIsPlaying(true);
+      // console.log(currentSong, "currentSong 2");
+    } else {
+      setCurrentSongIndex((prev) => prev + 1);
+      setCurrentSong(songs[currentSongIndex + 1]);
+      // console.log(currentSong, "currentSong 2");
+      setIsPlaying(true);
+    }
+  };
+
+  /* ------------------------------- format time ------------------------------ */
+  const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return "00:00";
+  };
   return (
     <Container maxWidth="xl">
       <Grid const container spacing={0.2}>
         <Grid item xs={12} md={12}>
-          <SongCard song={selectedSong} />
+          <SongCard
+            currentSong={currentSong}
+            isPlaying={isPlaying}
+            handlePlayPause={handlePlayPause}
+            handlePrevSong={handlePrevSong}
+            audioRef={audioRef}
+            onLoadedMetadata={onLoadedMetadata}
+            handleProgressChange={handleProgressChange}
+            progressBarRef={progressBarRef}
+            handleNextSong={handleNextSong}
+            formatTime={formatTime}
+          />
         </Grid>
         <Grid item xs={12} md={12}>
           <SongTable
             songs={songs}
-            selectedSongId={selectedSongId}
+            // selectedSongId={selectedSongId}
+            currentSongIndex={currentSongIndex}
+            // setCurrentSong={setCurrentSong}
             onSongSelect={handleSongSelect}
             onAddToPlaylist={handleAddToPlaylist}
+            formatTime={formatTime}
           />
         </Grid>
       </Grid>

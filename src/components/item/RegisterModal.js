@@ -22,6 +22,7 @@ import { LoadingButton } from "@mui/lab";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Container from "@mui/material/Container";
+import { useDispatch } from "react-redux";
 const style = {
   // position: "absolute",
   // top: "50%",
@@ -55,6 +56,7 @@ function RegisterModal() {
   // { handleClose, open }
   const navigate = useNavigate();
   const location = useLocation();
+  
   const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] =

@@ -139,15 +139,30 @@ function AuthProvider({ children }) {
       email,
       password,
     });
-    const { user, accessToken } = response.data.data;
+    const { accessToken } = response.data;
+    const user = response.data.data;
+    // console.log("user API CONTEXT", user);
+    console.log("response API CONTEXT", response.data);
 
     setSession(accessToken);
 
+    let likedSong = null;
+    if (user?._id) {
+      likedSong = await apiService.post("/playlist", {
+        isDeleted: false,
+        playlistName: user._id,
+        userRef: user._id,
+      });
+    }
+
     dispatch({
-      type: LOGIN_SUCCESS,
+      type: REGISTER_SUCCESS,
       payload: { user },
     });
+
+    //create likedSong playlist
     callback();
+    console.log("likedSong", likedSong);
   };
 
   const logout = (callback) => {

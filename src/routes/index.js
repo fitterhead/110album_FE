@@ -20,6 +20,7 @@ import DashboardPage from "../features/dashboard/DashboardPage";
 import UserDashboard from "../features/dashboard/UserDashboard";
 import AdminRequired from "./AdminRequired";
 import SongPage from "../features/song/SongPage";
+import PlaylistPage from "../features/playlist/PlaylistPage";
 function Router() {
   // const location = useLocation();
   return (
@@ -36,6 +37,14 @@ function Router() {
           element={
             <AuthRequired>
               <AlbumPage />
+            </AuthRequired>
+          }
+        />
+        <Route
+          path="playlist"
+          element={
+            <AuthRequired>
+              <PlaylistPage />
             </AuthRequired>
           }
         />

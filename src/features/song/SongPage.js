@@ -47,13 +47,25 @@ function SongPage() {
       dispatch(getContent({ page }));
       console.log(selectedFile, "selectedFile");
       console.log(songInfo, "songInfo");
-    //   dispatch(
-    //     addMedia({
-    //       selectedFile,
-    //       folder: `${songInfo.artist}/${songInfo.album}`,
-    //     })
-    //   );
-      setSelectedFile(null);
+      const artistFolder = songInfo?.artist.toLowerCase().replace(/\s/g, "_");
+      const albumFolder = songInfo?.album.toLowerCase().replace(/\s/g, "_");
+      // const songName = selectedFile?.[0]?.name
+      //   .replace(/^\d+\s/, "")
+      //   .replace(/\.\w+$/, "");
+
+      if (songInfo) {
+        dispatch(
+          addMedia({
+            selectedFile,
+            // folder: `${songInfo.artist}/${songInfo.album}`,
+            folder: `${artistFolder}/${albumFolder}`,
+            albumId: songInfo.albumId,
+            // songName: songName,
+            artistId: songInfo.artistId,
+          })
+        );
+      }
+      // setSelectedFile(null);
       //   dispatch(addMedia({ selectedFile, folder: "111/222" }));
     },
     //  [page]);
@@ -135,6 +147,8 @@ function SongPage() {
                       handleFileChange(e, {
                         album: item.album,
                         artist: item.artistName,
+                        albumId: item._id,
+                        artistId: item.artistRef,
                       })
                     }
                     inputProps={{ multiple: true }}
