@@ -1,19 +1,15 @@
 import { Box, Card, Grid, Paper } from "@mui/material";
 import { Container, Stack } from "@mui/system";
 import React, { useState } from "react";
-import AlbumRanking from "../components/form/AlbumRanking";
-import NumberOneAlbum from "../components/form/NumberOneAlbum";
-import FriendList from "../features/friend/FriendList";
-import UserProfile from "../features/user/UserProfile";
-import "./styles.css";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Playlist from "../features/playlist/playlist";
-import FavouriteArtist from "../features/favouriteArtist/favouriteArtist";
-import useAuth from "../hooks/useAuth";
+import Playlist from "../playlist/playlist";
+import DashboardPage from "./DashboardPage";
+import DashboardUser from "./DashboardUser";
+import SongPage from "../song/SongPage";
 
-function AccountPage() {
-  const [currentTab, setCurrentTab] = useState("profile");
+function MainDashboard() {
+  const [currentTab, setCurrentTab] = useState("ALBUM");
 
   const handleChangeTab = (newValue) => {
     setCurrentTab(newValue);
@@ -23,13 +19,17 @@ function AccountPage() {
 
   const PROFILE_TABS = [
     {
-      value: "profile",
-      component: <UserProfile />,
+      value: "ALBUM",
+      component: <DashboardPage />,
     },
-    // {
-    //   value: "playlist",
-    //   component: <Playlist />,
-    // },
+    {
+      value: "USER",
+      component: <DashboardUser />,
+    },
+    {
+      value: "SONG",
+      component: <SongPage />,
+    },
   ];
 
   return (
@@ -69,4 +69,4 @@ function AccountPage() {
   );
 }
 
-export default AccountPage;
+export default MainDashboard;

@@ -133,7 +133,7 @@ function Playlist() {
       sx={{
         flexGrow: 1,
         maxWidth: "1344px",
-        padding: "2rem",
+        padding: "1rem",
         "@media screen and (max-width: 600px)": { padding: "0rem" },
       }}
     >
@@ -191,18 +191,7 @@ function Playlist() {
             display: "flex",
             justifyContent: "flex-start",
           }}
-        >
-          <Typography variant="h1">
-            {render !== 0
-              ? `Playlist: ${render}`
-              : // <Paper>
-                //   <Button onClick={handleOpen} sx={{ padding: 1 }}>
-                //     Create new Playlist
-                //   </Button>
-                // </Paper>
-                `Playlist created by ${user.username}`}
-          </Typography>
-        </Box>
+        ></Box>
 
         {render === 0 ? (
           <ResultList data={listAlbum} setRender={setRender} />

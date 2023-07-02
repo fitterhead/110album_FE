@@ -5,6 +5,8 @@ import playlistReducer from "../features/playlist/playlistSlice";
 import orderReducer from "../features/order/orderSlice";
 import alertReducer from "../features/alert/alertSlice";
 import songReducer from "../features/song/songSlice";
+import dashboardReducer from "../features/dashboard/dashboardSlice";
+import cartReducer from "../features/cart/CartSlice.js";
 
 const rootReducer = {
   post: postReducer,
@@ -13,6 +15,8 @@ const rootReducer = {
   order: orderReducer,
   alert: alertReducer,
   song: songReducer,
+  dashboard: dashboardReducer,
+  cart: cartReducer,
 };
 const store = configureStore({ reducer: rootReducer });
 

@@ -22,17 +22,22 @@ import { Stack } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import ClearIcon from "@mui/icons-material/Clear";
-import { deleteAlbumFromAPlaylist } from "../../features/playlist/playlistSlice";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getSinglePlaylist } from "../../features/playlist/playlistSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getContent } from "../../features/content/contentSlice";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { getSinglePlaylist } from "../../features/playlist/playlistSlice";
+import { deleteAlbumFromAPlaylist } from "../../features/playlist/playlistSlice";
+import { getContent } from "../../features/content/contentSlice";
 import { addAlbumToPlaylist } from "../../features/content/contentSlice";
 import { createAlertBar } from "../../features/alert/alertSlice";
 import { getPlaylist } from "../../features/content/contentSlice";
+
+/* -------------------------------------------------------------------------- */
+/*                                 ui styling                                 */
+/* -------------------------------------------------------------------------- */
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -84,22 +89,7 @@ function PlaylistContent({
         userId: userId,
       })
     );
-
-    // console.log({ playlistId: e, albumId: params.id }, "test");
-    // alert(e);
-    // setPlaylistName("");
   };
-
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-  // const singlePlaylist = useSelector(
-  //   (state) => state.content?.playlist.singlePlaylist
-  // );
-  // useEffect(() => {
-  //   dispatch(getSinglePlaylist(params.id));
-  // }, [dispatch]);
 
   console.log("playlist content data", data);
 
@@ -389,3 +379,4 @@ function PlaylistContent({
 }
 
 export default PlaylistContent;
+

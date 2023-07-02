@@ -100,3 +100,17 @@ export const findMedia = (media) => async (dispatch) => {
     dispatch(slice.actions.hasError(error.message));
   }
 };
+
+/* ------------------------------ get all song ------------------------------ */
+
+export const getAllSong = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    let url = "/song";
+    const response = await apiService.get(url);
+    console.log(response.data, "get all song data");
+    dispatch(slice.actions.getSongSuccess(response.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};

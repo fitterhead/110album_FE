@@ -42,39 +42,28 @@ function SongPage() {
   };
 
   const allAlbums = useSelector((state) => state.content?.contents[0]?.data);
-  useEffect(
-    () => {
-      dispatch(getContent({ page }));
-      console.log(selectedFile, "selectedFile");
-      console.log(songInfo, "songInfo");
-      const artistFolder = songInfo?.artist.toLowerCase().replace(/\s/g, "_");
-      const albumFolder = songInfo?.album.toLowerCase().replace(/\s/g, "_");
-      // const songName = selectedFile?.[0]?.name
-      //   .replace(/^\d+\s/, "")
-      //   .replace(/\.\w+$/, "");
+  useEffect(() => {
+    dispatch(getContent({ page }));
+    console.log(selectedFile, "selectedFile");
+    console.log(songInfo, "songInfo");
+    const artistFolder = songInfo?.artist.toLowerCase().replace(/\s/g, "_");
+    const albumFolder = songInfo?.album.toLowerCase().replace(/\s/g, "_");
 
-      if (songInfo) {
-        dispatch(
-          addMedia({
-            selectedFile,
-            // folder: `${songInfo.artist}/${songInfo.album}`,
-            folder: `${artistFolder}/${albumFolder}`,
-            albumId: songInfo.albumId,
-            // songName: songName,
-            artistId: songInfo.artistId,
-          })
-        );
-      }
-      // setSelectedFile(null);
-      //   dispatch(addMedia({ selectedFile, folder: "111/222" }));
-    },
-    //  [page]);
-    [dispatch, page, selectedFile]
-  );
+    if (songInfo) {
+      dispatch(
+        addMedia({
+          selectedFile,
+          folder: `${artistFolder}/${albumFolder}`,
+          albumId: songInfo.albumId,
+
+          artistId: songInfo.artistId,
+        })
+      );
+    }
+  }, [dispatch, page, selectedFile]);
 
   return (
     <Container maxWidth="xl">
-      <Typography variant="h2">List of Albums</Typography>
       <Grid container padding={2}>
         <Box
           sx={{
@@ -87,12 +76,7 @@ function SongPage() {
         >
           {allAlbums?.data?.map((item) => {
             return (
-              <Grid
-                container
-                //   key={Math.random()}
-                item
-                padding={2}
-              >
+              <Grid container item padding={2}>
                 <Grid item xs={5} sm={5} sx={{ paddingBottom: "0.5rem" }}>
                   <CardContent
                     sx={{

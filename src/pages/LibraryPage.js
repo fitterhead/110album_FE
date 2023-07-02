@@ -1,35 +1,32 @@
-import { Box, Card, Grid, Paper } from "@mui/material";
-import { Container, Stack } from "@mui/system";
+/* --------------------------------- import --------------------------------- */
+import { Box, Card } from "@mui/material";
+import { Container } from "@mui/system";
 import React, { useState } from "react";
-import AlbumRanking from "../components/form/AlbumRanking";
-import NumberOneAlbum from "../components/form/NumberOneAlbum";
-import FriendList from "../features/friend/FriendList";
 import UserProfile from "../features/user/UserProfile";
 import "./styles.css";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Playlist from "../features/playlist/playlist";
-import FavouriteArtist from "../features/favouriteArtist/favouriteArtist";
-import useAuth from "../hooks/useAuth";
+import PlaylistPage from "../features/playlist/PlaylistPage";
 
-function AccountPage() {
-  const [currentTab, setCurrentTab] = useState("profile");
+function LibraryPage() {
+  /* ---------------------------------- state --------------------------------- */
+  const [currentTab, setCurrentTab] = useState("playlist");
 
+  /* -------------------------------- function -------------------------------- */
   const handleChangeTab = (newValue) => {
     setCurrentTab(newValue);
   };
 
-  // const { user } = useAuth();
-
   const PROFILE_TABS = [
     {
-      value: "profile",
-      component: <UserProfile />,
+      value: "playlist",
+      component: <PlaylistPage />,
     },
-    // {
-    //   value: "playlist",
-    //   component: <Playlist />,
-    // },
+    {
+      value: "album",
+      component: <Playlist />,
+    },
   ];
 
   return (
@@ -69,4 +66,4 @@ function AccountPage() {
   );
 }
 
-export default AccountPage;
+export default LibraryPage;

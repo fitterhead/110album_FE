@@ -21,6 +21,11 @@ import UserDashboard from "../features/dashboard/UserDashboard";
 import AdminRequired from "./AdminRequired";
 import SongPage from "../features/song/SongPage";
 import PlaylistPage from "../features/playlist/PlaylistPage";
+import LikedSong from "../features/playlist/LikedSongWidget";
+import SongPlaylist from "../features/playlist/SongPlaylist";
+import LibraryPage from "../pages/LibraryPage";
+import MainDashboard from "../features/dashboard/MainDashboard";
+import UserData from "../features/user/UserData";
 function Router() {
   // const location = useLocation();
   return (
@@ -29,9 +34,7 @@ function Router() {
     >
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Homepage />} />
-        <Route path="account" element={<AccountPage />}>
-          <Route path=":id" element={<PlaylistContent />} />
-        </Route>
+        <Route path="account" element={<AccountPage />}></Route>
         <Route
           path="album/result/:id"
           element={
@@ -49,6 +52,26 @@ function Router() {
           }
         />
 
+        <Route
+          path="likedsong"
+          element={
+            <AuthRequired>
+              <LikedSong />
+            </AuthRequired>
+          }
+        />
+
+        <Route
+          path="library"
+          element={
+            <AuthRequired>
+              <LibraryPage />
+            </AuthRequired>
+          }
+        >
+          <Route path=":id" element={<PlaylistContent />} />
+        </Route>
+
         {/* <Route path="account/savedAlbum" element={<PlaylistItem />} /> */}
         <Route path="artist/:id" element={<ArtistPage />} />
         <Route path="search" element={<SearchPage />} />
@@ -56,10 +79,12 @@ function Router() {
           path="dashboard"
           element={
             <AdminRequired>
-              <DashboardPage />
+              {/* <DashboardPage /> */}
+              <MainDashboard />
             </AdminRequired>
           }
         />
+        {/* <Route path="dashboard/:id" element={<UserData />} /> */}
         <Route
           path="management"
           element={
@@ -74,6 +99,15 @@ function Router() {
             <AdminRequired>
               <UserDashboard />
             </AdminRequired>
+          }
+        />
+
+        <Route
+          path="playlist/:index"
+          element={
+            <AuthRequired>
+              <SongPlaylist />
+            </AuthRequired>
           }
         />
 

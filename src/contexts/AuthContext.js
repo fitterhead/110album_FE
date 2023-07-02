@@ -2,6 +2,7 @@ import { SettingsAccessibilityOutlined } from "@mui/icons-material";
 import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
+import { useSelector } from "react-redux";
 
 const initialState = {
   isInitialized: false,
@@ -15,6 +16,7 @@ const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
 const UPDATE_PROFILE = "AUTH.UPDATE_PROFILE";
 const DELETE_ACCOUNT = "AUTH.DELETE_ACCOUNT";
+const UPDATE_CART = "AUTH.UPDATE_CART ";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -51,6 +53,10 @@ const reducer = (state, action) => {
         isInitialized,
         user,
       };
+
+    case UPDATE_CART:
+      const cart = action.payload;
+      return { ...state, user: { ...state.user, cart } };
     default:
       return state;
   }
@@ -70,6 +76,7 @@ const setSession = (accessToken) => {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const totalCart = useSelector((state) => state.cart.cart);
 
   /* ------------ persistent login (van login sau khi refresh page) ----------- */
   useEffect(
@@ -119,6 +126,12 @@ function AuthProvider({ children }) {
     //bỏ trống trống[] : useeffect chỉ thực hiện 1 lần khi app render lần đầu tiên
   );
 
+  useEffect(() => {
+    if (totalCart) {
+      dispatch({ type: UPDATE_CART, payload: totalCart });
+    }
+  }, [totalCart]);
+
   const login = async ({ email, password }, callback) => {
     const response = await apiService.post("/auth/login", { email, password });
     const { user, accessToken } = response.data;
@@ -146,14 +159,14 @@ function AuthProvider({ children }) {
 
     setSession(accessToken);
 
-    let likedSong = null;
-    if (user?._id) {
-      likedSong = await apiService.post("/playlist", {
-        isDeleted: false,
-        playlistName: user._id,
-        userRef: user._id,
-      });
-    }
+    // let likedSong = null;
+    // if (user?._id) {
+    //   likedSong = await apiService.post("/playlist", {
+    //     isDeleted: false,
+    //     playlistName: user._id,
+    //     userRef: user._id,
+    //   });
+    // }
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -162,7 +175,7 @@ function AuthProvider({ children }) {
 
     //create likedSong playlist
     callback();
-    console.log("likedSong", likedSong);
+    // console.log("likedSong", likedSong);
   };
 
   const logout = (callback) => {

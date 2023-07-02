@@ -83,10 +83,7 @@ function DashboardPage() {
   const dispatch = useDispatch();
   // useEffect(() => setRows(dispatch(getTableData())), [dispatch]);
   const userId = {};
-  useEffect(
-    () => setRows(dispatch(getTableData())),
-    [dispatch]
-  );
+  useEffect(() => setRows(dispatch(getTableData())), [dispatch]);
   const tableData = useSelector((state) => state.order.tableData);
 
   // useEffect(() => {
@@ -104,7 +101,7 @@ function DashboardPage() {
       time: formattedTime,
       user: e.userId._id,
       album: e.product[0].description,
-      amount: parseInt(e.product[0].price),
+      amount: parseInt(e.product[0].amount),
       status: e.orderStatus,
     };
   });
@@ -118,8 +115,7 @@ function DashboardPage() {
   productList = productList.flat(1);
   productList = productList.map((item) => item.reference_id);
 
-
-  const time = new Date()
+  const time = new Date();
 
   console.log("productListttt", productList);
 
@@ -148,104 +144,103 @@ function DashboardPage() {
   console.log("total", totalSum);
 
   return (
-    <Box>
-      <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-        <AlertBar />
-        <Grid container spacing={2}>
-          <Grid item lg={12} md={12} xs={12}>
-            <Typography sx={{ paddingTop: "1rem" }} variant="h1">
-              Recent orders
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={10} sx={{ height: "40vh" }}>
-            {/* -------------------------------- table bar ------------------------------- */}
-            <DataGrid
-              rows={refinedTableData}
-              columns={columns}
-              // paginationModel={{ page: 0, pageSize: 5 }}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 5,
-                  },
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <AlertBar />
+      <Grid container spacing={2}>
+        <Grid item lg={12} md={12} xs={12}>
+          <Typography sx={{ paddingTop: "1rem" }} variant="h1">
+            Recent orders
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={10} sx={{ height: "40vh" }}>
+          {/* -------------------------------- table bar ------------------------------- */}
+          <DataGrid
+            rows={refinedTableData}
+            columns={columns}
+            // paginationModel={{ page: 0, pageSize: 5 }}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
                 },
-              }}
-              pageSizeOptions={[5]}
-              checkboxSelection
-              getRowId={(row) => row._id}
-              style={theme.typography.body3}
-            />
-          </Grid>
-          <Grid item xs={12} md={2} sx={{ height: "40vh" }}>
-            <Card sx={{ height: "100%" }}>
-              <CardContent>
-                <Typography variant="body3" gutterBottom>
-                  Recent Deposits
-                </Typography>
-                <Typography variant="h1" component="div">
-                  {totalSum}$
-                </Typography>
-                <Typography
-                  sx={{ mb: 1.5 }}
-                  color="text.secondary"
-                ></Typography>
-                <Typography variant="body3">
-                  as of {time.getDate()}/{time.getMonth()} <br />
-                </Typography>
-              </CardContent>
-              {/* <CardActions>
+              },
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection
+            getRowId={(row) => row._id}
+            style={theme.typography.body3}
+          />
+        </Grid>
+        <Grid item xs={12} md={2} sx={{ height: "40vh" }}>
+          <Card sx={{ height: "100%" }}>
+            <CardContent>
+              <Typography variant="body3" gutterBottom>
+                Recent Deposits
+              </Typography>
+              <Typography variant="h1" component="div">
+                {totalSum}$
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
+              <Typography variant="body3">
+                as of {time.getDate()}/{time.getMonth()} <br />
+              </Typography>
+            </CardContent>
+            {/* <CardActions>
                 <Button size="small">Learn More</Button>
               </CardActions> */}
-            </Card>
-          </Grid>
-          <Grid item md={12} xs={12} sx={{ height: "50vh" }}>
-            <Typography sx={{ paddingTop: "1rem" }} variant="h1">
-              Best Selling Albums
-            </Typography>
-            <ResponsiveContainer width="100%">
-              <LineChart
-                data={lineData}
-                margin={{
-                  top: 16,
-                  right: 16,
-                  bottom: 0,
-                  left: 16,
-                }}
-              >
-                <XAxis
-                  dataKey="album"
-                  stroke={theme.palette.text.secondary}
-                  style={theme.typography.body2}
-                />
-                <YAxis
-                  stroke={theme.palette.text.secondary}
-                  style={theme.typography.body3}
-                >
-                  <Label
-                    angle={270}
-                    position="left"
-                    style={{
-                      textAnchor: "middle",
-                      fill: theme.palette.text.primary,
-                      ...theme.typography.body4,
-                    }}
-                  >
-                    Sales ($)
-                  </Label>
-                </YAxis>
-                <Line
-                  isAnimationActive={false}
-                  type="monotone"
-                  dataKey="amount"
-                  stroke={theme.palette.primary.main}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </Grid>
+          </Card>
         </Grid>
-      </Container>
-    </Box>
+
+        {/* -------------------------------------------------------------------------- */
+        /*                                 line chart                                 */
+        /* -------------------------------------------------------------------------- */}
+        <Grid item md={12} xs={12} sx={{ height: "50vh" }} padding="2rem">
+          <Typography sx={{ paddingTop: "1rem" }} variant="h1">
+            Best Selling Albums
+          </Typography>
+          <ResponsiveContainer width="95%">
+            <LineChart
+              data={lineData}
+              margin={{
+                top: 16,
+                right: 16,
+                bottom: 0,
+                left: 16,
+              }}
+            >
+              <XAxis
+                dataKey="album"
+                stroke={theme.palette.text.secondary}
+                style={theme.typography.body1}
+              />
+              <YAxis
+                stroke={theme.palette.text.secondary}
+                style={theme.typography.body1}
+              >
+                <Label
+                  angle={270}
+                  position="left"
+                  style={{
+                    textAnchor: "middle",
+                    fill: theme.palette.text.primary,
+                    ...theme.typography.body3,
+                  }}
+                >
+                  Sales ($)
+                </Label>
+              </YAxis>
+              <Line
+                isAnimationActive={false}
+                type="monotone"
+                dataKey="amount"
+                stroke={theme.palette.primary.main}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

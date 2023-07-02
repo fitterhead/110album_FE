@@ -29,7 +29,6 @@ function AlbumInfo({ bio }) {
       >
         <Box sx={{ width: "100%" }}>
           <Stack spacing={0.1} sx={{ padding: "2rem" }}>
-            {/* <Typography variant="h2">OK COMPUTER</Typography> */}
             <Typography
               style={{
                 cursor: "pointer",
@@ -47,7 +46,7 @@ function AlbumInfo({ bio }) {
             spacing={1}
             sx={{
               padding: "2rem 15rem 2rem 2rem",
-              "@media screen and (max-width: 600px)": { padding: "2rem" },
+                "@media screen and (max-width: 600px)": { padding: "2rem" },
             }}
           >
             <Typography variant="h7">Description</Typography>
@@ -65,7 +64,7 @@ function AlbumInfo({ bio }) {
             }}
           >
             {/* <MusicPlayer /> */}
-            <PlayerWidget songs={songList} />
+            <PlayerWidget songs={songList} page={"Album"} />
           </Stack>
         </Box>
         <Box sx={{ flexGrow: 1, height: "100%" }}>

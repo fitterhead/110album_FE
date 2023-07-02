@@ -11,8 +11,12 @@ import useAuth from "../../hooks/useAuth";
 import { useRef, useEffect } from "react";
 
 function ResultList({ data, setRender }) {
+  /* ---------------------------------- data ---------------------------------- */
+
   const { user } = useAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  /* -------------------------------- function -------------------------------- */
   const handleClick = (playlistId) => {
     // alert(playlistId);
     console.log("handleClick PlaylistId", playlistId);
@@ -20,13 +24,14 @@ function ResultList({ data, setRender }) {
   };
 
   console.log("data playlist", data);
-  const navigate = useNavigate();
 
   /* ------------------------- record component width ------------------------- */
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
+        padding={2}
+        spacing={2}
         container
         direction="row"
         justifyContent="space-evenly"
@@ -35,11 +40,11 @@ function ResultList({ data, setRender }) {
       >
         {data &&
           data.map((singleData) => {
-            if (!singleData.isDeleted) {
+            if (!singleData.isDeleted && !singleData.songExisted) {
               console.log(singleData, "singleData result");
 
               return (
-                <Grid key={Math.random()} item xs={12} md={3} padding={1}>
+                <Grid key={Math.random()} item xs={12} sm={6} md={6} lg={4}>
                   <Box>
                     <Stack sx={{ height: "100%" }}>
                       <ClearIcon
@@ -59,10 +64,10 @@ function ResultList({ data, setRender }) {
                         }}
                         onClick={() => {
                           setRender(singleData.playlistName);
-                          navigate(`/account/${singleData._id}`);
+                          navigate(`/library/${singleData._id}`);
                         }}
                         sx={{
-                          minWidth: 300,
+                          minWidth: 200,
                           aspectRatio: "1/1",
                           backgroundColor: "gray",
                         }}

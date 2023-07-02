@@ -60,7 +60,23 @@ function MainHeader() {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useAuth();
   const auth = useAuth();
+
   const toggleTheme = useContext(ThemeColorContext);
+
+  console.log("headerCart", user?.cart);
+
+  /* -------------------------- calculate total album ------------------------- */
+  const calculateTotalAlbum = (arr) => {
+    let totalAmount = 0;
+
+    arr?.forEach((item) => {
+      if (item.hasOwnProperty("amount")) {
+        totalAmount += item.amount;
+      }
+    });
+
+    return totalAmount;
+  };
 
   return (
     <Box sx={{ mb: 2 }}>
@@ -184,6 +200,13 @@ function MainHeader() {
           <Button
             sx={{ fontSize: "16px", display: { xs: "none", sm: "flex" } }}
             variant="button"
+            onClick={() => navigate("/library")}
+          >
+            LIBRARY
+          </Button>
+          <Button
+            sx={{ fontSize: "16px", display: { xs: "none", sm: "flex" } }}
+            variant="button"
             onClick={async () => toggleTheme.toggleThemeFunction()}
           >
             TOGGLE THEME
@@ -204,7 +227,8 @@ function MainHeader() {
             }}
           >
             CART
-            {lengthAcc >= 1 ? `(${lengthAcc})` : null}
+            {/* {lengthAcc >= 1 ? `(${lengthAcc})` : null} */}(
+            {calculateTotalAlbum(user?.cart)})
           </Button>
         </Toolbar>
         <Box
@@ -261,6 +285,13 @@ function MainHeader() {
             onClick={() => navigate("/search")}
           >
             SEARCH
+          </Button>
+          <Button
+            sx={{ fontSize: "16px" }}
+            variant="button"
+            onClick={() => navigate("/library")}
+          >
+            LIBRARY
           </Button>
           <Button
             sx={{ fontSize: "16px" }}

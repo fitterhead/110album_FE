@@ -42,8 +42,8 @@ export default slice.reducer;
 // nhan array of item
 
 export const transactionSuccess = (items) => async (dispatch) => {
+  console.log("transactionData", items);
   dispatch(slice.actions.startLoading());
-
   try {
     const response = await apiService.post("/order", items);
     console.log("transaction response", response);

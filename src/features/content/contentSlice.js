@@ -16,6 +16,8 @@ const initialState = {
   similarAlbums: [],
   suggestion: [],
   cart: [],
+  likedSong: [],
+  songPlaylist: [],
 };
 
 /* -------------------------------------------------------------------------- */
@@ -279,9 +281,27 @@ export const contentSlice = createSlice({
       })
       .addCase(getPlaylist.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log("added album to playlist", action.payload);
+        console.log("get playlist content Slice", action.payload);
+        console.log(
+          "get playlist content Slice 2",
+          action.payload.data.data.filter((item) => item._id !== item.userRef)
+        );
+        console.log(
+          "get playlist content Slice 3",
+          action.payload.data.data.filter((item) => item._id === item.userRef)
+        );
         state.playlist = [];
+        state.likedSong = [];
+        state.songPlaylist = [];
         state.playlist.push(action.payload);
+        state.likedSong.push(
+          action.payload.data.data.filter((item) => item._id === item.userRef)
+        );
+        state.songPlaylist.push(
+          action.payload.data.data
+            .filter((item) => item._id !== item.userRef)
+            .filter((item) => item.songExisted)
+        );
       })
       .addCase(getPlaylist.rejected, (state, action) => {
         // state.status = "rejected";

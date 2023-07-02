@@ -12,17 +12,27 @@ import {
   Avatar,
   IconButton,
   Typography,
+  Tab,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch, useSelector } from "react-redux";
+import { addLikedSong } from "../playlist/playlistSlice";
+import useAuth from "../../hooks/useAuth";
+import PlaylistMenu from "../playlist/PlaylistMenu";
+import AnimatedIcon from "../../components/icon/AnimatedIcon";
 
 const SongTable = ({
+  isPlaying,
   currentSongIndex,
+  songPlaylistWidget,
   onSongSelect,
   onAddToFavorites,
   length,
   formatTime,
   // setCurrentSong,
   songs,
+  page,
+  pageId,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -37,22 +47,41 @@ const SongTable = ({
     row.querySelector(".favorite-button").style.visibility = "hidden";
   };
 
+  /* ---------------------------- handle uppercase ---------------------------- */
+  const capitalizeFirstLetter = (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+  /* ---------------------------- handle likedSong ---------------------------- */
+  const { user } = useAuth();
+  const dispatch = useDispatch();
+  console.log("auth", user._id);
+  console.log("page table", page);
   return (
     <TableContainer
       component={Paper}
-      style={{ maxHeight: 400, overflow: "auto" }}
+      style={{ maxHeight: 400, overflowX: "hidden", overflowY: "scroll" }}
     >
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: "5vw" }}>#</TableCell>
+            {!isMobile && <TableCell style={{ width: "5vw" }}>#</TableCell>}
+
+            <TableCell>
+              <Typography variant="button"></Typography>
+            </TableCell>
             <TableCell>
               <Typography variant="button">Name</Typography>
             </TableCell>
             <TableCell style={{ width: "5vw" }}></TableCell>
-            <TableCell style={{ width: "10vw" }}>
-              <Typography variant="button">Length</Typography>
-            </TableCell>
+            {!isMobile && (
+              <TableCell style={{ width: "5vw" }}>
+                <Typography variant="button">Length</Typography>
+              </TableCell>
+            )}
+
+            <TableCell
+            //  style={{ width: "5vw" }}
+            ></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,7 +95,21 @@ const SongTable = ({
               onMouseLeave={handleMouseLeave}
               hover
             >
-              <TableCell>{index + 1}</TableCell>
+              {!isMobile && <TableCell>{index + 1}</TableCell>}
+
+              <TableCell>
+                <IconButton
+                  key={index}
+                  style={{
+                    visibility:
+                      index === currentSongIndex && isPlaying
+                        ? "visible"
+                        : "hidden",
+                  }}
+                >
+                  <AnimatedIcon />
+                </IconButton>
+              </TableCell>
               <TableCell>
                 <div
                   style={{
@@ -82,8 +125,16 @@ const SongTable = ({
                     sx={{ width: 40, height: 40 }}
                   />
                   <div>
-                    <div>
-                      <Typography variant="body3">{song.songName}</Typography>
+                    <div
+                      style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        width: "20vw",
+                      }}
+                    >
+                      <Typography noWrap variant="h7" sx={{ fontSize: "16px" }}>
+                        {capitalizeFirstLetter(song.songName)}
+                      </Typography>
                     </div>
                     {/* {!isMobile && <div>{song.artist}</div>} */}
                   </div>
@@ -96,7 +147,13 @@ const SongTable = ({
                     aria-label="Add to Favorites"
                     onClick={(event) => {
                       event.stopPropagation();
-                      onAddToFavorites(song);
+                      dispatch(
+                        addLikedSong({
+                          songId: song._id,
+                          playlistId: user._id,
+                          userRef: user._id,
+                        })
+                      );
                     }}
                     style={{ visibility: "hidden" }}
                   >
@@ -104,18 +161,30 @@ const SongTable = ({
                   </IconButton>
                 )}
               </TableCell>
+
+              {!isMobile && (
+                <TableCell>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <Typography variant="body3">
+                      {formatTime(song.duration)}
+                    </Typography>
+                  </div>
+                </TableCell>
+              )}
+
               <TableCell>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                  }}
-                >
-                  <Typography variant="body3">
-                    {formatTime(song.duration)}
-                  </Typography>
-                </div>
+                <PlaylistMenu
+                  songInfo={song}
+                  page={page}
+                  pageId={pageId}
+                  songPlaylistWidget={songPlaylistWidget}
+                />
               </TableCell>
             </TableRow>
           ))}

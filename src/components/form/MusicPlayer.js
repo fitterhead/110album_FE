@@ -155,6 +155,7 @@ const MusicPlayer = () =>
               component="div"
             >
               {currentSong.artist}
+              
             </Typography>
             <audio
               // ref={handleAudioRef}
@@ -191,9 +192,6 @@ const MusicPlayer = () =>
                 <PlayArrowIcon sx={{ height: 38, width: 38 }} />
               )}
             </IconButton>
-            {/* <IconButton aria-label="play/pause">
-        <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-      </IconButton> */}
             <IconButton aria-label="next" onClick={handleNextSong}>
               {theme.direction === "rtl" ? (
                 <SkipPreviousIcon />
@@ -204,61 +202,6 @@ const MusicPlayer = () =>
           </Box>
         </Box>
       </Card>
-      // <Grid container direction="column" alignItems="center" spacing={2}>
-      //   <Grid item>
-      //     <IconButton onClick={handlePrevSong}>
-      //       <SkipPreviousIcon />
-      //     </IconButton>
-      //     <IconButton onClick={handlePlayPause}>
-      //       {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-      //     </IconButton>
-      //     <IconButton onClick={handleNextSong}>
-      //       <SkipNextIcon />
-      //     </IconButton>
-      //     <IconButton onClick={handleNextSong}>
-      //       <ShuffleIcon
-      //         color={isShuffleEnabled ? "primary" : "inherit"}
-      //         onClick={() => setIsShuffleEnabled(!isShuffleEnabled)}
-      //       />
-      //     </IconButton>
-      //     <IconButton onClick={() => setIsRepeatEnabled(!isRepeatEnabled)}>
-      //       <RepeatIcon color={isRepeatEnabled ? "primary" : "inherit"} />
-      //     </IconButton>
-      //   </Grid>
-      //   <Grid item>
-      //     <Typography variant="h6">{currentSong.title}</Typography>
-      //     <Typography variant="subtitle1">{currentSong.artist}</Typography>
-      //   </Grid>
-      //   <Grid item container justifyContent="center">
-      //     <audio
-      //       // ref={handleAudioRef}
-      //       src={currentSong.songUrl}
-      //       ref={audioRef}
-      //       // preload="auto"
-      //       onLoadedMetadata={onLoadedMetadata}
-      //     />
-      //   </Grid>
-      //   {/* <Slider
-      //     defaultValue={70}
-      //     //   value={timeProgress}
-      //     //   max={songDuration}
-      //   /> */}
-      //   <input
-      //     type="range"
-      //     ref={progressBarRef}
-      //     defaultValue="0"
-      //     onChange={handleProgressChange}
-      //   />
-
-      //   <Grid item container justifyContent="center">
-      //     <Typography variant="h6">Song List</Typography>
-      //     {songs.map((song, index) => (
-      //       <Typography key={index} variant="subtitle2">
-      //         {song.title}
-      //       </Typography>
-      //     ))}
-      //   </Grid>
-      // </Grid>
     );
   };
 

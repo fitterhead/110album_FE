@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/system";
 import PaypalCheckoutButton from "../components/item/PaypalCheckoutButton";
 import { useDispatch } from "react-redux";
@@ -6,74 +6,78 @@ import { useSelector } from "react-redux";
 import ClearIcon from "@mui/icons-material/Clear";
 import useCart from "../hooks/useCart";
 import { createAlertBar } from "../features/alert/alertSlice";
+import { handleCart } from "../features/cart/CartSlice";
 import {
   Card,
   CardContent,
   CardMedia,
   Container,
   Typography,
+  useEventCallback,
 } from "@mui/material";
 import { Grid } from "@mui/material";
-import { upperCase } from "lodash";
-import Badge from "@mui/material/Badge";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import useAuth from "../hooks/useAuth";
+import { handleCartUser } from "../features/cart/CartSlice";
+import { deleteCart } from "../features/cart/CartSlice";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import MailIcon from "@mui/icons-material/Mail";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
+
 import Stack from "@mui/material/Stack";
-import { useEffect } from "react";
 
 function PaymentPage() {
-  const [count, setCount] = React.useState(1);
-  const [invisible, setInvisible] = React.useState(false);
   const dispatch = useDispatch();
+  const totalCart = useSelector((state) => state.cart.cart);
+  console.log("taotal Cart", totalCart);
+  const { user } = useAuth();
+  console.log(user, "user payment");
 
-  const handleBadgeVisibility = () => {
-    setInvisible(!invisible);
+  // const totalCart = user.cart;
+
+  const productRendered = totalCart?.map((item) => {
+    return {
+      reference_id: item.reference_id,
+      description: item.description,
+      amount: { value: item.price },
+    };
+  });
+
+  const handleAlbumCart = ({ albumId, description, type }) => {
+    const data = {
+      albumId: albumId,
+      description: description,
+      type: type,
+    };
+    const userRef = user._id;
+
+    console.log(data, "dataaaaaa");
+    // dispatch(handleCart(userRef, data));
+    dispatch(handleCart(userRef, data));
   };
 
-  const cartProduct = useCart();
+  useEffect(() => {
+    dispatch(handleCartUser({ userId: user?._id }));
+  }, [dispatch]);
 
-  console.log("cartProduct", cartProduct);
+  /* --------------------------- calculate price sum -------------------------- */
 
-  const time = new Date().getSeconds();
-  console.log("cartProduct", cartProduct);
-  console.log("Time", time);
+  const calculateTotalPrice = (arr) => {
+    let totalPrice = 0;
 
-  const cartItem = cartProduct.items;
+    arr.forEach((item) => {
+      if (item.hasOwnProperty("price")) {
+        totalPrice += item.price;
+      }
+    });
 
-  let totalCart = cartItem.reduce((acc, items) => {
-    acc += items.price;
-    return acc;
-  }, 0);
-
-  console.log("totalCart", totalCart);
-
-  const deleteItem = (id) => {
-    cartProduct.deleteItem(id);
+    return totalPrice;
   };
-
-  const increase = (id) => {
-    cartProduct.increaseQuantity(id);
-  };
-  const decrease = (id) => {
-    cartProduct.decreaseQuantity(id);
-  };
-
-  // useEffect(() => {
-  //   cartProduct.updateQuantity({ albumId: clickedID, quantity: count });
-  //   console.log({ albumId: clickedID, quantity: count });
-  // }, [clickedID, count]);
-
   return (
     <Container maxWidth="lg">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8} md={8}>
           <Box>
-            {cartProduct.items.map((eachItem) => {
+            {totalCart.map((eachItem) => {
               return (
                 <Card
                   key={Math.random()}
@@ -103,24 +107,33 @@ function PaymentPage() {
                         }}
                       >
                         <Stack direction="row" spacing={2}>
-                          {eachItem.amount !== 1 ? (
-                            <Button
-                              sx={{
-                                height: 15,
-                                width: 5,
-                                minWidth: 10,
-                                padding: 2,
-                              }}
-                              variant="outlined"
-                              onClick={() => {
-                                // setClickedID(eachItem.reference_id);
-                                decrease(eachItem.reference_id);
-                                setCount(Math.max(count - 1, 0));
-                              }}
-                            >
-                              <RemoveIcon fontSize="small" />
-                            </Button>
-                          ) : (
+                          {/* {eachItem.amount !== 1 ? ( */}
+                          <Button
+                            sx={{
+                              height: 15,
+                              width: 5,
+                              minWidth: 10,
+                              padding: 2,
+                            }}
+                            onClick={() =>
+                              handleAlbumCart({
+                                albumId: eachItem.reference_id,
+                                description: eachItem.description,
+                                type: "minus",
+                              })
+                            }
+                            // onClick={() =>
+                            //   handleAlbumCart({
+                            //     albumId: eachItem.reference_id._id,
+                            //     description: eachItem.description,
+                            //     type: "minus",
+                            //   })
+                            // }
+                            variant="outlined"
+                          >
+                            <RemoveIcon fontSize="small" />
+                          </Button>
+                          {/* ) : (
                             <Button
                               sx={{
                                 height: 15,
@@ -129,7 +142,7 @@ function PaymentPage() {
                                 padding: 2,
                               }}
                             ></Button>
-                          )}
+                          )} */}
 
                           {/* <Button
                             sx={{
@@ -161,12 +174,14 @@ function PaymentPage() {
                               minWidth: 10,
                               padding: 2,
                             }}
+                            onClick={() =>
+                              handleAlbumCart({
+                                albumId: eachItem.reference_id,
+                                description: eachItem.description,
+                                type: "plus",
+                              })
+                            }
                             variant="outlined"
-                            onClick={() => {
-                              // setClickedID(eachItem.reference_id);
-                              setCount(count + 1);
-                              increase(eachItem.reference_id);
-                            }}
                           >
                             <AddIcon fontSize="small" />
                           </Button>
@@ -175,12 +190,12 @@ function PaymentPage() {
                     </CardContent>
                   </Box>
                   <ClearIcon
-                    onClick={(e) =>
-                      // deleteItem()
-                      {
-                        deleteItem(eachItem.reference_id);
-                        dispatch(createAlertBar("item deleted"));
-                      }
+                    onClick={() =>
+                      handleAlbumCart({
+                        albumId: eachItem.reference_id,
+                        description: eachItem.description,
+                        type: "delete",
+                      })
                     }
                     sx={{
                       color: "black",
@@ -222,24 +237,19 @@ function PaymentPage() {
                 }}
               >
                 <Typography variant="h1">subtotal</Typography>
-                <Typography variant="h1">{totalCart} USD</Typography>
+                <Typography variant="h1">
+                  {calculateTotalPrice(totalCart)} USD
+                </Typography>
               </Box>
             </Card>
             <div className="paypal-button-container">
-              <PaypalCheckoutButton product={cartProduct.items} />
+              {/* <PaypalCheckoutButton product={totalCart} /> */}
+              <PaypalCheckoutButton product={productRendered} />
             </div>
           </Box>
         </Grid>
       </Grid>
     </Container>
-
-    // <div>
-    //   <div className="paypal-button-container">
-    //     <PaypalCheckoutButton
-    //       product={cartProduct.items}
-    //     />
-    //   </div>
-    // </div>
   );
 }
 

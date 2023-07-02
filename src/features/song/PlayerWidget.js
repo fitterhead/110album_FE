@@ -3,9 +3,8 @@ import { Container, Grid, Paper } from "@mui/material";
 import SongTable from "./SongTable";
 import SongCard from "./SongCard";
 import { useDispatch, useSelector } from "react-redux";
-import { format } from "date-fns";
 
-const PlayerWidget = ({ songs }) => {
+const PlayerWidget = ({ songs, page, pageId }) => {
   // const [selectedSongId, setSelectedSongId] = useState(1);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [currentSong, setCurrentSong] = useState(songs[currentSongIndex]);
@@ -17,12 +16,24 @@ const PlayerWidget = ({ songs }) => {
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  const songList = useSelector((state) => state.song?.song);
-  console.log("songList", songList);
+  const songPlaylistWidget = useSelector(
+    (state) => state.content.songPlaylist[0]
+  );
+
+  console.log("songPlaylistWidget", songPlaylistWidget);
+  console.log("page", page);
+
+  // const songList = useSelector((state) => state.song?.song);
+  // console.log("songList", songList);
 
   const handleSongSelect = (songIndex) => {
     console.log(songIndex, "currentSongIndex");
     setCurrentSongIndex(songIndex);
+    setIsPlaying(!isPlaying);
+
+    setTimeout(() => {
+      setIsPlaying(true);
+    }, 500);
   };
   // const handleSongSelect = (songId) => {
   //   setSelectedSongId(songId);
@@ -93,32 +104,40 @@ const PlayerWidget = ({ songs }) => {
 
   /* -------------------------- handle previous song -------------------------- */
   const handlePrevSong = () => {
-    //   setIsPlaying(!isPlaying);
+    setIsPlaying(!isPlaying);
 
     if (currentSongIndex === 0) {
       let lastTrackIndex = songs.length - 1;
       setCurrentSongIndex(lastTrackIndex);
       setCurrentSong(songs[lastTrackIndex]);
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 500); // Delay of 0.5 seconds
     } else {
       setCurrentSongIndex((prev) => prev - 1);
       setCurrentSong(songs[currentSongIndex - 1]);
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 500); // Delay of 0.5 seconds
     }
   };
   /* ---------------------------- handle next song ---------------------------- */
 
   const handleNextSong = () => {
-    //   setIsPlaying(!isPlaying);
+    setIsPlaying(!isPlaying);
 
     if (currentSongIndex >= songs.length - 1) {
       setCurrentSongIndex(0);
       setCurrentSong(songs[0]);
-      setIsPlaying(true);
-      // console.log(currentSong, "currentSong 2");
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 500); // Delay of 0.5 seconds
     } else {
       setCurrentSongIndex((prev) => prev + 1);
       setCurrentSong(songs[currentSongIndex + 1]);
-      // console.log(currentSong, "currentSong 2");
-      setIsPlaying(true);
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 500); // Delay of 0.5 seconds
     }
   };
 
@@ -148,11 +167,17 @@ const PlayerWidget = ({ songs }) => {
             progressBarRef={progressBarRef}
             handleNextSong={handleNextSong}
             formatTime={formatTime}
+            timeProgress={timeProgress}
+            duration={duration}
           />
         </Grid>
         <Grid item xs={12} md={12}>
           <SongTable
+            isPlaying={isPlaying}
             songs={songs}
+            page={page}
+            pageId={pageId}
+            songPlaylistWidget={songPlaylistWidget}
             // selectedSongId={selectedSongId}
             currentSongIndex={currentSongIndex}
             // setCurrentSong={setCurrentSong}
