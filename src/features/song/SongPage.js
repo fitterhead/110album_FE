@@ -55,7 +55,6 @@ function SongPage() {
           selectedFile,
           folder: `${artistFolder}/${albumFolder}`,
           albumId: songInfo.albumId,
-
           artistId: songInfo.artistId,
         })
       );

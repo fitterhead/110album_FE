@@ -116,18 +116,32 @@ const PlaylistPage = () => {
                   }}
                   onClick={() => navigate(`/playlist/${index}`)}
                 >
-                  <CardMedia
-                    component="img"
-                    // src={playlist.imageUrl}
-                    sx={{ margin: "1rem" }}
-                    style={{
-                      boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
-                      width: "90%",
-                      aspectRatio: "1/1",
-                      objectFit: "cover",
-                      borderRadius: "0.5rem",
-                    }}
-                  />
+                  {playlist.playlistImage !== "" ? (
+                    <CardMedia
+                      component="img"
+                      src={playlist.playlistImage}
+                      sx={{ margin: "1rem" }}
+                      style={{
+                        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
+                        width: "90%",
+                        aspectRatio: "1/1",
+                        objectFit: "cover",
+                        borderRadius: "0.5rem",
+                      }}
+                    />
+                  ) : (
+                    <CardMedia
+                      component="img"
+                      sx={{ margin: "1rem" }}
+                      style={{
+                        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
+                        width: "90%",
+                        aspectRatio: "1/1",
+                        objectFit: "cover",
+                        borderRadius: "0.5rem",
+                      }}
+                    />
+                  )}
                   <CardContent style={{ textAlign: "center" }}>
                     <Typography variant="h1">
                       {playlist.playlistName}

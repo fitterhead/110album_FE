@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiService from "../../app/apiService";
 import { cloudinaryupload } from "../../utils/cloudinary";
+import { getPlaylist } from "../content/contentSlice";
 
 const initialState = {
   isLoading: false,
@@ -8,6 +9,7 @@ const initialState = {
   song: [],
   status: "idle",
   listType: "",
+  image: "",
 };
 
 const slice = createSlice({
@@ -44,6 +46,11 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.song = action.payload;
+    },
+    addImageSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.image = action.payload;
     },
   },
 });
@@ -110,6 +117,28 @@ export const getAllSong = () => async (dispatch) => {
     const response = await apiService.get(url);
     console.log(response.data, "get all song data");
     dispatch(slice.actions.getSongSuccess(response.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};
+
+/* --------------------------- add playlist image --------------------------- */
+export const addPlaylistImage = (media) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const imageUrl = await cloudinaryupload(media.file, media.folder);
+
+    /* ----------------- post to server, including the image url ---------------- */
+    console.log(imageUrl, "imageUrllll");
+    if (imageUrl) {
+      const response = await apiService.put("/playlist/image", {
+        playlistImageUrl: imageUrl.secure_url,
+        playlistId: media.playlistId,
+      });
+
+      dispatch(slice.actions.addImageSuccess(response));
+      dispatch(getPlaylist(media.userId));
+    }
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PlayerWidget from "../song/PlayerWidget";
 import {
   Container,
@@ -9,6 +9,8 @@ import {
   Typography,
   Card,
   CardMedia,
+  Tooltip,
+  Zoom,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlaylist } from "../content/contentSlice";
@@ -16,23 +18,36 @@ import { useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import { useParams } from "react-router-dom";
 import AddSongModal from "./AddSongModal";
+import Avatar from "../../components/form/Avatar";
 
 function SongPlaylist() {
   /* ---------------------------------- state --------------------------------- */
+  const { index } = useParams();
   const songPlaylist = useSelector((state) => state.content?.songPlaylist[0]);
+  // const avatarUrl = useSelector(
+  //   (state) => state.content?.songPlaylist[index]?.playlistImage
+  // );
+
+  const avatarUrl = songPlaylist?.[index].playlistImage;
+
+  // const playlistImage = useSelector((state) => state.content?.songPlaylist[0]);
+
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const { index } = useParams();
   console.log("index", index);
-
-  console.log("songPlaylist", songPlaylist);
+  console.log("songPlaylist2", songPlaylist);
+  console.log("avatarUrl", avatarUrl);
 
   /* -------------------------------- function -------------------------------- */
   useEffect(() => {
     dispatch(getPlaylist(user._id));
+    console.log("avatarUrlupdate", avatarUrl);
   }, [dispatch]);
 
-  console.log("songPlaylist", songPlaylist);
+  /* -------------------------------------------------------------------------- */
+  /*                             handle drop avatar                             */
+  /* -------------------------------------------------------------------------- */
+
   /* -------------------------------- render ui ------------------------------- */
   return (
     <Container
@@ -53,20 +68,14 @@ function SongPlaylist() {
             alignItems="center"
             spacing={2}
           >
-            <Card
-              sx={{
-                width: "100%",
-                maxHeight: "600px",
-                backgroundColor: "yellow",
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="300px"
-                width="300px"
-                image={`https://picsum.photos/200/300`}
+            {songPlaylist && (
+              <Avatar
+                playlistImage={songPlaylist[index]?.playlistImage}
+                playlistId={songPlaylist[index]?._id}
+                playlistIndex={index}
+                userId={user._id}
               />
-            </Card>
+            )}
           </Stack>
         </Grid>
         <Grid item xs={12} md={8}>
