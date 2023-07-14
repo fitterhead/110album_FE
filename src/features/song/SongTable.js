@@ -120,7 +120,7 @@ const SongTable = ({
                 >
                   <Avatar
                     alt="Song Cover"
-                    src={`https://finalbe-production.up.railway.app/static/image/${song.albumRef.album}.jpg`}
+                    src={`https://110albumbe-production.up.railway.app/static/image/${song.albumRef.album}.jpg`}
                     variant="rounded"
                     sx={{ width: 40, height: 40 }}
                   />

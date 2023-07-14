@@ -34,7 +34,7 @@ function ArtistAvatar({ bio, type }) {
         <CardMedia
           component="img"
           height="100%"
-          image={`https://finalbe-production.up.railway.app/static/artistImage/${bio.artistName}.jpg`}
+          image={`https://110albumbe-production.up.railway.app/static/artistImage/${bio.artistName}.jpg`}
         />
       </Card>
 

@@ -62,7 +62,7 @@ function ItemCarousel({ genre }) {
                       onClick={() => handleAlbumInfo(`${album._id}`)}
                       component="img"
                       height="100%"
-                      image={`https://finalbe-production.up.railway.app/static/image/${album.album}.jpg`}
+                      image={`https://110albumbe-production.up.railway.app/static/image/${album.album}.jpg`}
                     />
                   </Card>
                   <Box

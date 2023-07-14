@@ -93,7 +93,7 @@ function SongPage() {
                       followCursor
                       title={
                         <img
-                          src={`https://finalbe-production.up.railway.app/static/image/${item.album}.jpg`}
+                          src={`https://110albumbe-production.up.railway.app/static/image/${item.album}.jpg`}
                           alt="Tooltip"
                           style={{
                             width: "100%",

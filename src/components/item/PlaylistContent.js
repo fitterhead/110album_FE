@@ -168,7 +168,7 @@ function PlaylistContent({
                               followCursor
                               title={
                                 <img
-                                  src={`https://finalbe-production.up.railway.app/static/image/${item.album}.jpg`}
+                                  src={`https://110albumbe-production.up.railway.app/static/image/${item.album}.jpg`}
                                   alt="Tooltip"
                                   style={{
                                     width: "100%",
@@ -314,7 +314,7 @@ function PlaylistContent({
                       <CardMedia
                         component="img"
                         height="100%"
-                        image={`https://finalbe-production.up.railway.app/static/image/${singleData.album}.jpg`}
+                        image={`https://110albumbe-production.up.railway.app/static/image/${singleData.album}.jpg`}
                       />
                     </Card>
                     <Box sx={{ width: "100%" }}>

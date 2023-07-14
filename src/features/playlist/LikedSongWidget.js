@@ -26,7 +26,7 @@ function LikedSong() {
   console.log("fullPlaylist", fullPlaylist);
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="md">
       {likedSong ? (
         <>
           {/* <Typography>Liked Song</Typography> */}

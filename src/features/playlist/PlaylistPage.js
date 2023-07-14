@@ -104,7 +104,7 @@ const PlaylistPage = () => {
                   sx={{
                     borderRadius: "0.5rem",
                     cursor: "pointer",
-                    minHeight: "35vh",
+                    minHeight: "38vh",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -143,7 +143,7 @@ const PlaylistPage = () => {
                     />
                   )}
                   <CardContent style={{ textAlign: "center" }}>
-                    <Typography variant="h1">
+                    <Typography variant="h1" sx={{fontSize:"18px"}}>
                       {playlist.playlistName}
                     </Typography>
                     <Typography variant="subtitle2" color="textSecondary">

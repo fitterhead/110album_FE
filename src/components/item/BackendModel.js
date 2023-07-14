@@ -140,8 +140,8 @@ export default function BackendModal() {
       <Stack spacing={2} direction="row">
         <Button onClick={handleOpen}>Add Album to favourite</Button>
         {/* <Button onClick={sendAlbumToCart}>Add to Cart</Button> */}
-        <Button onClick={handleAlbumCart}>Add to Cart</Button>
-        <Button onClick={openModal}>Add to Playlist</Button>
+        <Button onClick={handleAlbumCart}>Add Album to Cart</Button>
+        <Button onClick={openModal}>Add Album to Playlist</Button>
       </Stack>
       <SongPlaylistModal open={isModalOpen} onClose={closeModal} />
       <Modal

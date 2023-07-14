@@ -68,7 +68,7 @@ const SongCard = ({
             <CardMedia
               component="img"
               sx={{ minWidth: 180, minHeight: 180 }}
-              image={`https://finalbe-production.up.railway.app/static/image/${currentSong?.albumRef.album}.jpg`}
+              image={`https://110albumbe-production.up.railway.app/static/image/${currentSong?.albumRef.album}.jpg`}
               alt="Live from space album cover"
             />
           </Grid>

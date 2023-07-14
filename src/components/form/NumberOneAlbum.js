@@ -47,7 +47,7 @@ function NumberOneAlbum({ albums }) {
           <CardMedia
             component="img"
             height="100%"
-            image={`https://finalbe-production.up.railway.app/static/image/${albums.album}.jpg`}
+            image={`https://110albumbe-production.up.railway.app/static/image/${albums.album}.jpg`}
           />
         </Card>
         <Box sx={{ width: "100%" }}>

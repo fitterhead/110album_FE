@@ -84,7 +84,7 @@ function SingleAlbum({ album }) {
               style={{
                 cursor: "pointer",
               }}
-              image={`https://finalbe-production.up.railway.app/static/image/${album.album}.jpg`}
+              image={`https://110albumbe-production.up.railway.app/static/image/${album.album}.jpg`}
               // aria-owns={open ? "mouse-over-popover" : undefined}
               // aria-haspopup="true"
               onClick={() => handleAlbumInfo(`${album._id}`)}

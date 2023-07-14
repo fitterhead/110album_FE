@@ -82,7 +82,7 @@ function ResultList({ data, setRender }) {
                                     component="img"
                                     image={
                                       item.album
-                                        ? `https://finalbe-production.up.railway.app/static/image/${item.album}.jpg`
+                                        ? `https://110albumbe-production.up.railway.app/static/image/${item.album}.jpg`
                                         : null
                                     }
                                     alt={`Image ${index + 1}`}
